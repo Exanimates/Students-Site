@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Students_Site.DAL.Entities
 {
-    class Roles
+    class Subject
     {
     }
 }
