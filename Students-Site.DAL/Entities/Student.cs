@@ -10,5 +10,12 @@ namespace Students_Site.DAL.Entities
         public int UserId { get; set; }
 
         public User User { get; set; }
+
+        public List<StudentTeacher> StudentTeachers { get; set; }
+
+        public Student()
+        {
+            StudentTeachers = new List<StudentTeacher>();
+        }
     }
 }
