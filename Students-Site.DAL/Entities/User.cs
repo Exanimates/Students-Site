@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Students_Site.DAL.Entities
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
         public string Login { get; set; }
