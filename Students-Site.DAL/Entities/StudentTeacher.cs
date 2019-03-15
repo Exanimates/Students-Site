@@ -11,5 +11,7 @@ namespace Students_Site.DAL.Entities
 
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
+
+        public int Grade { get; set; }
     }
 }
