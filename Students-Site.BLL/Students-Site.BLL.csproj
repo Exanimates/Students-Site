@@ -5,4 +5,14 @@
     <RootNamespace>Students_Site.BLL</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Students-Site.DAL\Students-Site.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
