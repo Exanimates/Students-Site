@@ -13,7 +13,7 @@ namespace Students_Site.DAL.Entities
         public Subject Subject { get; set; }
         public User User { get; set; }
 
-        public List<StudentTeacher> StudentTeachers { get; set; }
+        public ICollection<StudentTeacher> StudentTeachers { get; set; }
 
         public Teacher()
         {
