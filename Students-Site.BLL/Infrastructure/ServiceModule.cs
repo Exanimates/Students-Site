@@ -8,12 +8,6 @@ namespace Students_Site.BLL.Infrastructure
 {
     public class ServiceModule : Module
     {
-        private DbContextOptions<ApplicationContext> _options;
-        public ServiceModule(DbContextOptions<ApplicationContext> option)
-        {
-            _options = option;
-        }
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UnitOfWork>()
