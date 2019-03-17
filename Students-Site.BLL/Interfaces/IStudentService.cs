@@ -7,9 +7,8 @@ namespace Students_Site.BLL.Interfaces
 {
     public interface IStudentService : IService
     {
-        void MakeStudent(StudentBLL userBll);
-        StudentBLL GetStudent(int? id);
-        void UpdateStudent(StudentBLL teacherBll);
+        void MakeStudent(UserBLL userBll, IEnumerable<int> teachersId);
+        void UpdateStudent(UserBLL userBll, IEnumerable<int> teachersId);
         IEnumerable<StudentBLL> GetStudents();
     }
 }
