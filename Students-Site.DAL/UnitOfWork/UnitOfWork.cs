@@ -1,4 +1,5 @@
-﻿using Students_Site.DAL.EF;
+﻿using Microsoft.EntityFrameworkCore;
+using Students_Site.DAL.EF;
 using Students_Site.DAL.Entities;
 using Students_Site.DAL.Interfaces;
 using Students_Site.DAL.Repositories;
