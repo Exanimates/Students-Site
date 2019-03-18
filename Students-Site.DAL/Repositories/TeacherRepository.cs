@@ -6,7 +6,7 @@ using Students_Site.DAL.Entities;
 
 namespace Students_Site.DAL.Repositories
 {
-    public class TeacherRepository : GenericRepository<Teacher>
+    public class TeacherRepository : BaseRepository<Teacher>
     {
         public TeacherRepository(ApplicationContext context) : base(context)
         {

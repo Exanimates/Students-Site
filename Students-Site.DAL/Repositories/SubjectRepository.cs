@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Students_Site.DAL.Repositories
 {
-    public class SubjectRepository : GenericRepository<Subject>
+    public class SubjectRepository : BaseRepository<Subject>
     {
         public SubjectRepository(ApplicationContext context) : base(context)
         {

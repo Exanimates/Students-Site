@@ -7,48 +7,48 @@ using System.Linq;
 
 namespace Students_Site.DAL.Repositories
 {
-    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        internal ApplicationContext context;
-        internal DbSet<TEntity> dbSet;
+        ApplicationContext _context;
+        DbSet<TEntity> _dbSet;
 
-        public GenericRepository(ApplicationContext context)
+        protected BaseRepository(ApplicationContext context)
         {
-            this.context = context;
-            dbSet = context.Set<TEntity>();
+            _context = context;
+            _dbSet = context.Set<TEntity>();
         }
 
         public virtual IEnumerable<TEntity> GetAll()
         {
-            return dbSet;
+            return _dbSet;
         }
 
         public virtual TEntity Get(int id)
         {
-            return dbSet.Find(id);
+            return _dbSet.Find(id);
         }
 
         public virtual void Create(TEntity entity)
         {
-            dbSet.Add(entity);
+            _dbSet.Add(entity);
         }
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            _dbSet.Attach(entityToUpdate);
+            _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
         public IEnumerable<TEntity> Find(Func<TEntity, Boolean> predicate)
         {
-            return dbSet.Where(predicate).ToList();
+            return _dbSet.Where(predicate).ToList();
         }
 
         public virtual void Delete(int id)
         {
-            TEntity entityToDelete = dbSet.Find(id);
+            TEntity entityToDelete = _dbSet.Find(id);
             if (entityToDelete != null)
-                dbSet.Remove(entityToDelete);
+                _dbSet.Remove(entityToDelete);
         }
     }
 }

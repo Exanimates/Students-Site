@@ -9,7 +9,7 @@ using Students_Site.DAL.Interfaces;
 
 namespace Students_Site.DAL.Repositories
 {
-    public class UserRepository : GenericRepository<User>
+    public class UserRepository : BaseRepository<User>
     {
         public UserRepository(ApplicationContext context) : base(context)
         {

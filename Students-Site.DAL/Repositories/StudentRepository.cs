@@ -7,7 +7,7 @@ using Students_Site.DAL.Interfaces;
 
 namespace Students_Site.DAL.Repositories
 {
-    public class StudentRepository : GenericRepository<Student>
+    public class StudentRepository : BaseRepository<Student>
     {
         public StudentRepository(ApplicationContext context) : base(context)
         {
