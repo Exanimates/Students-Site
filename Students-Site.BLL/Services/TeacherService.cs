@@ -55,10 +55,10 @@ namespace Students_Site.BLL.Services
 
         public IEnumerable<TeacherBLL> GetTeachers()
         {
-            return Database.StudentRepository.GetAll().Select(user => new TeacherBLL
+            return Database.TeacherRepository.GetAll().Select(user => new TeacherBLL
             {
-                Id = user.Id,
-                UserId = user.Id
+                Id = user.TeacherId,
+                UserId = user.UserId
             });
         }
 

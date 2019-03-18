@@ -1,7 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using Students_Site.DAL.Entities;
 
 namespace Students_Site.DAL.EF
@@ -24,50 +28,56 @@ namespace Students_Site.DAL.EF
         {
             var roles = new List<Role>
             {
-                new Role { Name = "Dean" },
-                new Role { Name = "Student" },
-                new Role { Name = "Teacher" },
+                new Role { Id = 1, Name = "Dean" },
+                new Role { Id = 2, Name = "Student" },
+                new Role { Id = 3, Name = "Teacher" },
             };
 
             var users = new List<User>
             {
-                new User { FirstName = "Petr", Password = "123", LastName = "Ivanov", Role = roles[0] },
-                new User { FirstName = "Andrey", Password = "1488", LastName = "Petrov", Role = roles[1] },
-                new User { FirstName = "Oleg", Password = "8814", LastName = "Kotlov", Role = roles[2] },
+                new User { Id = 1, FirstName = "Petr", Password = "123", LastName = "Ivanov", RoleId = roles[0].Id },
+                new User { Id = 2, FirstName = "Andrey", Password = "1488", LastName = "Petrov", RoleId = roles[1].Id },
+                new User { Id = 3, FirstName = "Oleg", Password = "8814", LastName = "Kotlov", RoleId = roles[2].Id },
             };
 
             builder.Entity<Role>().HasData(roles);
 
-            builder.Entity<User>().HasData(users);
+            builder.Entity<User>()
+                .HasOne(u => u.Student)
+                .WithOne(s => s.User)
+                .HasForeignKey<Student>(s => s.UserId);
 
-            var students = new List<Student>
+            builder.Entity<User>()
+                .HasOne(u => u.Student)
+                .WithOne(s => s.User)
+                .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+            builder.Entity<User>()
+                .HasOne(u => u.Teacher)
+                .WithOne(s => s.User)
+                .HasForeignKey<Teacher>(s => s.UserId);
+
+            builder.Entity<User>()
+                .HasOne(u => u.Teacher)
+                .WithOne(s => s.User)
+                .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+            builder.Entity<User>().HasData(users);                  
+
+            var subjects = new List<Subject>
             {
-                new Student { UserId = users[1].Id },
+                new Subject { Id = 1, Name = "История" },
             };
 
-            var teachers = new List<Teacher>
-            {
-                new Teacher { UserId = users[2].Id },
-            };
+            builder.Entity<Subject>().HasData(subjects);            
 
             builder.Entity<Student>()
                 .HasIndex(u => u.UserId)
                 .IsUnique();
 
-            builder.Entity<Student>()
-                .HasData(students);
-
             builder.Entity<Teacher>()
                 .HasIndex(u => u.UserId)
                 .IsUnique();
-
-            builder.Entity<Teacher>()
-                .HasData(students);
-
-            var studentTeachers = new List<StudentTeacher>()
-            {
-                new StudentTeacher { StudentId = students[0].Id, TeacherId = teachers[0].Id, Grade = 4 }
-            };
 
             builder.Entity<StudentTeacher>()
                 .HasKey(t => new { t.StudentId, t.TeacherId });
@@ -80,10 +90,25 @@ namespace Students_Site.DAL.EF
             builder.Entity<StudentTeacher>()
                 .HasOne(sc => sc.Teacher)
                 .WithMany(c => c.StudentTeachers)
-                .HasForeignKey(sc => sc.StudentId);
+                .HasForeignKey(sc => sc.TeacherId);
 
-            builder.Entity<StudentTeacher>()
-                .HasData(studentTeachers);
+            var teachers = new List<Teacher>
+            {
+                new Teacher { TeacherId = 1, UserId = users[2].Id, SubjectId = subjects[0].Id},
+            };
+            builder.Entity<Teacher>().HasData(teachers);
+
+            var students = new List<Student>
+            {
+                new Student { StudentId = 1, UserId = users[1].Id }
+            };
+            builder.Entity<Student>().HasData(students);
+
+            var studentTeachers = new List<StudentTeacher>
+            {
+                new StudentTeacher { StudentId = students[0].StudentId, TeacherId = teachers[0].TeacherId },
+            };
+            builder.Entity<StudentTeacher>().HasData(studentTeachers);
         }
     }
 }
