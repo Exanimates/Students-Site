@@ -47,14 +47,11 @@ namespace Students_Site.DAL.UnitOfWork
 
         public virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _dbContext.Dispose();
-                }
-                _disposed = true;
-            }
+            if (_disposed) return;
+            if (disposing)
+                _dbContext.Dispose();
+
+            _disposed = true;
         }
 
         public void Dispose()

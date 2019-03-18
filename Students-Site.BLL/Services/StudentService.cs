@@ -66,9 +66,8 @@ namespace Students_Site.BLL.Services
         {
             var user = Database.UserRepository.Get(userBll.Id);
 
-            if (user == null) {
+            if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
-            }
 
             user.RoleId = userBll.RoleId;
             user.FirstName = userBll.FirstName;
@@ -88,9 +87,8 @@ namespace Students_Site.BLL.Services
                     StudentId = user.Id
                 };
 
-                if (student.StudentTeachers.Contains(studentTeacher)) {
+                if (student.StudentTeachers.Contains(studentTeacher))
                     continue;
-                }
 
                 student.StudentTeachers.Add(studentTeacher);
             }

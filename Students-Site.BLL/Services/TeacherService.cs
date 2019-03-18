@@ -88,9 +88,8 @@ namespace Students_Site.BLL.Services
                     StudentId = user.Id
                 };
 
-                if (teacher.StudentTeachers.Contains(studentTeacher)) {
+                if (teacher.StudentTeachers.Contains(studentTeacher))
                     continue;
-                }
 
                 teacher.StudentTeachers.Add(studentTeacher);
             }
