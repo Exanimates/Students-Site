@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 using Students_Site.DAL.Entities;
 
 namespace Students_Site.DAL.EF
