@@ -5,7 +5,7 @@ using Students_Site.BLL.Business_Logic_Models;
 
 namespace Students_Site.BLL.Interfaces
 {
-    public interface ISubjectService: IService
+    public interface ISubjectService : IService
     {
         void MakeSubject(SubjectBLL subjectBll);
         SubjectBLL GetSubject(int? id);

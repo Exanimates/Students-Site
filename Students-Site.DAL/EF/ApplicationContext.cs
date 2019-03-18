@@ -10,7 +10,7 @@ using Students_Site.DAL.Entities;
 
 namespace Students_Site.DAL.EF
 {
-    public class ApplicationContext: DbContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
@@ -62,14 +62,14 @@ namespace Students_Site.DAL.EF
                 .WithOne(s => s.User)
                 .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
 
-            builder.Entity<User>().HasData(users);                  
+            builder.Entity<User>().HasData(users);
 
             var subjects = new List<Subject>
             {
                 new Subject { Id = 1, Name = "История" },
             };
 
-            builder.Entity<Subject>().HasData(subjects);            
+            builder.Entity<Subject>().HasData(subjects);
 
             builder.Entity<Student>()
                 .HasIndex(u => u.UserId)

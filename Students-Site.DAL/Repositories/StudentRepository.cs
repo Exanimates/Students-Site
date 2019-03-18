@@ -9,7 +9,7 @@ namespace Students_Site.DAL.Repositories
 {
     public class StudentRepository : GenericRepository<Student>
     {
-        public StudentRepository(ApplicationContext context): base(context)
+        public StudentRepository(ApplicationContext context) : base(context)
         {
 
         }
