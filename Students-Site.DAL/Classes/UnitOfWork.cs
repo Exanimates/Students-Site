@@ -28,89 +28,17 @@ namespace Students_Site.DAL.UnitOfWork
             _dbContext = dbContext;
         }
 
-        public IRepository<Student> StudentRepository
-        {
-            get
-            {
+        public IRepository<Student> StudentRepository => _studentRepository ?? (_studentRepository = new StudentRepository(_dbContext));
 
-                if (_studentRepository == null)
-                {
-                    _studentRepository = new StudentRepository(_dbContext);
-                }
+        public IRepository<StudentTeacher> StudentTeacherRepository => _studentTeachers ?? (_studentTeachers = new StudentTeacherRepository(_dbContext));
 
-                return _studentRepository;
-            }
-        }
+        public IRepository<User> UserRepository => _userRepository ?? (_userRepository = new UserRepository(_dbContext));
 
-        public IRepository<StudentTeacher> StudentTeacherRepository
-        {
-            get
-            {
+        public IRepository<Subject> SubjectRepository => _subjectsRepository ?? (_subjectsRepository = new SubjectRepository(_dbContext));
 
-                if (_studentRepository == null)
-                {
-                    _studentTeachers = new StudentTeacherRepository(_dbContext);
-                }
+        public IRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new RoleRepository(_dbContext));
 
-                return _studentTeachers;
-            }
-        }
-
-        public IRepository<User> UserRepository
-        {
-            get
-            {
-
-                if (_studentRepository == null)
-                {
-                    _userRepository = new UserRepository(_dbContext);
-                }
-
-                return _userRepository;
-            }
-        }
-
-        public IRepository<Subject> SubjectRepository
-        {
-            get
-            {
-
-                if (_studentRepository == null)
-                {
-                    _subjectsRepository = new SubjectRepository(_dbContext);
-                }
-
-                return _subjectsRepository;
-            }
-        }
-
-        public IRepository<Role> RoleRepository
-        {
-            get
-            {
-
-                if (_studentRepository == null)
-                {
-                    _roleRepository = new RoleRepository(_dbContext);
-                }
-
-                return _roleRepository;
-            }
-        }
-
-        public IRepository<Teacher> TeacherRepository
-        {
-            get
-            {
-
-                if (_studentRepository == null)
-                {
-                    _teacherRepository = new TeacherRepository(_dbContext);
-                }
-
-                return _teacherRepository;
-            }
-        }
+        public IRepository<Teacher> TeacherRepository => _teacherRepository ?? (_teacherRepository = new TeacherRepository(_dbContext));
 
         public void Save()
         {
