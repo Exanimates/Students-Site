@@ -2,9 +2,9 @@
 using System.Text;
 using System.Collections.Generic;
 using Students_Site.BLL.Business_Logic_Models;
-using Students_Site.BLL.Helpers;
 using Students_Site.DAL.Entities;
 using System.Linq;
+using Students_Site.BLL.Exceptions;
 using Students_Site.BLL.Interfaces;
 using Students_Site.DAL.UnitOfWork;
 
@@ -19,16 +19,16 @@ namespace Students_Site.BLL.Services
 
     public class SubjectService: ISubjectService
     {
-        IUnitOfWork Database { get; set; }
+        IUnitOfWork _database { get; set; }
 
         public SubjectService(IUnitOfWork unitOfWork)
         {
-            Database = unitOfWork;
+            _database = unitOfWork;
         }
 
         public void MakeSubject(SubjectBLL subjectBll)
         {
-            var subjectByName = Database.SubjectRepository.GetAll().FirstOrDefault(r => r.Name == subjectBll.Name);
+            var subjectByName = _database.SubjectRepository.GetAll().FirstOrDefault(r => r.Name == subjectBll.Name);
 
             if (subjectByName != null)
                 throw new ValidationException("Такой предмет уже существует", "");
@@ -38,9 +38,9 @@ namespace Students_Site.BLL.Services
                 Name = subjectBll.Name
             };
 
-            Database.SubjectRepository.Create(subject);
+            _database.SubjectRepository.Create(subject);
 
-            Database.Save();
+            _database.Save();
         }
 
         public SubjectBLL GetSubject(int? id)
@@ -48,17 +48,17 @@ namespace Students_Site.BLL.Services
             if (id == null)
                 throw new ValidationException("Id предмета не установлено", "");
 
-            var role = Database.RoleRepository.Get(id.Value);
+            var subject = _database.SubjectRepository.Get(id.Value);
 
-            if (role == null)
+            if (subject == null)
                 throw new ValidationException("Предмет не найден", "");
 
-            return new SubjectBLL { Name = role.Name };
+            return new SubjectBLL { Name = subject.Name };
         }
 
         public IEnumerable<SubjectBLL> GetSubjects()
         {
-            return Database.SubjectRepository.GetAll().Select(subject => new SubjectBLL
+            return _database.SubjectRepository.GetAll().Select(subject => new SubjectBLL
             {
                 Name = subject.Name
             });
@@ -66,7 +66,7 @@ namespace Students_Site.BLL.Services
 
         public void Dispose()
         {
-            Database.Dispose();
+            _database.Dispose();
         }
     }
 }

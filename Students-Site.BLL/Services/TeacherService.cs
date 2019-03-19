@@ -1,11 +1,11 @@
 ﻿using Students_Site.BLL.Business_Logic_Models;
-using Students_Site.BLL.Helpers;
 using Students_Site.DAL.Entities;
 using Students_Site.DAL.Interfaces;
 using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using Students_Site.BLL.Exceptions;
 using Students_Site.BLL.Interfaces;
 using Students_Site.DAL.UnitOfWork;
 
@@ -20,11 +20,11 @@ namespace Students_Site.BLL.Services
 
     public class TeacherService: ITeacherService
     {
-        IUnitOfWork Database { get; set; }
+        IUnitOfWork _database { get; set; }
 
         public TeacherService(IUnitOfWork unitOfWork)
         {
-            Database = unitOfWork;
+            _database = unitOfWork;
         }
 
         public void MakeTeacher(UserBLL userBll, IEnumerable<int> studentsId)
@@ -38,7 +38,7 @@ namespace Students_Site.BLL.Services
                 RoleId = userBll.RoleId
             };
 
-            Database.UserRepository.Create(user);
+            _database.UserRepository.Create(user);
 
             var teacher = new Teacher
             {
@@ -56,14 +56,14 @@ namespace Students_Site.BLL.Services
                 teacher.StudentTeachers.Add(studentTeacher);
             }
 
-            Database.TeacherRepository.Create(teacher);
+            _database.TeacherRepository.Create(teacher);
 
-            Database.Save();
+            _database.Save();
         }
 
         public IEnumerable<TeacherBLL> GetTeachers()
         {
-            return Database.TeacherRepository.GetAll().Select(user => new TeacherBLL
+            return _database.TeacherRepository.GetAll().Select(teacher => new TeacherBLL
             {
                 Id = user.Id,
                 UserId = user.UserId
@@ -72,7 +72,7 @@ namespace Students_Site.BLL.Services
 
         public void UpdateTeacher(UserBLL userBll, IEnumerable<int> teachersId)
         {
-            var user = Database.UserRepository.Get(userBll.Id);
+            var user = _database.UserRepository.Get(userBll.Id);
 
             if (user == null) {
                 throw new ValidationException("Такого пользователя больше нету", "");
@@ -84,9 +84,9 @@ namespace Students_Site.BLL.Services
             user.Login = userBll.Login;
             user.Password = userBll.Password;
 
-            Database.UserRepository.Update(user);
+            _database.UserRepository.Update(user);
 
-            var teacher = Database.TeacherRepository.GetAll().First(s => s.UserId == userBll.Id);
+            var teacher = _database.TeacherRepository.GetAll().First(s => s.UserId == userBll.Id);
 
             foreach (var teacherId in teachersId)
             {
@@ -102,14 +102,14 @@ namespace Students_Site.BLL.Services
                 teacher.StudentTeachers.Add(studentTeacher);
             }
 
-            Database.TeacherRepository.Update(teacher);
+            _database.TeacherRepository.Update(teacher);
 
-            Database.Save();
+            _database.Save();
         }
 
         public void Dispose()
         {
-            Database.Dispose();
+            _database.Dispose();
         }
     }
 }

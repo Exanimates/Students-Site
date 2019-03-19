@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Students_Site.BLL.Business_Logic_Models;
-using Students_Site.BLL.Helpers;
+using Students_Site.BLL.Exceptions;
 using Students_Site.BLL.Interfaces;
 using Students_Site.DAL.Entities;
 using Students_Site.DAL.UnitOfWork;
@@ -19,11 +19,11 @@ namespace Students_Site.BLL.Services
 
     public class StudentService : IStudentService
     {
-        IUnitOfWork Database { get; set; }
+        IUnitOfWork _database { get; set; }
 
         public StudentService(IUnitOfWork unitOfWork)
         {
-            Database = unitOfWork;
+            _database = unitOfWork;
         }
 
         public void MakeStudent(UserBLL userBll, IEnumerable<int> teachersId)
@@ -37,7 +37,7 @@ namespace Students_Site.BLL.Services
                 RoleId = userBll.RoleId
             };
 
-            Database.UserRepository.Create(user);
+            _database.UserRepository.Create(user);
 
             var student = new Student
             {
@@ -55,14 +55,14 @@ namespace Students_Site.BLL.Services
                 student.StudentTeachers.Add(studentTeacher);
             }
 
-            Database.StudentRepository.Create(student);
+            _database.StudentRepository.Create(student);
 
-            Database.Save();
+            _database.Save();
         }
 
         public IEnumerable<StudentBLL> GetStudents()
         {
-            return Database.StudentRepository.GetAll().Select(user => new StudentBLL
+            return _database.StudentRepository.GetAll().Select(user => new StudentBLL
             {
                 Id = user.Id,
                 UserId = user.UserId
@@ -71,7 +71,7 @@ namespace Students_Site.BLL.Services
 
         public void UpdateStudent(UserBLL userBll, IEnumerable<int> teachersId)
         {
-            var user = Database.UserRepository.Get(userBll.Id);
+            var user = _database.UserRepository.Get(userBll.Id);
 
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
@@ -82,9 +82,9 @@ namespace Students_Site.BLL.Services
             user.Login = userBll.Login;
             user.Password = userBll.Password;
 
-            Database.UserRepository.Update(user);
+            _database.UserRepository.Update(user);
 
-            var student = Database.StudentRepository.GetAll().First(s => s.UserId == userBll.Id);
+            var student = _database.StudentRepository.GetAll().First(s => s.UserId == userBll.Id);
 
             foreach (var teacherId in teachersId)
             {
@@ -100,14 +100,14 @@ namespace Students_Site.BLL.Services
                 student.StudentTeachers.Add(studentTeacher);
             }
 
-            Database.StudentRepository.Update(student);
+            _database.StudentRepository.Update(student);
 
-            Database.Save();
+            _database.Save();
         }
 
         public void Dispose()
         {
-            Database.Dispose();
+            _database.Dispose();
         }
     }
 }

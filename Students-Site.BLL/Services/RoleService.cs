@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Students_Site.BLL.Business_Logic_Models;
-using Students_Site.BLL.Helpers;
+using Students_Site.BLL.Exceptions;
 using Students_Site.BLL.Interfaces;
 using Students_Site.DAL.Entities;
 using Students_Site.DAL.UnitOfWork;
