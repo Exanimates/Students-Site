@@ -11,6 +11,7 @@ namespace Students_Site.BLL.Services
     {
         void MakeTeacher(UserBLL userBll, IEnumerable<int> studentsId);
         void UpdateTeacher(UserBLL userBll, IEnumerable<int> studentsId);
+        TeacherBLL GetTeacher(int? id);
         IEnumerable<TeacherBLL> GetTeachers();
     }
 
@@ -59,11 +60,30 @@ namespace Students_Site.BLL.Services
 
         public IEnumerable<TeacherBLL> GetTeachers()
         {
+            var users = _database.UserRepository.GetAll().Select(user => new UserBLL
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Password = user.Password,
+                Login = user.Login,
+                RoleId = user.RoleId
+            });
+
             return _database.TeacherRepository.GetAll().Select(teacher => new TeacherBLL
             {
                 Id = teacher.Id,
                 UserId = teacher.UserId,
-                SubjectId = teacher.SubjectId
+                SubjectId = teacher.SubjectId,
+                SubjectName = teacher.Subject.Name,
+
+                User = users.FirstOrDefault(u => u.Id == teacher.UserId),
+                Students = teacher.StudentTeachers.Select(studentTeachers => new StudentBLL
+                {
+                    Id = studentTeachers.StudentId,
+                    UserId = studentTeachers.Student.UserId,
+                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Student.UserId)
+                })
             }).ToArray();
         }
 
@@ -101,6 +121,41 @@ namespace Students_Site.BLL.Services
             _database.TeacherRepository.Update(teacher);
 
             _database.Save();
+        }
+
+        public TeacherBLL GetTeacher(int? id)
+        {
+            var users = _database.UserRepository.GetAll().Select(user => new UserBLL
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Password = user.Password,
+                Login = user.Login,
+                RoleId = user.RoleId
+            });
+
+            if (id == null)
+                throw new ValidationException("Id предмета не установлено", "");
+
+            var teacher = _database.TeacherRepository.GetAll().Select(s => new TeacherBLL
+            {
+                Id = s.Id,
+                UserId = s.UserId,
+
+                User = users.FirstOrDefault(u => u.Id == s.UserId),
+                Students = s.StudentTeachers.Select(studentTeachers => new StudentBLL
+                {
+                    Id = studentTeachers.StudentId,
+                    UserId = studentTeachers.Student.UserId,
+                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Student.UserId)
+                })
+            }).FirstOrDefault(u => u.Id == id);
+
+            if (teacher == null)
+                throw new ValidationException("Предмет не найден", "");
+
+            return teacher;
         }
 
         public void Dispose()

@@ -20,26 +20,23 @@ namespace Students_Site.Controllers
 
         public IActionResult Index()
         {
-            var teacherBll = _teacherService.GetTeachers();
+            var teachers = _teacherService.GetTeachers().Select(s => new TeacherModel
+            {
+                Id = s.Id,
+                FirstName = s.User.FirstName,
+                LastName = s.User.LastName,
+                Login = s.User.Login,
+                Password = s.User.Password,
+                RoleId = s.User.RoleId,
+                SubjectName = s.SubjectName,
 
-            var users = _userService.GetUsers();
-
-            var teachers = teacherBll
-                .Join(
-                    users,
-                    t => t.UserId,
-                    u => u.Id,
-                    (t, u) => new TeacherModel
-                    {
-                        Id = t.Id,
-                        FirstName = u.FirstName,
-                        LastName = u.LastName,
-                        Login = u.Login,
-                        Password = u.Password,
-                        RoleId = u.RoleId,
-                        SubjectId = t.SubjectId,
-                        SubjectName = _subjectService.GetSubject(t.SubjectId).Name
-                    });
+                Students = s.Students.Select(t => new StudentModel
+                {
+                    Id = t.User.Id,
+                    FirstName = t.User.FirstName,
+                    LastName = t.User.LastName
+                })
+            }).ToArray();
 
             return View(teachers);
         }
@@ -49,6 +46,30 @@ namespace Students_Site.Controllers
             _teacherService.Dispose();
             _userService.Dispose();
             base.Dispose(disposing);
+        }
+
+        public IActionResult ShowTeacher(int id)
+        {
+            var teacherBll = _teacherService.GetTeacher(id);
+
+            var teacher = new TeacherModel
+            {
+                Id = teacherBll.Id,
+                FirstName = teacherBll.User.FirstName,
+                LastName = teacherBll.User.LastName,
+                Login = teacherBll.User.Login,
+                Password = teacherBll.User.Password,
+                RoleId = teacherBll.User.RoleId,
+
+                Students = teacherBll.Students.Select(t => new StudentModel
+                {
+                    Id = t.User.Id,
+                    FirstName = t.User.FirstName,
+                    LastName = t.User.LastName
+                })
+            };
+
+            return View(teacher);
         }
     }
 }
