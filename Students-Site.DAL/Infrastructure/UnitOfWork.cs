@@ -3,7 +3,7 @@ using Students_Site.DAL.EF;
 using Students_Site.DAL.Entities;
 using Students_Site.DAL.Repositories;
 
-namespace Students_Site.DAL.UnitOfWork
+namespace Students_Site.DAL.Infrastructure
 {
     public interface IUnitOfWork : IDisposable
     {

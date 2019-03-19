@@ -1,4 +1,4 @@
-namespace Students_Site.BLL.Interfaces
+﻿namespace Students_Site.BLL.Services
 {
     public interface IService
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Students_Site.DAL.Interfaces
+namespace Students_Site.DAL.Infrastructure
 {
     public interface IRepository<T> where T : class
     {

@@ -1,4 +1,4 @@
-namespace Students_Site.BLL.Business_Logic_Models
+﻿namespace Students_Site.BLL.BusinessLogicModels
 {
     public class RoleBLL
     {
