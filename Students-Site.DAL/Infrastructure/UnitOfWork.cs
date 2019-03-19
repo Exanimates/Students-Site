@@ -9,6 +9,17 @@ using System.Text;
 
 namespace Students_Site.DAL.UnitOfWork
 {
+    public interface IUnitOfWork : IDisposable
+    {
+        IRepository<User> UserRepository { get; }
+        IRepository<Teacher> TeacherRepository { get; }
+        IRepository<Role> RoleRepository { get; }
+        IRepository<Subject> SubjectRepository { get; }
+        IRepository<StudentTeacher> StudentTeacherRepository { get; }
+        IRepository<Student> StudentRepository { get; }
+        void Save();
+    }
+
     public class UnitOfWork : IUnitOfWork
     {
         private ApplicationContext _dbContext;
