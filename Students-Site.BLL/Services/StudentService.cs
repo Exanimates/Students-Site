@@ -10,6 +10,13 @@ using Students_Site.DAL.Interfaces;
 
 namespace Students_Site.BLL.Services
 {
+    public interface IStudentService : IService
+    {
+        void MakeStudent(UserBLL userBll, IEnumerable<int> teachersId);
+        void UpdateStudent(UserBLL userBll, IEnumerable<int> teachersId);
+        IEnumerable<StudentBLL> GetStudents();
+    }
+
     public class StudentService : IStudentService
     {
         IUnitOfWork Database { get; set; }

@@ -10,6 +10,12 @@ using Students_Site.DAL.Interfaces;
 
 namespace Students_Site.BLL.Services
 {
+    public interface IRoleService : IService
+    {
+        void MakeRole(RoleBLL roleBll);
+        RoleBLL GetRole(int? id);
+    }
+
     public class RoleService: IRoleService
     {
         IUnitOfWork _database { get; set; }

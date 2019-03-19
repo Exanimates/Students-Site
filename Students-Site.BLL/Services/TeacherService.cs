@@ -10,6 +10,13 @@ using Students_Site.BLL.Interfaces;
 
 namespace Students_Site.BLL.Services
 {
+    public interface ITeacherService : IService
+    {
+        void MakeTeacher(UserBLL userBll, IEnumerable<int> studentsId);
+        void UpdateTeacher(UserBLL userBll, IEnumerable<int> studentsId);
+        IEnumerable<TeacherBLL> GetTeachers();
+    }
+
     public class TeacherService: ITeacherService
     {
         IUnitOfWork Database { get; set; }

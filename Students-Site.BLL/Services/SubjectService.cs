@@ -10,6 +10,13 @@ using Students_Site.BLL.Interfaces;
 
 namespace Students_Site.BLL.Services
 {
+    public interface ISubjectService : IService
+    {
+        void MakeSubject(SubjectBLL subjectBll);
+        SubjectBLL GetSubject(int? id);
+        IEnumerable<SubjectBLL> GetSubjects();
+    }
+
     public class SubjectService: ISubjectService
     {
         IUnitOfWork Database { get; set; }
