@@ -7,12 +7,12 @@ using Students_Site.DAL.Infrastructure;
 
 namespace Students_Site.DAL.Repositories
 {
-    public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
     {
         ApplicationContext _context;
         DbSet<TEntity> _dbSet;
 
-        protected BaseRepository(ApplicationContext context)
+        protected RepositoryBase(ApplicationContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();

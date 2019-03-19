@@ -3,7 +3,7 @@ using Students_Site.DAL.Entities;
 
 namespace Students_Site.DAL.Repositories
 {
-    public class RoleRepository : BaseRepository<Role>
+    public class RoleRepository : RepositoryBase<Role>
     {
         public RoleRepository(ApplicationContext context) : base(context)
         {
