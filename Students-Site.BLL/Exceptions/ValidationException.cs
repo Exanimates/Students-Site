@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using System;
+﻿using System;
 
-namespace Students_Site.BLL.Helpers
+namespace Students_Site.BLL.Exceptions
 {
     public class ValidationException : Exception
     {
