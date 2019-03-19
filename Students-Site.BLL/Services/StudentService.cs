@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Students_Site.BLL.Business_Logic_Models;
 using Students_Site.BLL.Helpers;
 using Students_Site.BLL.Interfaces;
 using Students_Site.DAL.Entities;
-using Students_Site.DAL.Interfaces;
 using Students_Site.DAL.UnitOfWork;
 
 namespace Students_Site.BLL.Services
