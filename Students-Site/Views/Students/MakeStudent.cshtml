@@ -1,0 +1,71 @@
+﻿@model Students_Site.Models.StudentModel
+
+@{
+	ViewData["Title"] = "Создание студента";
+}
+
+<h1>Создание студента</h1>
+
+<form asp-antiforgery="true" asp-action="MakeStudent" asp-controller="Students">
+
+	<div class="form-horizontal">
+		@* @model NLayerApp.WEB.Models.OrderViewModel *@
+
+		<div class="form-group">
+			<label asp-for="Login">Логин</label>
+			<input type="text" asp-for="Login" class="form-control" />
+		</div>
+
+		<div class="form-group">
+			<label asp-for="Password">Пароль</label>
+			<input type="password" asp-for="Password" class="form-control" />
+			@* <div class="col-md-10"> *@
+			@* 	@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } }) *@
+			@* </div> *@
+		</div>
+
+		<div class="form-group">
+			<label asp-for="FirstName">Имя</label>
+			<input type="text" asp-for="FirstName" class="form-control" />
+			@* <div class="col-md-10"> *@
+			@* 	@Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } }) *@
+			@* </div> *@
+		</div>
+
+		<div class="form-group">
+			<label asp-for="LastName">Имя</label>
+			<input type="text" asp-for="LastName" class="form-control" />
+			@* <div class="col-md-10"> *@
+			@* 	@Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } }) *@
+			@* </div> *@
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Создать студента" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+</form>
+
+<div>
+	@Html.ActionLink("Вернуться к списку студентов", "Index")
+</div>
+
+@section scripts {
+
+	<environment names="Development">
+		<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+		<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+	</environment>
+	<environment names="Staging,Production">
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+				asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+				asp-fallback-test="window.jQuery && window.jQuery.validator">
+		</script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+				asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+				asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+		</script>
+	</environment>
+}

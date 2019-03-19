@@ -9,8 +9,9 @@ namespace Students_Site.BLL.Services
 {
     public interface IStudentService : IService
     {
-        void MakeStudent(UserBLL userBll, IEnumerable<int> teachersId);
+        void MakeStudent(UserBLL userBll, IEnumerable<int> teachersId, int roleId);
         void UpdateStudent(UserBLL userBll, IEnumerable<int> teachersId);
+        StudentBLL GetStudent(int? id);
         IEnumerable<StudentBLL> GetStudents();
     }
 
@@ -23,7 +24,7 @@ namespace Students_Site.BLL.Services
             _database = unitOfWork;
         }
 
-        public void MakeStudent(UserBLL userBll, IEnumerable<int> teachersId)
+        public void MakeStudent(UserBLL userBll, IEnumerable<int> teachersId, int roleId)
         {
             var user = new User
             {
@@ -31,7 +32,7 @@ namespace Students_Site.BLL.Services
                 LastName = userBll.LastName,
                 Login = userBll.Login,
                 Password = userBll.Password,
-                RoleId = userBll.RoleId
+                RoleId = roleId
             };
 
             _database.UserRepository.Create(user);
@@ -41,15 +42,18 @@ namespace Students_Site.BLL.Services
                 UserId = user.Id
             };
 
-            foreach (var teacherId in teachersId)
+            if (teachersId != null)
             {
-                var studentTeacher = new StudentTeacher
+                foreach (var teacherId in teachersId)
                 {
-                    TeacherId = teacherId,
-                    StudentId = user.Id
-                };
+                    var studentTeacher = new StudentTeacher
+                    {
+                        TeacherId = teacherId,
+                        StudentId = user.Id
+                    };
 
-                student.StudentTeachers.Add(studentTeacher);
+                    student.StudentTeachers.Add(studentTeacher);
+                }
             }
 
             _database.StudentRepository.Create(student);
@@ -59,11 +63,66 @@ namespace Students_Site.BLL.Services
 
         public IEnumerable<StudentBLL> GetStudents()
         {
-            return _database.StudentRepository.GetAll().Select(user => new StudentBLL
+            var users = _database.UserRepository.GetAll().Select(user => new UserBLL
             {
                 Id = user.Id,
-                UserId = user.UserId
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Password = user.Password,
+                Login = user.Login,
+                RoleId = user.RoleId
+            });
+
+            return _database.StudentRepository.GetAll().Select(student => new StudentBLL
+            {
+                Id = student.Id,
+                UserId = student.UserId,
+
+                User = users.FirstOrDefault(u => u.Id == student.UserId),
+                Teachers = student.StudentTeachers.Select(studentTeachers => new TeacherBLL
+                {
+                    Id = studentTeachers.TeacherId,
+                    UserId = studentTeachers.Teacher.UserId,
+                    SubjectId = studentTeachers.Teacher.SubjectId,
+                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Teacher.UserId)
+                })
             }).ToArray();
+        }
+
+        public StudentBLL GetStudent(int? id)
+        {
+            var users = _database.UserRepository.GetAll().Select(user => new UserBLL
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Password = user.Password,
+                Login = user.Login,
+                RoleId = user.RoleId
+            });
+
+            if (id == null)
+                throw new ValidationException("Id предмета не установлено", "");
+
+            var student = _database.StudentRepository.GetAll().Select(s => new StudentBLL
+            {
+                Id = s.Id,
+                UserId = s.UserId,
+
+                User = users.FirstOrDefault(u => u.Id == s.UserId),
+                Teachers = s.StudentTeachers.Select(studentTeachers => new TeacherBLL
+                {
+                    Id = studentTeachers.TeacherId,
+                    UserId = studentTeachers.Teacher.UserId,
+                    SubjectId = studentTeachers.Teacher.SubjectId,
+                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Teacher.UserId)
+                })
+            }).FirstOrDefault(u => u.Id == id);
+
+            if (student == null)
+                throw new ValidationException("Предмет не найден", "");
+
+            return student;
         }
 
         public void UpdateStudent(UserBLL userBll, IEnumerable<int> teachersId)

@@ -27,8 +27,17 @@
 			<td>
 				@Html.DisplayFor(modelItem => item.LastName)
 			</td>
+			<td>
+				@Html.ActionLink("Подробнее", "ShowStudent", new { id=item.Id })
+			</td>
 		</tr>
 	}
+	
+	
 
 </table>
+
+<div>
+	@Html.ActionLink("Добавить студента", "MakeStudent")
+</div>
 
