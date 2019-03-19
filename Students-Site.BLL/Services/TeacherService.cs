@@ -65,7 +65,7 @@ namespace Students_Site.BLL.Services
         {
             return Database.TeacherRepository.GetAll().Select(user => new TeacherBLL
             {
-                Id = user.TeacherId,
+                Id = user.Id,
                 UserId = user.UserId
             });
         }

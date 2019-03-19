@@ -92,19 +92,19 @@ namespace Students_Site.DAL.EF
 
             var teachers = new List<Teacher>
             {
-                new Teacher { TeacherId = 1, UserId = users[2].Id, SubjectId = subjects[0].Id},
+                new Teacher { Id = 1, UserId = users[2].Id, SubjectId = subjects[0].Id},
             };
             builder.Entity<Teacher>().HasData(teachers);
 
             var students = new List<Student>
             {
-                new Student { StudentId = 1, UserId = users[1].Id }
+                new Student { Id = 1, UserId = users[1].Id }
             };
             builder.Entity<Student>().HasData(students);
 
             var studentTeachers = new List<StudentTeacher>
             {
-                new StudentTeacher { StudentId = students[0].StudentId, TeacherId = teachers[0].TeacherId },
+                new StudentTeacher { StudentId = students[0].Id, TeacherId = teachers[0].Id },
             };
             builder.Entity<StudentTeacher>().HasData(studentTeachers);
         }

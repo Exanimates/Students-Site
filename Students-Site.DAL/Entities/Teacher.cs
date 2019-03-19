@@ -6,7 +6,7 @@ namespace Students_Site.DAL.Entities
 {
     public class Teacher
     {
-        public int TeacherId { get; set; }
+        public int Id { get; set; }
 
         public int UserId { get; set; }
 
