@@ -18,7 +18,7 @@ namespace Students_Site.DAL.Infrastructure
 
     public class UnitOfWork : IUnitOfWork
     {
-        private ApplicationContext _dbContext;
+        readonly ApplicationContext _dbContext;
 
         IRepository<User> _userRepository;
         IRepository<Teacher> _teacherRepository;
