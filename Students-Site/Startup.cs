@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Students_Site.BLL.Services;
 using Students_Site.DAL.EF;
 using Students_Site.DAL.Interfaces;
 using Students_Site.DAL.UnitOfWork;
@@ -59,6 +60,12 @@ namespace Students_Site
             }).AsSelf().InstancePerLifetimeScope();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+            builder.RegisterType<StudentService>().As<IStudentService>().InstancePerLifetimeScope();
+            builder.RegisterType<TeacherService>().As<ITeacherService>().InstancePerLifetimeScope();
+            builder.RegisterType<SubjectService>().As<ISubjectService>().InstancePerLifetimeScope();
+            builder.RegisterType<RoleService>().As<IRoleService>().InstancePerLifetimeScope();
+
 
             ApplicationContainer = builder.Build();
 
