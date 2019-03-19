@@ -48,7 +48,7 @@ namespace Students_Site.BLL.Services
                 LastName = user.LastName,
                 Password = user.Password,
                 RoleId = user.RoleId
-            });
+            }).ToArray();
         }
 
         public void UpdateUser(UserBLL userBll, IEnumerable<int> teachersId)

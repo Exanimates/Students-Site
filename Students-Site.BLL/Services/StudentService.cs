@@ -63,7 +63,7 @@ namespace Students_Site.BLL.Services
             {
                 Id = user.Id,
                 UserId = user.UserId
-            });
+            }).ToArray();
         }
 
         public void UpdateStudent(UserBLL userBll, IEnumerable<int> teachersId)

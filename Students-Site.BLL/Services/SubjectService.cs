@@ -58,7 +58,7 @@ namespace Students_Site.BLL.Services
             return _database.SubjectRepository.GetAll().Select(subject => new SubjectBLL
             {
                 Name = subject.Name
-            });
+            }).ToArray();
         }
 
         public void Dispose()

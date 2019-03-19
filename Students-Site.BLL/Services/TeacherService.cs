@@ -64,7 +64,7 @@ namespace Students_Site.BLL.Services
                 Id = teacher.Id,
                 UserId = teacher.UserId,
                 SubjectId = teacher.SubjectId
-            });
+            }).ToArray();
         }
 
         public void UpdateTeacher(UserBLL userBll, IEnumerable<int> teachersId)
