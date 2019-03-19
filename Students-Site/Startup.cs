@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System;
+﻿using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
@@ -13,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Students_Site.BLL.Services;
 using Students_Site.DAL.EF;
-using Students_Site.DAL.UnitOfWork;
+using Students_Site.DAL.Infrastructure;
 
 namespace Students_Site
 {

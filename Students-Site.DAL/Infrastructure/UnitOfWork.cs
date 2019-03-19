@@ -1,11 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
 using Students_Site.DAL.EF;
 using Students_Site.DAL.Entities;
-using Students_Site.DAL.Interfaces;
 using Students_Site.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Students_Site.DAL.UnitOfWork
 {
