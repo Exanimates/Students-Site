@@ -29,16 +29,18 @@ namespace Students_Site.BLL.Services
 
         public void MakeSubject(SubjectBLL subjectBll)
         {
-            Subject subjectByName = Database.SubjectRepository.GetAll().FirstOrDefault(r => r.Name == subjectBll.Name);
+            var subjectByName = Database.SubjectRepository.GetAll().FirstOrDefault(r => r.Name == subjectBll.Name);
 
             if (subjectByName != null)
                 throw new ValidationException("Такой предмет уже существует", "");
 
-            Subject subject = new Subject
+            var subject = new Subject
             {
                 Name = subjectBll.Name
             };
+
             Database.SubjectRepository.Create(subject);
+
             Database.Save();
         }
 
@@ -46,7 +48,9 @@ namespace Students_Site.BLL.Services
         {
             if (id == null)
                 throw new ValidationException("Id предмета не установлено", "");
+
             var role = Database.RoleRepository.Get(id.Value);
+
             if (role == null)
                 throw new ValidationException("Предмет не найден", "");
 

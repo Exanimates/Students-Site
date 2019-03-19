@@ -28,12 +28,12 @@ namespace Students_Site.BLL.Services
 
         public void MakeRole(RoleBLL roleBll)
         {
-            Role roleByName = _database.RoleRepository.GetAll().FirstOrDefault(r => r.Name == roleBll.Name);
+            var roleByName = _database.RoleRepository.GetAll().FirstOrDefault(r => r.Name == roleBll.Name);
 
             if (roleByName != null)
                 throw new ValidationException("Такая роль уже существует", "");
 
-            Role role  = new Role
+            var role  = new Role
             {
                 Name = roleBll.Name
             };
@@ -45,7 +45,9 @@ namespace Students_Site.BLL.Services
         {
             if (id == null)
                 throw new ValidationException("Id роли не установлено", "");
+
             var role = _database.RoleRepository.Get(id.Value);
+
             if (role == null)
                 throw new ValidationException("Роль не найдена", "");
 
