@@ -7,7 +7,6 @@ namespace Students_Site.DAL.Repositories
     {
         public StudentTeacherRepository(ApplicationContext context) : base(context)
         {
-
         }
     }
 }
