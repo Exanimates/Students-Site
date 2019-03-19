@@ -71,9 +71,8 @@ namespace Students_Site.BLL.Services
         {
             var user = _database.UserRepository.Get(userBll.Id);
 
-            if (user == null) {
+            if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
-            }
 
             user.RoleId = userBll.RoleId;
             user.FirstName = userBll.FirstName;
