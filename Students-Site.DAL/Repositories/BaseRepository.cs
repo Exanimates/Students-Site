@@ -19,7 +19,7 @@ namespace Students_Site.DAL.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public virtual IQueryable<TEntity> GetAll()
         {
             return _dbSet;
         }
@@ -40,9 +40,9 @@ namespace Students_Site.DAL.Repositories
             _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        public IEnumerable<TEntity> Find(Func<TEntity, Boolean> predicate)
+        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> where)
         {
-            return _dbSet.Where(predicate).ToList();
+            return _dbSet.Where(where);
         }
 
         public virtual void Delete(int id)

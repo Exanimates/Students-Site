@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Students_Site.DAL.Infrastructure
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        IQueryable<T> GetAll();
         T Get(int id);
-        IEnumerable<T> Find(Func<T, Boolean> predicate);
+        IQueryable<T> Find(Expression<Func<T, bool>> where);
         void Create(T item);
         void Update(T item);
         void Delete(int id);
