@@ -1,4 +1,4 @@
-﻿@model Students_Site.Models.Students.StudentModel
+﻿@model Students_Site.Models.Students.StudentMakeModel
 
 @{
 	ViewData["Title"] = "Создание студента";
@@ -30,41 +30,43 @@
 			<input type="text" asp-for="LastName" class="form-control" />
 		</div>
 		
-		<h3>Выберите учителей, которых хотите закрепить за студентом</h3>
-		
-		<table class="table">
-			
-			<tr>
-				<th>
-					Имя
-				</th>
-				<th>
-					Фамилия
-				</th>
-				<th>
-					Предмет
-				</th>
-				<th></th>
-			</tr>
-		
-			<div>
-				@foreach (var item in Model.Teachers)
-				{
+		<div>
+			<h3>Выберите преподавателей, которых хотите закрепить за студентом</h3>
+
+				<table class="table">
+					<tr>
+						<th>
+							Имя
+						</th>
+						<th>
+							Фамилия
+						</th>
+						<th>
+							Предмет
+						</th>
+						<th></th>
+					</tr>
+					
+					@for (var i = 0; i < Model.TeachersList.Count(); i++)
+					{
 					<tr>
 						<td>
-							@Html.DisplayFor(modelItem => item.FirstName)
+							<label asp-for="@Model.TeachersList[i].FirstName">@Model.TeachersList[i].FirstName</label>
 						</td>
 						<td>
-							@Html.DisplayFor(modelItem => item.LastName)
+							<label asp-for="@Model.TeachersList[i].LastName">@Model.TeachersList[i].LastName</label>
 						</td>
 						<td>
-							@Html.DisplayFor(modelItem => item.SubjectName)
+							<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
 						</td>
+						<td>
+							<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox"/>
+						</td>
+						<input asp-for="@Model.TeachersList[i].Id" type="hidden"/>
 					</tr>
-				}
-			</div>
-
-		</table>
+					}
+				</table>
+		</div>
 		
 
 		<div class="form-group">

@@ -51,26 +51,26 @@ namespace Students_Site.Controllers
 
         public ActionResult MakeStudent()
         {
-            var student = new StudentModel
+            var student = new StudentMakeModel
             {
-                Teachers = _teacherService.GetTeachers().Select(s => new TeacherModel
+                TeachersList = _teacherService.GetTeachers().Select(s => new TeacherModel
                 {
                     Id = s.Id,
                     FirstName = s.User.FirstName,
                     LastName = s.User.LastName,
                     SubjectName = s.SubjectName,
-                })
+                }).ToList()
             };
 
             return View(student);
         }
 
         [HttpPost]
-        public ActionResult MakeStudent(StudentModel student)
+        public ActionResult MakeStudent(StudentMakeModel student)
         {
             try
             {
-                var studentBll = new UserBLL
+                var userBll = new UserBLL
                 {
                     FirstName = student.FirstName,
                     LastName = student.LastName,
@@ -78,7 +78,18 @@ namespace Students_Site.Controllers
                     Password = student.Password
                 };
 
-                _studentService.MakeStudent(studentBll, null, 2);
+                var studentBll = new StudentBLL
+                {
+                    User = userBll,
+
+                    Teachers = student.TeachersList.Where(t => t.IsSelected).Select(s => new TeacherBLL
+                    {
+                        Id = s.Id,
+                        UserId = s.UserId
+                    })
+                };
+
+                _studentService.MakeStudent(studentBll);
 
                 return Content("Студент успешно зарегестирован");
             }

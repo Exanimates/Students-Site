@@ -8,6 +8,6 @@ namespace Students_Site.Models.Students
     {
         public int Id { get; set; }
         public bool IsSelected { get; set; }
-        public IEnumerable<TeacherModel> Teachers;
+        public IEnumerable<TeacherModel> Teachers { get; set; }
     }
 }

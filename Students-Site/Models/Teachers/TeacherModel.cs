@@ -7,13 +7,14 @@ namespace Students_Site.Models.Teachers
 {
     public class TeacherModel : UserModel
     {
-        public int Id;
+        public int Id { get; set; }
 
         public int SubjectId;
 
+        public bool IsSelected { get; set; }
+
         public IEnumerable<StudentModel> Students;
 
-        [Required]
-        public string SubjectName;
+        public string SubjectName { get; set; }
     }
 }
