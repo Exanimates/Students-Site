@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.IEnumerable<Students_Site.Models.TeacherModel>
+﻿@model Students_Site.Models.Teachers.TeacherIndexModel
 
 @{
 	ViewBag.Title = "Преподаватели";
@@ -21,7 +21,7 @@
 		<th></th>
 	</tr>
 
-	@foreach (var item in Model)
+	@foreach (var item in Model.TeacherModels)
 	{
 	<tr>
 		<td>
