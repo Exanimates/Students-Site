@@ -21,7 +21,7 @@ namespace Students_Site.Controllers
 
         public IActionResult Index()
         {
-            var students = _studentService.GetStudents().Select(s => new StudentModel
+            var studentsModels = _studentService.GetStudents().Select(s => new StudentModel
             {
                 Id = s.Id,
                 FirstName = s.User.FirstName,
@@ -36,7 +36,12 @@ namespace Students_Site.Controllers
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName
                 })
-            }).ToArray();
+            });
+
+            var students = new StudentIndexModel
+            {
+                StudentModels = studentsModels
+            };
 
             return View(students);
         }

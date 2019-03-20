@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.IEnumerable<Students_Site.Models.StudentModel>
+﻿@model Students_Site.Models.Students.StudentIndexModel
 
 @{
 	ViewData["Title"] = "Студенты";
@@ -18,7 +18,7 @@
 	</tr>
 
 
-	@foreach (var item in Model)
+	@foreach (var item in Model.StudentModels)
 	{
 		<tr>
 			<td>
@@ -40,4 +40,3 @@
 <div>
 	@Html.ActionLink("Добавить студента", "MakeStudent")
 </div>
-
