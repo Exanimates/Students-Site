@@ -7,6 +7,8 @@ namespace Students_Site.Models.Teachers
 {
     public class TeacherModel : UserModel
     {
+        public int Id;
+
         public int SubjectId;
 
         public IEnumerable<StudentModel> Students;

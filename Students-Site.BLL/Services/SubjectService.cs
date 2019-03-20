@@ -57,6 +57,7 @@ namespace Students_Site.BLL.Services
         {
             return _database.SubjectRepository.GetAll().Select(subject => new SubjectBLL
             {
+                Id = subject.Id,
                 Name = subject.Name
             }).ToArray();
         }

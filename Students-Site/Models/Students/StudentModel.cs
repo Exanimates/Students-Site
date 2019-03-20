@@ -6,6 +6,8 @@ namespace Students_Site.Models.Students
 {
     public class StudentModel : UserModel
     {
+        public int Id { get; set; }
+        public bool IsSelected { get; set; }
         public IEnumerable<TeacherModel> Teachers;
     }
 }

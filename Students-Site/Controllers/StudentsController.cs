@@ -12,11 +12,13 @@ namespace Students_Site.Controllers
     {
         IStudentService _studentService;
         IUserService _userService;
+        ITeacherService _teacherService;
 
-        public StudentsController(IStudentService studentService, IUserService userService)
+        public StudentsController(IStudentService studentService, IUserService userService, ITeacherService teacherService)
         {
             _studentService = studentService;
             _userService = userService;
+            _teacherService = teacherService;
         }
 
         public IActionResult Index()
@@ -49,7 +51,18 @@ namespace Students_Site.Controllers
 
         public ActionResult MakeStudent()
         {
-            return View();
+            var student = new StudentModel
+            {
+                Teachers = _teacherService.GetTeachers().Select(s => new TeacherModel
+                {
+                    Id = s.Id,
+                    FirstName = s.User.FirstName,
+                    LastName = s.User.LastName,
+                    SubjectName = s.SubjectName,
+                })
+            };
+
+            return View(student);
         }
 
         [HttpPost]
@@ -64,7 +77,9 @@ namespace Students_Site.Controllers
                     Login = student.Login,
                     Password = student.Password
                 };
+
                 _studentService.MakeStudent(studentBll, null, 2);
+
                 return Content("Студент успешно зарегестирован");
             }
             catch (ValidationException ex)

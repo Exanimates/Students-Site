@@ -29,6 +29,43 @@
 			<label asp-for="LastName">Фамилия</label>
 			<input type="text" asp-for="LastName" class="form-control" />
 		</div>
+		
+		<h3>Выберите учителей, которых хотите закрепить за студентов</h3>
+		
+		<table class="table">
+			
+			<tr>
+				<th>
+					Имя
+				</th>
+				<th>
+					Фамилия
+				</th>
+				<th>
+					Предмет
+				</th>
+				<th></th>
+			</tr>
+		
+			<div>
+				@foreach (var item in Model.Teachers)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.FirstName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.LastName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.SubjectName)
+						</td>
+					</tr>
+				}
+			</div>
+
+		</table>
+		
 
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">

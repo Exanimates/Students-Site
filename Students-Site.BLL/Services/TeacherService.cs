@@ -9,8 +9,8 @@ namespace Students_Site.BLL.Services
 {
     public interface ITeacherService : IService
     {
-        void MakeTeacher(UserBLL userBll, IEnumerable<int> studentsId);
-        void UpdateTeacher(UserBLL userBll, IEnumerable<int> studentsId);
+        void MakeTeacher(TeacherBLL userBll);
+        void UpdateTeacher(TeacherBLL userBll);
         TeacherBLL GetTeacher(int? id);
         IEnumerable<TeacherBLL> GetTeachers();
     }
@@ -24,34 +24,30 @@ namespace Students_Site.BLL.Services
             _database = unitOfWork;
         }
 
-        public void MakeTeacher(UserBLL userBll, IEnumerable<int> studentsId)
+        public void MakeTeacher(TeacherBLL teacherBll)
         {
             var user = new User
             {
-                FirstName = userBll.FirstName,
-                LastName = userBll.LastName,
-                Login = userBll.Login,
-                Password = userBll.Password,
-                RoleId = userBll.RoleId
+                FirstName = teacherBll.User.FirstName,
+                LastName = teacherBll.User.LastName,
+                Login = teacherBll.User.Login,
+                Password = teacherBll.User.Password,
+                RoleId = 2
             };
 
             _database.UserRepository.Create(user);
 
             var teacher = new Teacher
             {
-                UserId = user.Id
-            };
+                UserId = user.Id,
+                SubjectId = teacherBll.SubjectId,
 
-            foreach (var teacherId in studentsId)
-            {
-                var studentTeacher = new StudentTeacher
+                StudentTeachers = teacherBll.Students.Select(s => new StudentTeacher
                 {
-                    TeacherId = teacherId,
-                    StudentId = user.Id
-                };
-
-                teacher.StudentTeachers.Add(studentTeacher);
-            }
+                    TeacherId = teacherBll.Id,
+                    StudentId = s.Id
+                }).ToArray()
+            };
 
             _database.TeacherRepository.Create(teacher);
 
@@ -87,36 +83,22 @@ namespace Students_Site.BLL.Services
             }).ToArray();
         }
 
-        public void UpdateTeacher(UserBLL userBll, IEnumerable<int> teachersId)
+        public void UpdateTeacher(TeacherBLL teacherBll)
         {
-            var user = _database.UserRepository.Get(userBll.Id);
+            var user = _database.UserRepository.Get(teacherBll.UserId);
 
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
 
-            user.RoleId = userBll.RoleId;
-            user.FirstName = userBll.FirstName;
-            user.LastName = userBll.LastName;
-            user.Login = userBll.Login;
-            user.Password = userBll.Password;
+            user.RoleId = teacherBll.User.RoleId;
+            user.FirstName = teacherBll.User.FirstName;
+            user.LastName = teacherBll.User.LastName;
+            user.Login = teacherBll.User.Login;
+            user.Password = teacherBll.User.Password;
 
             _database.UserRepository.Update(user);
 
-            var teacher = _database.TeacherRepository.GetAll().First(s => s.UserId == userBll.Id);
-
-            foreach (var teacherId in teachersId)
-            {
-                var studentTeacher = new StudentTeacher
-                {
-                    TeacherId = teacherId,
-                    StudentId = user.Id
-                };
-
-                if (teacher.StudentTeachers.Contains(studentTeacher))
-                    continue;
-
-                teacher.StudentTeachers.Add(studentTeacher);
-            }
+            var teacher = _database.TeacherRepository.GetAll().First(s => s.UserId == teacherBll.UserId);
 
             _database.TeacherRepository.Update(teacher);
 
