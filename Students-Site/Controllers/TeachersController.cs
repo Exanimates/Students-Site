@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Students_Site.BLL.Services;
-using Students_Site.Models;
+using Students_Site.Models.Students;
+using Students_Site.Models.Teachers;
 
 namespace Students_Site.Controllers
 {

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Exceptions;
 using Students_Site.BLL.Services;
-using Students_Site.DAL.Entities;
-using Students_Site.Models;
+using Students_Site.Models.Students;
+using Students_Site.Models.Teachers;
 
 namespace Students_Site.Controllers
 {

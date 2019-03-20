@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Students_Site.Models
+namespace Students_Site.Models.Users
 {
     public class UserModel
     {
