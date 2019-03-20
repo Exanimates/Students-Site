@@ -61,6 +61,7 @@ namespace Students_Site.DAL.EF
             var subjects = new List<Subject>
             {
                 new Subject { Id = 1, Name = "История" },
+                new Subject {Id = 2, Name = "Информатика" }
             };
 
             builder.Entity<Subject>().HasData(subjects);
