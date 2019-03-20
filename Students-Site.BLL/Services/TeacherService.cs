@@ -136,26 +136,30 @@ namespace Students_Site.BLL.Services
             });
 
             if (id == null)
-                throw new ValidationException("Id предмета не установлено", "");
+                throw new ValidationException("Id преподавателя не установлено", "");
 
-            var teacher = _database.TeacherRepository.GetAll().Select(s => new TeacherBLL
-            {
-                Id = s.Id,
-                UserId = s.UserId,
-
-                User = users.FirstOrDefault(u => u.Id == s.UserId),
-                Students = s.StudentTeachers.Select(studentTeachers => new StudentBLL
-                {
-                    Id = studentTeachers.StudentId,
-                    UserId = studentTeachers.Student.UserId,
-                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Student.UserId)
-                })
-            }).FirstOrDefault(u => u.Id == id);
+            var teacher = _database.TeacherRepository.Get(id);
 
             if (teacher == null)
-                throw new ValidationException("Предмет не найден", "");
+                throw new ValidationException("Преподаватель не найден", "");
 
-            return teacher;
+            var studentsTeacher = _database.StudentTeacherRepository.Find(st => st.TeacherId == id);
+
+            var teacherBll = new TeacherBLL
+            {
+                Id = teacher.Id,
+                UserId = teacher.UserId,
+
+                User = users.FirstOrDefault(u => u.Id == teacher.UserId),
+                Students = studentsTeacher.Select(ts => new StudentBLL
+                {
+                    Id = ts.StudentId,
+                    UserId = ts.Student.UserId,
+                    User = users.FirstOrDefault(u => u.Id == ts.Student.UserId)
+                })
+            };
+
+            return teacherBll;
         }
 
         public void Dispose()
