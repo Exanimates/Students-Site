@@ -87,7 +87,8 @@ namespace Students_Site.Controllers
                 {
                     Id = t.User.Id,
                     FirstName = t.User.FirstName,
-                    LastName = t.User.LastName
+                    LastName = t.User.LastName,
+                    SubjectName = t.SubjectName
                 })
             };
 

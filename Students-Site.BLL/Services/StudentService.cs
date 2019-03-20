@@ -122,6 +122,7 @@ namespace Students_Site.BLL.Services
                     Id = ts.TeacherId,
                     UserId = ts.Teacher.UserId,
                     SubjectId = ts.Teacher.SubjectId,
+                    SubjectName = ts.Teacher.Subject.Name,
                     User = users.FirstOrDefault(u => u.Id == ts.Teacher.UserId)
                 })
             };
