@@ -102,27 +102,31 @@ namespace Students_Site.BLL.Services
             });
 
             if (id == null)
-                throw new ValidationException("Id предмета не установлено", "");
+                throw new ValidationException("Id студента не установлено", "");
 
-            var student = _database.StudentRepository.GetAll().Select(s => new StudentBLL
-            {
-                Id = s.Id,
-                UserId = s.UserId,
-
-                User = users.FirstOrDefault(u => u.Id == s.UserId),
-                Teachers = s.StudentTeachers.Select(studentTeachers => new TeacherBLL
-                {
-                    Id = studentTeachers.TeacherId,
-                    UserId = studentTeachers.Teacher.UserId,
-                    SubjectId = studentTeachers.Teacher.SubjectId,
-                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Teacher.UserId)
-                })
-            }).FirstOrDefault(u => u.Id == id);
+            var student = _database.StudentRepository.Get(id);
 
             if (student == null)
-                throw new ValidationException("Предмет не найден", "");
+                throw new ValidationException("Студент не найден", "");
 
-            return student;
+            var teachersStudent = _database.StudentTeacherRepository.Find(st => st.StudentId == id);
+
+            var studentBll = new StudentBLL
+            {
+                Id = student.Id,
+                UserId = student.UserId,
+
+                User = users.FirstOrDefault(u => u.Id == student.UserId),
+                Teachers = teachersStudent.Select(ts => new TeacherBLL
+                {
+                    Id = ts.TeacherId,
+                    UserId = ts.Teacher.UserId,
+                    SubjectId = ts.Teacher.SubjectId,
+                    User = users.FirstOrDefault(u => u.Id == ts.Teacher.UserId)
+                })
+            };
+
+            return studentBll;
         }
 
         public void UpdateStudent(UserBLL userBll, IEnumerable<int> teachersId)
