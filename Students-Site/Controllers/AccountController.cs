@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Services;
+using Students_Site.Models.Login;
+using Students_Site.Models.Users;
 
 namespace Students_Site.WEB.Controllers
 {
@@ -16,11 +22,6 @@ namespace Students_Site.WEB.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public IActionResult Login()
         {
@@ -31,18 +32,41 @@ namespace Students_Site.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
-            if (ModelState.IsValid)
-            {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-                if (user != null)
-                {
-                    await Authenticate(model.Email); // аутентификация
+            if (!ModelState.IsValid) return View(model);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+            UserBLL userBll = _userService.GetUsers().FirstOrDefault(u => u.Login == model.Login && u.Password == model.Password);
+                
+            if (userBll != null)
+            {
+                var user = new UserBLL
+                {
+                    Login = userBll.Login,
+                    RoleId = userBll.RoleId
+                };
+
+                await Authenticate(model.Login);
+
+                return RedirectToAction("Index", "Home");
             }
-            return View(model);
+
+            return Content("Такого пользователя не существует");
+        }
+
+        private async Task Authenticate(string login)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, login)
+            };
+
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account");
         }
     }
 }

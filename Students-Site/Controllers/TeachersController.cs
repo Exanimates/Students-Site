@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Exceptions;
@@ -53,6 +54,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult MakeTeacher()
         {
             var teacher = new TeacherMakeModel
@@ -77,6 +79,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult MakeTeacher(TeacherMakeModel teacher)
         {
             try
@@ -113,6 +116,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult EditTeacher(int id)
         {
             var teacherBll = _teacherService.GetTeacher(id);
@@ -152,6 +156,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult EditTeacher(TeacherEditModel teacher)
         {
             try

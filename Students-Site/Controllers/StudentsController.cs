@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Exceptions;
@@ -46,7 +47,7 @@ namespace Students_Site.Controllers
             return View(students);
         }
 
-
+        [Authorize]
         public ActionResult MakeStudent()
         {
             var student = new StudentMakeModel
@@ -64,6 +65,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult MakeStudent(StudentMakeModel student)
         {
             try
@@ -125,6 +127,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult EditStudent(int id)
         {
             var studentBll = _studentService.GetStudent(id);
