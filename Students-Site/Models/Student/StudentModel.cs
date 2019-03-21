@@ -8,6 +8,7 @@ namespace Students_Site.Models.Student
     {
         public int Id { get; set; }
         public bool IsSelected { get; set; }
+        public float AveradeScore { get; set; }
         public IEnumerable<TeacherModel> Teachers { get; set; }
     }
 }

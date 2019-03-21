@@ -12,6 +12,8 @@ namespace Students_Site.Models.Teacher
 
         public bool IsSelected { get; set; }
 
+        public float Grade { get; set; }
+
         public IEnumerable<StudentModel> Students;
 
         public string SubjectName { get; set; }

@@ -8,6 +8,7 @@ namespace Students_Site.BLL.BusinessLogicModels
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
         public bool IsSelected { get; set; }
+        public float Grade { get; set; }
 
         public int UserId { get; set; }
         public UserBLL User { get; set; }
