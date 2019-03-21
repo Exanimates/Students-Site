@@ -26,6 +26,11 @@ namespace Students_Site.BLL.Services
 
         public void MakeStudent(StudentBLL studentBll)
         {
+            var teachersGroupBySubject = studentBll.Teachers.GroupBy(t => t.SubjectName);
+
+            if (teachersGroupBySubject.Any(subject => subject.Count() > 1))
+                throw new ValidationException("Нельзя добавить несколько преподавателей одного предмета", "");
+
             var user = new User
             {
                 FirstName = studentBll.User.FirstName,

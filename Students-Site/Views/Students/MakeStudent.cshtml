@@ -52,15 +52,19 @@
 					<tr>
 						<td>
 							<label asp-for="@Model.TeachersList[i].FirstName">@Model.TeachersList[i].FirstName</label>
+							<input type="hidden" asp-for="@Model.TeachersList[i].FirstName"/>
 						</td>
 						<td>
 							<label asp-for="@Model.TeachersList[i].LastName">@Model.TeachersList[i].LastName</label>
+							<input type="hidden" asp-for="@Model.TeachersList[i].LastName"/>
 						</td>
 						<td>
 							<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
+							<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName"/>
 						</td>
 						<td>
 							<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox"/>
+							<input type="hidden" asp-for="@Model.TeachersList[i].IsSelected"/>
 						</td>
 						<input asp-for="@Model.TeachersList[i].Id" type="hidden"/>
 					</tr>

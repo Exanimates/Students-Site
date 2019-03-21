@@ -80,10 +80,11 @@ namespace Students_Site.Controllers
                 {
                     User = userBll,
 
-                    Teachers = student.TeachersList.Where(t => t.IsSelected).Select(s => new TeacherBLL
+                    Teachers = student.TeachersList.Where(t => t.IsSelected).Select(t => new TeacherBLL
                     {
-                        Id = s.Id,
-                        UserId = s.UserId
+                        Id = t.Id,
+                        UserId = t.UserId,
+                        SubjectName = t.SubjectName
                     })
                 };
 
@@ -94,9 +95,8 @@ namespace Students_Site.Controllers
             catch (ValidationException ex)
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
+                return Content(ex.Message);
             }
-
-            return View(student);
         }
 
         public IActionResult ShowStudent(int id)
