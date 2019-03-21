@@ -56,6 +56,10 @@ namespace Students_Site.DAL.EF
                 .WithOne(s => s.User)
                 .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
 
+            builder.Entity<User>()
+                .HasIndex(u => u.Login)
+                .IsUnique();
+
             builder.Entity<User>().HasData(users);
 
             var subjects = new List<Subject>
