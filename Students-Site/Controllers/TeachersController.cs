@@ -11,10 +11,10 @@ namespace Students_Site.Controllers
 {
     public class TeachersController : Controller
     {
-        ITeacherService _teacherService;
-        IUserService _userService;
-        IStudentService _studentService;
-        ISubjectService _subjectService;
+        readonly ITeacherService _teacherService;
+        readonly IUserService _userService;
+        readonly IStudentService _studentService;
+        readonly ISubjectService _subjectService;
 
         public TeachersController(ITeacherService teacherService, IUserService userService, ISubjectService subjectService, IStudentService studentService)
         {
