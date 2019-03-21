@@ -88,6 +88,9 @@ namespace Students_Site.BLL.Services
 
         public StudentBLL GetStudent(int? id)
         {
+            if (id == null)
+                throw new ValidationException("Id студента не установлено", "");
+
             var users = _database.UserRepository.GetAll().Select(user => new UserBLL
             {
                 Id = user.Id,
@@ -97,9 +100,6 @@ namespace Students_Site.BLL.Services
                 Login = user.Login,
                 RoleId = user.RoleId
             });
-
-            if (id == null)
-                throw new ValidationException("Id студента не установлено", "");
 
             var student = _database.StudentRepository.Get(id);
 
