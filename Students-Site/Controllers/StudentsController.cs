@@ -11,13 +11,11 @@ namespace Students_Site.Controllers
     public class StudentsController : Controller
     {
         readonly IStudentService _studentService;
-        IUserService _userService;
         readonly ITeacherService _teacherService;
 
-        public StudentsController(IStudentService studentService, IUserService userService, ITeacherService teacherService)
+        public StudentsController(IStudentService studentService, ITeacherService teacherService)
         {
             _studentService = studentService;
-            _userService = userService;
             _teacherService = teacherService;
         }
 
