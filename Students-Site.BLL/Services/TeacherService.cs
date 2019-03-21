@@ -89,7 +89,7 @@ namespace Students_Site.BLL.Services
 
         public void UpdateTeacher(TeacherBLL teacherBll)
         {
-            if (_database.UserRepository.Find(u => u.Login == teacherBll.User.Login).Any())
+            if (_database.UserRepository.Find(u => u.Login == teacherBll.User.Login && u.Id != teacherBll.User.Id).Any())
                 throw new ValidationException("Пользователь с таким логином уже существует", "");
 
             var user = _database.UserRepository.Get(teacherBll.User.Id);
