@@ -1,0 +1,99 @@
+﻿@model Students_Site.Models.Students.StudentEditModel
+
+@{
+	ViewData["Title"] = "Редактирвоание студента";
+}
+
+<h1>Редактирование студента</h1>
+
+<form asp-antiforgery="true" asp-action="EditStudent" method="post" asp-controller="Students" role="form">
+
+	<div class="form-horizontal">
+
+		<input asp-for="UserId" type="hidden" />
+
+		<div class="form-group">
+			<label asp-for="Login">Логин</label>
+			<input type="text" asp-for="Login" class="form-control" />
+		</div>
+
+		<div class="form-group">
+			<label asp-for="Password">Пароль</label>
+			<input type="password" asp-for="Password" class="form-control" />
+		</div>
+
+		<div class="form-group">
+			<label asp-for="FirstName">Имя</label>
+			<input type="text" asp-for="FirstName" class="form-control" />
+		</div>
+
+		<div class="form-group">
+			<label asp-for="LastName">Фамилия</label>
+			<input type="text" asp-for="LastName" class="form-control" />
+		</div>
+
+		<h3>Выберите преподавателей, которых хотите закрепить за данным студентом</h3>
+
+		<table class="table">
+			<tr>
+				<th>
+					Имя
+				</th>
+				<th>
+					Фамилия
+				</th>
+				<th>
+					Предмет
+				</th>
+			</tr>
+
+			@for (var i = 0; i < Model.TeachersList.Count(); i++)
+			{
+			<tr>
+				<td>
+					<label asp-for="@Model.TeachersList[i].FirstName">@Model.TeachersList[i].FirstName</label>
+				</td>
+				<td>
+					<label asp-for="@Model.TeachersList[i].LastName">@Model.TeachersList[i].LastName</label>
+				</td>
+				<td>
+					<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
+				</td>
+				<th>
+					<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox" />
+				</th>
+				<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName" />
+				<input type="hidden" asp-for="@Model.TeachersList[i].Id" />
+			</tr>
+			}
+		</table>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Обновить студента" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+</form>
+
+<div>
+	@Html.ActionLink("Вернуться к списку студентов", "Index")
+</div>
+
+@section scripts {
+
+	<environment names="Development">
+		<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+		<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+	</environment>
+	<environment names="Staging,Production">
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+				asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+				asp-fallback-test="window.jQuery && window.jQuery.validator">
+		</script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+				asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+				asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+		</script>
+	</environment>
+}

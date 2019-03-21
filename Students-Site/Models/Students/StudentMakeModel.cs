@@ -6,6 +6,7 @@ namespace Students_Site.Models.Students
 {
     public class StudentMakeModel : UserModel
     {
+        public int Id { get; set; }
         public List<TeacherModel> TeachersList { get; set; }
     }
 }

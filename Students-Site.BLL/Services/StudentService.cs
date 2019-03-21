@@ -135,11 +135,13 @@ namespace Students_Site.BLL.Services
             if (_database.UserRepository.Find(u => u.Login == studentBll.User.Login).Any())
                 throw new ValidationException("Пользователь с таким логином уже существует", "");
     
-            var user = _database.UserRepository.Get(studentBll.Id);
+            var user = _database.UserRepository.Get(studentBll.User.Id);
 
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
 
+            user.RoleId = 2;
+            user.Id = studentBll.User.Id;
             user.FirstName = studentBll.User.FirstName;
             user.LastName = studentBll.User.LastName;
             user.Login = studentBll.User.Login;
@@ -147,9 +149,29 @@ namespace Students_Site.BLL.Services
 
             _database.UserRepository.Update(user);
 
-            var student = _database.StudentRepository.GetAll().First(s => s.UserId == studentBll.User.Id);
+            var student = _database.StudentRepository.Get(studentBll.Id);
+
+            student.Id = studentBll.Id;
 
             _database.StudentRepository.Update(student);
+
+            var allStudentTeachers = _database.StudentTeacherRepository.GetAll().ToArray();
+
+            foreach (var currentTeacher in studentBll.Teachers)
+            {
+                if (!allStudentTeachers.Any(st => st.StudentId == studentBll.Id && st.TeacherId == currentTeacher.Id) &&
+                    currentTeacher.IsSelected)
+                {
+                    _database.StudentTeacherRepository.Create(new StudentTeacher
+                    {
+                        TeacherId = currentTeacher.Id,
+                        StudentId = studentBll.Id
+                    });
+                }
+
+                if (allStudentTeachers.Any(st => st.StudentId == studentBll.Id && st.TeacherId == currentTeacher.Id) && !currentTeacher.IsSelected)
+                    _database.StudentTeacherRepository.Delete(studentBll.Id, currentTeacher.Id);
+            }
 
             _database.Save();
         }

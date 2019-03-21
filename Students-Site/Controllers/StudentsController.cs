@@ -84,7 +84,7 @@ namespace Students_Site.Controllers
                     {
                         Id = t.Id,
                         UserId = t.UserId,
-                        SubjectName = t.SubjectName
+                        SubjectName = t.SubjectName,
                     })
                 };
 
@@ -122,6 +122,77 @@ namespace Students_Site.Controllers
             };
 
             return View(student);
+        }
+
+        [HttpGet]
+        public ActionResult EditStudent(int id)
+        {
+            var studentBll = _studentService.GetStudent(id);
+
+            var student = new StudentEditModel
+            {
+                Id = studentBll.Id,
+                UserId = studentBll.UserId,
+                FirstName = studentBll.User.FirstName,
+                LastName = studentBll.User.LastName,
+                Login = studentBll.User.Login,
+                Password = studentBll.User.Password,
+
+                TeachersList = _teacherService.GetTeachers().Select(t => new TeacherModel
+                {
+                    Id = t.Id,
+                    FirstName = t.User.FirstName,
+                    LastName = t.User.LastName,
+                    SubjectName = t.SubjectName,
+                }).ToList()
+
+            };
+
+            foreach (var teacher in student.TeachersList)
+            {
+                if (studentBll.Teachers.Any(t => t.Id == teacher.Id))
+                    teacher.IsSelected = true;
+            }
+
+            return View(student);
+        }
+
+        [HttpPost]
+        public ActionResult EditStudent(StudentEditModel student)
+        {
+            try
+            {
+                var userBll = new UserBLL
+                {
+                    Id = student.UserId,
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    Login = student.Login,
+                    Password = student.Password
+                };
+
+                var studentBll = new StudentBLL
+                {
+                    Id = student.Id,
+                    User = userBll,
+
+                    Teachers = student.TeachersList.Select(t => new TeacherBLL
+                    {
+                        Id = t.Id,
+                        UserId = t.UserId,
+                        IsSelected = t.IsSelected
+                    })
+                };
+
+                _studentService.UpdateStudent(studentBll);
+
+                return Content("Студент успешно изменен");
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+                return Content(ex.Message);
+            }
         }
     }
 }

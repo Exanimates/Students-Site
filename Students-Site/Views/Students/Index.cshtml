@@ -30,6 +30,9 @@
 			<td>
 				@Html.ActionLink("Подробнее", "ShowStudent", new { id=item.Id })
 			</td>
+			<td>
+				@Html.ActionLink("Редактировать", "EditStudent", new { id = item.Id })
+			</td>
 		</tr>
 	}
 	
