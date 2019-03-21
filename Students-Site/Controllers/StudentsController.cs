@@ -151,6 +151,7 @@ namespace Students_Site.Controllers
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName,
                     SubjectName = t.SubjectName,
+                    Grade = t.Grade
                 }).ToList()
 
             };
@@ -158,7 +159,10 @@ namespace Students_Site.Controllers
             foreach (var teacher in student.TeachersList)
             {
                 if (studentBll.Teachers.Any(t => t.Id == teacher.Id))
+                {
                     teacher.IsSelected = true;
+                    teacher.Grade = studentBll.Teachers.First(t => t.Id == teacher.Id).Grade;
+                }                    
             }
 
             return View(student);
@@ -187,7 +191,8 @@ namespace Students_Site.Controllers
                     {
                         Id = t.Id,
                         UserId = t.UserId,
-                        IsSelected = t.IsSelected
+                        IsSelected = t.IsSelected,
+                        Grade = t.Grade
                     })
                 };
 

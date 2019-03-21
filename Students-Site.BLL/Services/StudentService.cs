@@ -176,12 +176,22 @@ namespace Students_Site.BLL.Services
                     _database.StudentTeacherRepository.Create(new StudentTeacher
                     {
                         TeacherId = currentTeacher.Id,
-                        StudentId = studentBll.Id
+                        StudentId = studentBll.Id,
+                        Grade = currentTeacher.Grade
                     });
                 }
 
                 if (allStudentTeachers.Any(st => st.StudentId == studentBll.Id && st.TeacherId == currentTeacher.Id) && !currentTeacher.IsSelected)
                     _database.StudentTeacherRepository.Delete(studentBll.Id, currentTeacher.Id);
+                else
+                {
+                    var studentTeacher =_database.StudentTeacherRepository.Find(st => st.StudentId == studentBll.Id && st.TeacherId == currentTeacher.Id).First();
+                    studentTeacher.TeacherId = currentTeacher.Id;
+                    studentTeacher.StudentId = studentBll.Id;
+                    studentTeacher.Grade = currentTeacher.Grade;
+
+                    _database.StudentTeacherRepository.Update(studentTeacher);
+                }
             }
 
             _database.Save();
