@@ -7,6 +7,7 @@ namespace Students_Site.BLL.BusinessLogicModels
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public bool IsSelected { get; set; }
 
         public UserBLL User { get; set; }
 

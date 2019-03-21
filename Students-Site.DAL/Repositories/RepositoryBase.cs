@@ -10,7 +10,7 @@ namespace Students_Site.DAL.Repositories
     public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class
     {
         readonly ApplicationContext _context;
-        readonly DbSet<TEntity> _dbSet;
+        protected readonly DbSet<TEntity> _dbSet;
 
         protected RepositoryBase(ApplicationContext context)
         {

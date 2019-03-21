@@ -8,5 +8,12 @@ namespace Students_Site.DAL.Repositories
         public StudentTeacherRepository(ApplicationContext context) : base(context)
         {
         }
+
+        public void Delete(int studentId, int teacherId)
+        {
+            StudentTeacher entityToDelete = _dbSet.Find(studentId, teacherId);
+            if (entityToDelete != null)
+                _dbSet.Remove(entityToDelete);
+        }
     }
 }

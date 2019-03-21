@@ -11,7 +11,7 @@ namespace Students_Site.DAL.Infrastructure
         IRepository<Teacher> TeacherRepository { get; }
         IRepository<Role> RoleRepository { get; }
         IRepository<Subject> SubjectRepository { get; }
-        IRepository<StudentTeacher> StudentTeacherRepository { get; }
+        StudentTeacherRepository StudentTeacherRepository { get; }
         IRepository<Student> StudentRepository { get; }
         void Save();
     }
@@ -25,7 +25,7 @@ namespace Students_Site.DAL.Infrastructure
         IRepository<Role> _roleRepository;
         IRepository<Subject> _subjectsRepository;
         IRepository<Student> _studentRepository;
-        IRepository<StudentTeacher> _studentTeachers;
+        StudentTeacherRepository _studentTeachers;
 
         private bool _disposed = false;
 
@@ -37,7 +37,8 @@ namespace Students_Site.DAL.Infrastructure
 
         public IRepository<Student> StudentRepository => _studentRepository ?? (_studentRepository = new StudentRepository(_dbContext));
 
-        public IRepository<StudentTeacher> StudentTeacherRepository => _studentTeachers ?? (_studentTeachers = new StudentTeacherRepository(_dbContext));
+        public StudentTeacherRepository StudentTeacherRepository => 
+            _studentTeachers ?? (_studentTeachers = new StudentTeacherRepository(_dbContext));
 
         public IRepository<User> UserRepository => _userRepository ?? (_userRepository = new UserRepository(_dbContext));
 

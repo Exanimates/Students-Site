@@ -113,6 +113,85 @@ namespace Students_Site.Controllers
             return View(teacher);
         }
 
+        [HttpGet]
+        public ActionResult EditTeacher(int id)
+        {
+            var teacherBll = _teacherService.GetTeacher(id);
+
+            var teacher = new TeacherEditModel
+            {
+                Id = teacherBll.Id,
+                UserId = teacherBll.UserId,
+                FirstName = teacherBll.User.FirstName,
+                LastName = teacherBll.User.LastName,
+                Login = teacherBll.User.Login,
+                Password = teacherBll.User.Password,
+
+                Students = _studentService.GetStudents().Select(s => new StudentModel
+                {
+                    Id = s.Id,
+                    FirstName = s.User.FirstName,
+                    LastName = s.User.LastName,
+                    IsSelected = false
+                }).ToList(),
+
+                Subjects = _subjectService.GetSubjects().Select(sub => new SubjectModel
+                {
+                    Id = sub.Id,
+                    SubjectName = sub.Name,
+                }).ToList(),
+
+            };
+
+            foreach (var student in teacher.Students)
+            {
+                if (teacherBll.Students.Any(st => st.Id == student.Id))
+                    student.IsSelected = true;
+            }            
+
+            return View(teacher);
+        }
+
+        [HttpPost]
+        public ActionResult EditTeacher(TeacherEditModel teacher)
+        {
+            try
+            {
+                var userBll = new UserBLL
+                {
+                    Id = teacher.UserId,
+                    FirstName = teacher.FirstName,
+                    LastName = teacher.LastName,
+                    Login = teacher.Login,
+                    Password = teacher.Password
+                };
+
+                var teacherBll = new TeacherBLL
+                {
+                    Id = teacher.Id,
+                    User = userBll,
+                    SubjectId = teacher.SubjectId,
+
+                    Students = teacher.Students.Select(s => new StudentBLL
+                    {
+                        Id = s.Id,
+                        UserId = s.UserId,
+                        IsSelected = s.IsSelected
+                    })
+                };
+
+                _teacherService.UpdateTeacher(teacherBll);
+
+                return Content("Преподаватель успешно изменен");
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
+
+            return View(teacher);
+        }
+
         protected override void Dispose(bool disposing)
         {
             _teacherService.Dispose();

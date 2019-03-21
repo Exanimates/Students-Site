@@ -85,12 +85,13 @@ namespace Students_Site.BLL.Services
 
         public void UpdateTeacher(TeacherBLL teacherBll)
         {
-            var user = _database.UserRepository.Get(teacherBll.UserId);
+            var user = _database.UserRepository.Get(teacherBll.User.Id);
 
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
 
-            user.RoleId = teacherBll.User.RoleId;
+            user.RoleId = 3;
+            user.Id = teacherBll.User.Id;
             user.FirstName = teacherBll.User.FirstName;
             user.LastName = teacherBll.User.LastName;
             user.Login = teacherBll.User.Login;
@@ -98,9 +99,28 @@ namespace Students_Site.BLL.Services
 
             _database.UserRepository.Update(user);
 
-            var teacher = _database.TeacherRepository.GetAll().First(s => s.UserId == teacherBll.UserId);
+            var teacher = _database.TeacherRepository.Get(teacherBll.Id);
+
+            teacher.SubjectId = teacherBll.SubjectId;
 
             _database.TeacherRepository.Update(teacher);
+
+            var allStudentTeachers = _database.StudentTeacherRepository.GetAll().ToArray();
+
+            foreach (var currentStudent in teacherBll.Students)
+            {
+                if (!allStudentTeachers.Any(st => st.StudentId == currentStudent.Id && st.TeacherId == teacherBll.Id) &&
+                    currentStudent.IsSelected)
+                {
+                    _database.StudentTeacherRepository.Create(new StudentTeacher
+                    {
+                        TeacherId = teacherBll.Id,
+                        StudentId = currentStudent.Id
+                    });
+                }
+                if (allStudentTeachers.Any(st => st.StudentId == currentStudent.Id && st.TeacherId == teacherBll.Id) && !currentStudent.IsSelected)
+                    _database.StudentTeacherRepository.Delete(currentStudent.Id, teacherBll.Id);
+            }
 
             _database.Save();
         }
