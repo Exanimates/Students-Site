@@ -105,7 +105,7 @@ namespace Students_Site.DAL.EF
 
             var studentTeachers = new List<StudentTeacher>
             {
-                new StudentTeacher { StudentId = students[0].Id, TeacherId = teachers[0].Id },
+                new StudentTeacher { StudentId = students[0].Id, TeacherId = teachers[0].Id, Grade = 4 },
             };
             builder.Entity<StudentTeacher>().HasData(studentTeachers);
         }
