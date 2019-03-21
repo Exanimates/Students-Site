@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Students_Site.Models.Students;
-using Students_Site.Models.Subjects;
+using Students_Site.Models.Student;
+using Students_Site.Models.Subject;
 using Students_Site.Models.Users;
 
-namespace Students_Site.Models.Teachers
+namespace Students_Site.Models.Teacher
 {
     public class TeacherMakeModel : UserModel
     {

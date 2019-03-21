@@ -1,4 +1,4 @@
-﻿namespace Students_Site.Models.Subjects
+﻿namespace Students_Site.Models.Subject
 {
     public class SubjectModel
     {
