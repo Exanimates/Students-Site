@@ -32,7 +32,7 @@ namespace Students_Site.BLL.Services
                 LastName = teacherBll.User.LastName,
                 Login = teacherBll.User.Login,
                 Password = teacherBll.User.Password,
-                RoleId = 2
+                RoleId = 3
             };
 
             _database.UserRepository.Create(user);
