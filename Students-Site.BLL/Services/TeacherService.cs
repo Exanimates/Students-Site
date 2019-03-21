@@ -1,6 +1,7 @@
 ﻿using Students_Site.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Exceptions;
 using Students_Site.DAL.Infrastructure;
@@ -26,6 +27,9 @@ namespace Students_Site.BLL.Services
 
         public void MakeTeacher(TeacherBLL teacherBll)
         {
+            if (_database.UserRepository.Find(u => u.Login == teacherBll.User.Login).Any())
+                throw new ValidationException("Пользователь с таким логином уже существует","");
+
             var user = new User
             {
                 FirstName = teacherBll.User.FirstName,
@@ -85,6 +89,9 @@ namespace Students_Site.BLL.Services
 
         public void UpdateTeacher(TeacherBLL teacherBll)
         {
+            if (_database.UserRepository.Find(u => u.Login == teacherBll.User.Login).Any())
+                throw new ValidationException("Пользователь с таким логином уже существует", "");
+
             var user = _database.UserRepository.Get(teacherBll.User.Id);
 
             if (user == null)

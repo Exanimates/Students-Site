@@ -108,9 +108,8 @@ namespace Students_Site.Controllers
             catch (ValidationException ex)
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
+                return Content(ex.Message);
             }
-
-            return View(teacher);
         }
 
         [HttpGet]
@@ -187,9 +186,8 @@ namespace Students_Site.Controllers
             catch (ValidationException ex)
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
+                return Content(ex.Message);
             }
-
-            return View(teacher);
         }
 
         protected override void Dispose(bool disposing)

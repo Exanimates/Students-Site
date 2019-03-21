@@ -26,6 +26,9 @@ namespace Students_Site.BLL.Services
 
         public void MakeStudent(StudentBLL studentBll)
         {
+            if (_database.UserRepository.Find(u => u.Login == studentBll.User.Login).Any())
+                throw new ValidationException("Пользователь с таким логином уже существует", "");
+
             var teachersGroupBySubject = studentBll.Teachers.GroupBy(t => t.SubjectName);
 
             if (teachersGroupBySubject.Any(subject => subject.Count() > 1))
@@ -129,6 +132,9 @@ namespace Students_Site.BLL.Services
 
         public void UpdateStudent(StudentBLL studentBll)
         {
+            if (_database.UserRepository.Find(u => u.Login == studentBll.User.Login).Any())
+                throw new ValidationException("Пользователь с таким логином уже существует", "");
+    
             var user = _database.UserRepository.Get(studentBll.Id);
 
             if (user == null)
