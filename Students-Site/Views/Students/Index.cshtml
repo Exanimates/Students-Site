@@ -28,18 +28,24 @@
 				@Html.DisplayFor(modelItem => item.LastName)
 			</td>
 			<td>
-				@Html.ActionLink("Подробнее", "ShowStudent", new { id=item.Id })
+				@Html.ActionLink("Подробнее", "ShowStudent", new { id = item.Id })
 			</td>
-			<td>
-				@Html.ActionLink("Редактировать", "EditStudent", new { id = item.Id })
-			</td>
+			@if (User.IsInRole("1") || User.IsInRole("3"))
+			{
+				<td>
+					@Html.ActionLink("Редактировать", "EditStudent", new { id = item.Id })
+				</td>
+			}
 		</tr>
 	}
-	
-	
+
+
 
 </table>
 
-<div>
-	@Html.ActionLink("Добавить студента", "MakeStudent")
-</div>
+@if (User.IsInRole("1") || User.IsInRole("3"))
+{
+	<div>
+		@Html.ActionLink("Добавить студента", "MakeStudent")
+	</div>
+}

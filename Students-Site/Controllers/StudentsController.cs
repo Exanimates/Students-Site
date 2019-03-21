@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Students_Site.BLL.BusinessLogicModels;
@@ -48,6 +49,7 @@ namespace Students_Site.Controllers
         }
 
         [Authorize]
+        [Authorize(Roles = "1,3")]
         public ActionResult MakeStudent()
         {
             var student = new StudentMakeModel
@@ -65,7 +67,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "1,3")]
         public ActionResult MakeStudent(StudentMakeModel student)
         {
             try

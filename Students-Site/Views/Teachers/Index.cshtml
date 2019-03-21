@@ -23,26 +23,32 @@
 
 	@foreach (var item in Model.TeacherModels)
 	{
-	<tr>
-		<td>
-			@Html.DisplayFor(modelItem => item.FirstName)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.LastName)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.SubjectName)
-		</td>
-		<td>
-			@Html.ActionLink("Подробнее", "ShowTeacher", new { id = item.Id })
-		</td>
-		<td>
-			@Html.ActionLink("Редактировать", "EditTeacher", new { id = item.Id })
-		</td>
-	</tr>
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.FirstName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.LastName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.SubjectName)
+			</td>
+			<td>
+				@Html.ActionLink("Подробнее", "ShowTeacher", new { id = item.Id })
+			</td>
+			@if (User.IsInRole("1"))
+			{
+				<td>
+					@Html.ActionLink("Редактировать", "EditTeacher", new { id = item.Id })
+				</td>
+			}
+		</tr>
 	}
 </table>
 
-<div>
-	@Html.ActionLink("Добавить преподавателя", "MakeTeacher")
-</div>
+@if (User.IsInRole("1"))
+{
+	<div>
+		@Html.ActionLink("Добавить преподавателя", "MakeTeacher")
+	</div>
+}

@@ -35,16 +35,17 @@ namespace Students_Site.WEB.Controllers
             if (!ModelState.IsValid) return View(model);
 
             UserBLL userBll = _userService.GetUsers().FirstOrDefault(u => u.Login == model.Login && u.Password == model.Password);
+
                 
             if (userBll != null)
             {
-                var user = new UserBLL
+                var user = new UserModel
                 {
                     Login = userBll.Login,
-                    RoleId = userBll.RoleId
+                    RoleId = userBll.RoleId,
                 };
 
-                await Authenticate(model.Login);
+                await Authenticate(user);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -52,11 +53,12 @@ namespace Students_Site.WEB.Controllers
             return Content("Такого пользователя не существует");
         }
 
-        private async Task Authenticate(string login)
+        private async Task Authenticate(UserModel user)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, login)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.RoleId.ToString())
             };
 
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
