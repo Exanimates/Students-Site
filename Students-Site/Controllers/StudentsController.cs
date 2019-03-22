@@ -131,7 +131,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "1,3")]
         public ActionResult EditStudent(int id)
         {
             var studentBll = _studentService.GetStudent(id);
@@ -169,6 +169,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "1,3")]
         public ActionResult EditStudent(StudentEditModel student)
         {
             try
