@@ -11,7 +11,11 @@
 	var table = $('#example').DataTable({
 		"language": {
 			"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"
-		}
+		},
+		"columnDefs": [
+			{ "orderable": false, "targets": $('#example tfoot th').length - 1 },
+			{ "orderable": false, "targets": $('#example tfoot th').length - 2 }
+		]
 	});
 
 	// Apply the search
