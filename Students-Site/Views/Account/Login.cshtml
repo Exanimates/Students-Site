@@ -1,5 +1,9 @@
 ﻿@model Students_Site.Models.Login.LoginModel
  
+@{
+	ViewData["Title"] = "Вход";
+}
+
 <h2>Вход на сайт</h2>
 
 <form asp-antiforgery="true" asp-action="Login" asp-controller="Account">
