@@ -91,6 +91,11 @@ namespace Students_Site.BLL.Services
 
             foreach(var student in students)
             {
+                if (!student.Teachers.Any())
+                {
+                    student.AverageScore = 0;
+                    continue;
+                }
                 student.AverageScore = student.Teachers.Sum(t => t.Grade) / student.Teachers.Count();
             }
 
