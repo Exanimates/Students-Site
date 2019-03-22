@@ -2,11 +2,15 @@
 	// Setup - add a text input to each footer cell
 	$('#example tfoot th').each(function () {
 		var title = $(this).text();
-		$(this).html('<input type="text" placeholder="Search ' + title + '" />');
+		$(this).html('<input type="text" class="form-control form-control-sm" placeholder="Поиск"/>');
 	});
 
 	// DataTable
-	var table = $('#example').DataTable();
+	var table = $('#example').DataTable({
+		"language": {
+			"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json"
+		}
+	});
 
 	// Apply the search
 	table.columns().every(function () {
