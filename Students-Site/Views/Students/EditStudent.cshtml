@@ -69,9 +69,18 @@
 				<td>
 					<input type="number" asp-for="@Model.TeachersList[i].Grade" />
 				</td>
-				<th>
-					<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox" />
-				</th>
+				@if (User.IsInRole("1"))
+				{
+					<th>
+						<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox" />
+					</th>
+				}
+				else
+				{
+					<th>
+						<input asp-for="@Model.TeachersList[i].IsSelected" onclick="return false;" type="checkbox" />
+					</th>
+				}
 				<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName" />
 				<input type="hidden" asp-for="@Model.TeachersList[i].Id" />
 			</tr>
