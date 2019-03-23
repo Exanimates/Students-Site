@@ -39,30 +39,19 @@
 		</div>
 
 		<h3>Выберите предмет, который будет вести преподаватель</h3>
-
-		<table class="table">
-
-			<tr>
-				<th>
-					Название предмета
-				</th>
-				<th></th>
-			</tr>
+		
+		<div>
 			@for (var i = 0; i < Model.Subjects.Count(); i++)
 			{
-				<tr>
-					<td>
-						<label asp-for="@Model.Subjects[i].Id">@Model.Subjects[i].SubjectName</label>
-					</td>
-					<td>
-						<input asp-for="SubjectId" value="@Model.Subjects[i].Id" type="radio"/>
-					</td>
-					<th></th>
+				<div>
+					<input asp-for="SubjectId" id="@Model.Subjects[i].Id" value="@Model.Subjects[i].Id" type="radio"/>
+					<label name="groupSubject" for="@Model.Subjects[i].Id">@Model.Subjects[i].SubjectName</label>
+
 					<input asp-for="@Model.Subjects[i].Id" type="hidden"/>
 					<input asp-for="@Model.Subjects[i].SubjectName" type="hidden"/>
-				</tr>
+				</div>				
 			}
-		</table>
+		</div>
 
 		<h3>Выберите студентов, которые будут закреплены за данным преподавателем</h3>
 
