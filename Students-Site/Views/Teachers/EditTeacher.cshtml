@@ -57,27 +57,27 @@
 
 		<table class="table">
 			<tr>
+				<th></th>
 				<th>
 					Имя
 				</th>
 				<th>
 					Фамилия
 				</th>
-				<th></th>
 			</tr>
 
 			@for (var i = 0; i < Model.Students.Count(); i++)
 			{
 				<tr>
+					<th>
+						<input asp-for="@Model.Students[i].IsSelected" type="checkbox"/>
+					</th>
 					<td>
 						<label asp-for="@Model.Students[i].FirstName">@Model.Students[i].FirstName</label>
 					</td>
 					<td>
 						<label asp-for="@Model.Students[i].LastName">@Model.Students[i].LastName</label>
 					</td>
-					<th>
-						<input asp-for="@Model.Students[i].IsSelected" type="checkbox"/>
-					</th>
 					<input asp-for="@Model.Students[i].Id" type="hidden"/>
 				</tr>
 			}

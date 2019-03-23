@@ -40,6 +40,7 @@
 
 		<table class="table">
 			<tr>
+				<th></th>
 				<th>
 					Имя
 				</th>
@@ -56,34 +57,34 @@
 
 			@for (var i = 0; i < Model.TeachersList.Count(); i++)
 			{
-			<tr>
-				<td>
-					<label asp-for="@Model.TeachersList[i].FirstName">@Model.TeachersList[i].FirstName</label>
-				</td>
-				<td>
-					<label asp-for="@Model.TeachersList[i].LastName">@Model.TeachersList[i].LastName</label>
-				</td>
-				<td>
-					<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
-				</td>
-				<td>
-					<input type="number" asp-for="@Model.TeachersList[i].Grade" />
-				</td>
-				@if (User.IsInRole("1"))
-				{
-					<th>
-						<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox" />
-					</th>
-				}
-				else
-				{
-					<th>
-						<input asp-for="@Model.TeachersList[i].IsSelected" onclick="return false;" type="checkbox" />
-					</th>
-				}
-				<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName" />
-				<input type="hidden" asp-for="@Model.TeachersList[i].Id" />
-			</tr>
+				<tr>
+					@if (User.IsInRole("1"))
+					{
+						<th>
+							<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox" />
+						</th>
+					}
+					else
+					{
+						<th>
+							<input asp-for="@Model.TeachersList[i].IsSelected" onclick="return false;" type="checkbox" />
+						</th>
+					}
+					<td>
+						<label asp-for="@Model.TeachersList[i].FirstName">@Model.TeachersList[i].FirstName</label>
+					</td>
+					<td>
+						<label asp-for="@Model.TeachersList[i].LastName">@Model.TeachersList[i].LastName</label>
+					</td>
+					<td>
+						<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
+					</td>
+					<td>
+						<input type="number" asp-for="@Model.TeachersList[i].Grade"/>
+					</td>
+					<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName"/>
+					<input type="hidden" asp-for="@Model.TeachersList[i].Id"/>
+				</tr>
 			}
 		</table>
 
