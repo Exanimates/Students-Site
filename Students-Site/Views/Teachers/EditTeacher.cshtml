@@ -44,7 +44,14 @@
 			@for (var i = 0; i < Model.Subjects.Count(); i++)
 			{
 				<div>
-					<input asp-for="SubjectId" id="@Model.Subjects[i].Id" value="@Model.Subjects[i].Id" type="radio"/>
+					@if (Model.SubjectId == Model.Subjects[i].Id)
+					{
+						<input asp-for="SubjectId" id="@Model.Subjects[i].Id" value="@Model.Subjects[i].Id" checked type="radio"/>
+					}
+					else
+					{
+						<input asp-for="SubjectId" id="@Model.Subjects[i].Id" value="@Model.Subjects[i].Id" type="radio"/>
+					}
 					<label name="groupSubject" for="@Model.Subjects[i].Id">@Model.Subjects[i].SubjectName</label>
 
 					<input asp-for="@Model.Subjects[i].Id" type="hidden"/>

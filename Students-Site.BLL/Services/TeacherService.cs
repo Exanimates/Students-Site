@@ -158,6 +158,7 @@ namespace Students_Site.BLL.Services
             {
                 Id = teacher.Id,
                 UserId = teacher.UserId,
+                SubjectId = teacher.SubjectId,
 
                 User = users.FirstOrDefault(u => u.Id == teacher.UserId),
                 Students = studentsTeacher.Select(ts => new StudentBLL

@@ -129,6 +129,7 @@ namespace Students_Site.Controllers
                 LastName = teacherBll.User.LastName,
                 Login = teacherBll.User.Login,
                 Password = teacherBll.User.Password,
+                SubjectId = teacherBll.SubjectId,
 
                 Students = _studentService.GetStudents().Select(s => new StudentModel
                 {
