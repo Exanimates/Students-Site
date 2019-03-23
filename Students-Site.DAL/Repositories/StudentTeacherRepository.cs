@@ -9,6 +9,11 @@ namespace Students_Site.DAL.Repositories
         {
         }
 
+        public StudentTeacher Get(int studentId, int teacherId)
+        {
+            return _dbSet.Find(studentId, teacherId);
+        }
+
         public void Delete(int studentId, int teacherId)
         {
             StudentTeacher entityToDelete = _dbSet.Find(studentId, teacherId);
