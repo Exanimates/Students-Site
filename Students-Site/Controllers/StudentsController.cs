@@ -124,7 +124,9 @@ namespace Students_Site.Controllers
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName,
                     SubjectName = t.SubjectName
-                })
+                }),
+
+                AveradeScore = studentBll.AverageScore
             };
 
             return View(student);
