@@ -4,6 +4,10 @@
 	ViewData["Title"] = "Редактирвоание студента";
 }
 
+<div>
+	@Html.ActionLink("Вернуться к списку студентов", "Index")
+</div>
+
 <h1>Редактирование студента</h1>
 
 <form asp-antiforgery="true" asp-action="EditStudent" method="post" asp-controller="Students" role="form">
@@ -81,10 +85,6 @@
 		</div>
 	</div>
 </form>
-
-<div>
-	@Html.ActionLink("Вернуться к списку студентов", "Index")
-</div>
 
 @section scripts {
 
