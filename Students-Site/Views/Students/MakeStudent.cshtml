@@ -4,6 +4,10 @@
 	ViewData["Title"] = "Создание студента";
 }
 
+<div>
+	@Html.ActionLink("Вернуться к списку студентов", "Index")
+</div>
+
 <h1>Создание студента</h1>
 
 <form asp-antiforgery="true" asp-action="MakeStudent" asp-controller="Students">
