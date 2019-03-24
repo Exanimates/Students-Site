@@ -1,10 +1,19 @@
 ﻿$(document).ready(function () {
-	// Setup - add a text input to each footer cell
-	$('#example tfoot th').each(function () {
+	$('#example thead tr').clone(true).appendTo('#example thead');
+	$('#example thead tr:eq(1) th').each(function (i) {
 		var title = $(this).text();
 		if (title !== "") {
-			$(this).html('<input type="text" class="form-control form-control-sm" placeholder="Поиск"/>');
+			$(this).html('<input type="text" placeholder="Поиск ' + title + '" />');
 		}
+
+		$('input', this).on('keyup change', function () {
+			if (table.column(i).search() !== this.value) {
+				table
+					.column(i)
+					.search(this.value)
+					.draw();
+			}
+		});
 	});
 
 	// DataTable
@@ -15,19 +24,8 @@
 		"columnDefs": [
 			{ "orderable": false, "targets": $('#example tfoot th').length - 1 },
 			{ "orderable": false, "targets": $('#example tfoot th').length - 2 }
-		]
-	});
-
-	// Apply the search
-	table.columns().every(function () {
-		var that = this;
-
-		$('input', this.footer()).on('keyup change', function () {
-			if (that.search() !== this.value) {
-				that
-					.search(this.value)
-					.draw();
-			}
-		});
+		],
+		orderCellsTop: true,
+		fixedHeader: true
 	});
 });
