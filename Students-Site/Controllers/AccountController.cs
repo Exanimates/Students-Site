@@ -16,16 +16,26 @@ namespace Students_Site.WEB.Controllers
     public class AccountController : Controller
     {
         readonly IUserService _userService;
+        readonly ITeacherService _teacherService;
+        readonly IStudentService _studentService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, ITeacherService teacherService, IStudentService studentService)
         {
             _userService = userService;
+            _teacherService = teacherService;
+            _studentService = studentService;
         }
 
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            var user = new LoginModel
+            {
+                StudentCount = _studentService.GetStudents().Count(),
+                TeacherCount = _teacherService.GetTeachers().Count()
+            };
+
+            return View(user);
         }
 
         [HttpPost]

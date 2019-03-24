@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model Students_Site.Models.Home.IndexModel
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -62,11 +64,8 @@
 	</main>
 </div>
 
-<footer class="border-top footer text-muted">
-	<div class="container">
-		&copy; 2019 - Students_Site - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-	</div>
-</footer>
+
+@Html.Partial("_Footer", Model)
 
 <environment include="Development">
 	<script src="~/lib/jquery/dist/jquery.js"></script>

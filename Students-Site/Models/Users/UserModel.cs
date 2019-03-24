@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Students_Site.Models.Home;
+using System.ComponentModel.DataAnnotations;
 
 namespace Students_Site.Models.Users
 {
-    public class UserModel
+    public class UserModel : IndexModel
     {
         public int UserId { get; set; }
 

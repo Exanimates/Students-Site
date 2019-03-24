@@ -39,12 +39,15 @@ namespace Students_Site.Controllers
                     LastName = t.User.LastName,
                     Grade = t.Grade
                 }),
-                AveradeScore = s.AverageScore
+                AveradeScore = s.AverageScore,
             });
 
             var students = new StudentIndexModel
             {
-                StudentModels = studentsModels
+                StudentModels = studentsModels,
+
+                StudentCount = _studentService.GetStudents().Count(),
+                TeacherCount = _teacherService.GetTeachers().Count()
             };
 
             return View(students);

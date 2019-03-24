@@ -99,7 +99,7 @@ namespace Students_Site.BLL.Services
                 student.AverageScore = student.Teachers.Sum(t => t.Grade) / student.Teachers.Count();
             }
 
-            return students;
+            return students.ToArray();
         }
 
         public StudentBLL GetStudent(int? id)
