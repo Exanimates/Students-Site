@@ -85,7 +85,9 @@
 					<td>
 						<label asp-for="@Model.Students[i].LastName">@Model.Students[i].LastName</label>
 					</td>
-					<input asp-for="@Model.Students[i].Id" type="hidden" />
+					<td style="display: none">
+						<input asp-for="@Model.Students[i].Id" type="hidden" />
+					</td>
 				</tr>
 			}
 		</table>

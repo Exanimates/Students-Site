@@ -70,7 +70,9 @@
 								<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
 								<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName"/>
 							</td>
-							<input asp-for="@Model.TeachersList[i].Id" type="hidden"/>
+							<td style="display: none">
+								<input asp-for="@Model.TeachersList[i].Id" type="hidden"/>
+							</td>
 						</tr>
 					}
 				</table>

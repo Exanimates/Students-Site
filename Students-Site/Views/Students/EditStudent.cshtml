@@ -82,8 +82,13 @@
 					<td>
 						<input type="number" asp-for="@Model.TeachersList[i].Grade" />
 					</td>
-					<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName" />
-					<input type="hidden" asp-for="@Model.TeachersList[i].Id" />
+					<td style="display: none">
+						<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName" />
+					</td>
+					<td style="display: none">
+						<input type="hidden" asp-for="@Model.TeachersList[i].Id" />
+					</td>
+
 				</tr>
 			}
 		</table>
