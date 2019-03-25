@@ -80,10 +80,10 @@
 						<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
 					</td>
 					<td>
-						<input type="number" asp-for="@Model.TeachersList[i].Grade"/>
+						<input type="number" asp-for="@Model.TeachersList[i].Grade" />
 					</td>
-					<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName"/>
-					<input type="hidden" asp-for="@Model.TeachersList[i].Id"/>
+					<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName" />
+					<input type="hidden" asp-for="@Model.TeachersList[i].Id" />
 				</tr>
 			}
 		</table>
@@ -96,6 +96,7 @@
 	</div>
 </form>
 
+<script src="~/js/entity-response-handle.js" asp-append-version="true"></script>
 @section scripts {
 
 	<environment names="Development">

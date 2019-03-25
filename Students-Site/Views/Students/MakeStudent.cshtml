@@ -10,7 +10,7 @@
 
 <h1>Создание студента</h1>
 
-<form asp-antiforgery="true" asp-action="MakeStudent" asp-controller="Students">
+<form asp-antiforgery="true" id="studentForm" asp-action="MakeStudent" asp-controller="Students">
 
 	<div class="form-horizontal">
 
@@ -89,6 +89,7 @@
 	@Html.ActionLink("Вернуться к списку студентов", "Index")
 </div>
 
+<script src="~/js/entity-response-handle.js" asp-append-version="true"></script>
 @section scripts {
 
 	<environment names="Development">

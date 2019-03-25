@@ -106,12 +106,12 @@ namespace Students_Site.Controllers
 
                 _teacherService.MakeTeacher(teacherBll);
 
-                return Content("Преподаватель успешно зарегестирован");
+                return Ok("Преподаватель успешно зарегестирован");
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
-                return Content(ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -187,12 +187,12 @@ namespace Students_Site.Controllers
 
                 _teacherService.UpdateTeacher(teacherBll);
 
-                return Content("Преподаватель успешно изменен");
+                return Ok("Преподаватель успешно изменен");
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
-                return Content(ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 

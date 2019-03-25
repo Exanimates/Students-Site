@@ -15,48 +15,48 @@
 <form asp-antiforgery="true" asp-action="EditTeacher" method="post" asp-controller="Teachers" role="form">
 
 	<div class="form-horizontal">
-		
-		<input asp-for="UserId" type="hidden"/>
+
+		<input asp-for="UserId" type="hidden" />
 
 		<div class="form-group">
 			<label asp-for="Login">Логин</label>
-			<input type="text" asp-for="Login" class="form-control"/>
+			<input type="text" asp-for="Login" class="form-control" />
 		</div>
 
 		<div class="form-group">
 			<label asp-for="Password">Пароль</label>
-			<input type="password" asp-for="Password" value="@Model.Password" class="form-control"/>
+			<input type="password" asp-for="Password" value="@Model.Password" class="form-control" />
 		</div>
 
 		<div class="form-group">
 			<label asp-for="FirstName">Имя</label>
-			<input type="text" asp-for="FirstName" class="form-control"/>
+			<input type="text" asp-for="FirstName" class="form-control" />
 		</div>
 
 		<div class="form-group">
 			<label asp-for="LastName">Фамилия</label>
-			<input type="text" asp-for="LastName" class="form-control"/>
+			<input type="text" asp-for="LastName" class="form-control" />
 		</div>
 
 		<h3>Выберите предмет, который будет вести преподаватель</h3>
-		
+
 		<div>
 			@for (var i = 0; i < Model.Subjects.Count(); i++)
 			{
 				<div>
 					@if (Model.SubjectId == Model.Subjects[i].Id)
 					{
-						<input asp-for="SubjectId" id="@Model.Subjects[i].Id" value="@Model.Subjects[i].Id" checked type="radio"/>
+						<input asp-for="SubjectId" id="@Model.Subjects[i].Id" value="@Model.Subjects[i].Id" checked type="radio" />
 					}
 					else
 					{
-						<input asp-for="SubjectId" id="@Model.Subjects[i].Id" value="@Model.Subjects[i].Id" type="radio"/>
+						<input asp-for="SubjectId" id="@Model.Subjects[i].Id" value="@Model.Subjects[i].Id" type="radio" />
 					}
 					<label name="groupSubject" for="@Model.Subjects[i].Id">@Model.Subjects[i].SubjectName</label>
 
-					<input asp-for="@Model.Subjects[i].Id" type="hidden"/>
-					<input asp-for="@Model.Subjects[i].SubjectName" type="hidden"/>
-				</div>				
+					<input asp-for="@Model.Subjects[i].Id" type="hidden" />
+					<input asp-for="@Model.Subjects[i].SubjectName" type="hidden" />
+				</div>
 			}
 		</div>
 
@@ -77,7 +77,7 @@
 			{
 				<tr>
 					<th>
-						<input asp-for="@Model.Students[i].IsSelected" type="checkbox"/>
+						<input asp-for="@Model.Students[i].IsSelected" type="checkbox" />
 					</th>
 					<td>
 						<label asp-for="@Model.Students[i].FirstName">@Model.Students[i].FirstName</label>
@@ -85,18 +85,20 @@
 					<td>
 						<label asp-for="@Model.Students[i].LastName">@Model.Students[i].LastName</label>
 					</td>
-					<input asp-for="@Model.Students[i].Id" type="hidden"/>
+					<input asp-for="@Model.Students[i].Id" type="hidden" />
 				</tr>
 			}
 		</table>
 
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Обновить преподавателя" class="btn btn-default"/>
+				<input type="submit" value="Обновить преподавателя" class="btn btn-default" />
 			</div>
 		</div>
 	</div>
 </form>
+
+<script src="~/js/entity-response-handle.js" asp-append-version="true"></script>
 
 @section scripts {
 

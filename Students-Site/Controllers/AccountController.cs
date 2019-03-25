@@ -54,7 +54,7 @@ namespace Students_Site.WEB.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return Content("Такого пользователя не существует");
+            return StatusCode(500, "Такого пользователя не существует");
         }
 
         private async Task Authenticate(UserModel user)

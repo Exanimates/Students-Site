@@ -2,6 +2,8 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Exceptions;
 using Students_Site.BLL.Services;
@@ -96,12 +98,12 @@ namespace Students_Site.Controllers
 
                 _studentService.MakeStudent(studentBll);
 
-                return Content("Студент успешно зарегестирован");
+                return Ok("Студент успешно зарегестирован");
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
-                return Content(ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -201,12 +203,12 @@ namespace Students_Site.Controllers
 
                 _studentService.UpdateStudent(studentBll);
 
-                return Content("Студент успешно изменен");
+                return Ok("Студент успешно изменен");
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
-                return Content(ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
     }
