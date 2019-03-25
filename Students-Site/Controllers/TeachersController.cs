@@ -42,18 +42,12 @@ namespace Students_Site.Controllers
                     Id = t.User.Id,
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName
-                }),
-
-                StudentCount = _studentService.GetStudents().Count(),
-                TeacherCount = _studentService.GetStudents().Count()
+                })
             });
 
             var teachers = new TeacherIndexModel
             {
-                TeacherModels = teachersModels,
-
-                StudentCount = _studentService.GetStudents().Count(),
-                TeacherCount = _teacherService.GetTeachers().Count()
+                TeacherModels = teachersModels
             };
 
             return View(teachers);

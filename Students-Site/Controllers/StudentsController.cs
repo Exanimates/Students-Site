@@ -44,10 +44,7 @@ namespace Students_Site.Controllers
 
             var students = new StudentIndexModel
             {
-                StudentModels = studentsModels,
-
-                StudentCount = _studentService.GetStudents().Count(),
-                TeacherCount = _teacherService.GetTeachers().Count()
+                StudentModels = studentsModels
             };
 
             return View(students);

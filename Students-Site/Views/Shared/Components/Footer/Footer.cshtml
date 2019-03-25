@@ -1,12 +1,13 @@
-﻿<footer class="border-top footer text-muted">
-		<div class="container">
-			<div>
-				Кол-во студентов: @Model.StudentCount
-				Кол-во преподавателей: @Model.TeacherCount
-				Текущие время и дата: <span id="currentDateTime"></span>
-			</div>
-			&copy; 2019 - Students_Site - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+﻿@model Students_Site.Models.Home.IndexModel
+
+<footer class="border-top footer text-muted">
+	<div class="container">
+		<div>
+			Кол-во студентов: @Model.StudentCount
+			Кол-во преподавателей: @Model.TeacherCount
+			Текущие время и дата: <span id="currentDateTime"></span>
 		</div>
+	</div>
 </footer>
 
 <script>

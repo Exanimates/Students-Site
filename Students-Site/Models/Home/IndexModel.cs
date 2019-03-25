@@ -9,6 +9,5 @@ namespace Students_Site.Models.Home
     {
         public int StudentCount { get; set; }
         public int TeacherCount { get; set; }
-        public DateTime DateTime { get; set; }
     }
 }

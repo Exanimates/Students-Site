@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Students_Site.Models.Users
 {
-    public class UserModel : IndexModel
+    public class UserModel
     {
         public int UserId { get; set; }
 

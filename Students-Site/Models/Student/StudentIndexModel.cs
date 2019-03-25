@@ -1,9 +1,8 @@
-﻿using Students_Site.Models.Home;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Students_Site.Models.Student
 {
-    public class StudentIndexModel : IndexModel
+    public class StudentIndexModel
     {
         public IEnumerable<StudentModel> StudentModels;
     }

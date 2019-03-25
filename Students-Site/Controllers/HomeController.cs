@@ -30,7 +30,6 @@ namespace Students_Site.Controllers
             {
                 StudentCount = _studentService.GetStudents().Count(),
                 TeacherCount = _teacherService.GetTeachers().Count(),
-                DateTime = DateTime.Now
             };
 
             return View(homeIndex);

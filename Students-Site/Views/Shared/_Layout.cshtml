@@ -1,6 +1,4 @@
-﻿@model Students_Site.Models.Home.IndexModel
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -64,8 +62,7 @@
 	</main>
 </div>
 
-
-@Html.Partial("_Footer", Model)
+@await Component.InvokeAsync("Footer");
 
 <environment include="Development">
 	<script src="~/lib/jquery/dist/jquery.js"></script>
