@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\lib\bootstrap\dist\js\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
