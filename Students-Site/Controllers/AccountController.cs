@@ -29,13 +29,7 @@ namespace Students_Site.WEB.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            var user = new LoginModel
-            {
-                StudentCount = _studentService.GetStudents().Count(),
-                TeacherCount = _teacherService.GetTeachers().Count()
-            };
-
-            return View(user);
+            return View();
         }
 
         [HttpPost]

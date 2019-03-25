@@ -24,15 +24,7 @@ namespace Students_Site.Controllers
 
         public IActionResult Index()
         {
-            var studentsModels = _studentService.GetStudents().Count();
-
-            var homeIndex = new IndexModel
-            {
-                StudentCount = _studentService.GetStudents().Count(),
-                TeacherCount = _teacherService.GetTeachers().Count(),
-            };
-
-            return View(homeIndex);
+            return View();
         }
 
         public IActionResult Privacy()
