@@ -7,3 +7,8 @@
 	width: 100%;
 	background: #ffffff url('http://sampsonresume.com/labs/pIkfp.gif') 50% 50% no-repeat;
 }
+
+.form-group {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}

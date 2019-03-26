@@ -35,6 +35,12 @@
 			<label asp-for="LastName">Фамилия</label>
 			<input type="text" asp-for="LastName" class="form-control" />
 		</div>
+		
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Обновить студента" class="btn btn-default" />
+			</div>
+		</div>
 
 		<h3>Выберите преподавателей, которых хотите закрепить за данным студентом</h3>
 
@@ -92,12 +98,6 @@
 				</tr>
 			}
 		</table>
-
-		<div class="form-group">
-			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Обновить студента" class="btn btn-default" />
-			</div>
-		</div>
 	</div>
 </form>
 
