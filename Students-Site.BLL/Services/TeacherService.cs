@@ -1,14 +1,14 @@
-﻿using Students_Site.DAL.Entities;
+﻿using System;
+using Students_Site.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Exceptions;
 using Students_Site.DAL.Infrastructure;
 
 namespace Students_Site.BLL.Services
 {
-    public interface ITeacherService : IService
+    public interface ITeacherService : IDisposable
     {
         void MakeTeacher(TeacherBLL userBll);
         void UpdateTeacher(TeacherBLL userBll);

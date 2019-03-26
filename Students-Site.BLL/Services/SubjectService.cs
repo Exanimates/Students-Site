@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Students_Site.DAL.Entities;
 using System.Linq;
 using Students_Site.BLL.BusinessLogicModels;
@@ -7,7 +8,7 @@ using Students_Site.DAL.Infrastructure;
 
 namespace Students_Site.BLL.Services
 {
-    public interface ISubjectService : IService
+    public interface ISubjectService : IDisposable
     {
         void MakeSubject(SubjectBLL subjectBll);
         SubjectBLL GetSubject(int id);

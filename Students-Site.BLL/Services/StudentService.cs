@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Exceptions;
@@ -7,7 +8,7 @@ using Students_Site.DAL.Infrastructure;
 
 namespace Students_Site.BLL.Services
 {
-    public interface IStudentService : IService
+    public interface IStudentService : IDisposable
     {
         void MakeStudent(StudentBLL studentBll);
         void UpdateStudent(StudentBLL studentBll);

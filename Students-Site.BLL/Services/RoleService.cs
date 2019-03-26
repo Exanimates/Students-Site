@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Exceptions;
 using Students_Site.DAL.Entities;
@@ -6,7 +7,7 @@ using Students_Site.DAL.Infrastructure;
 
 namespace Students_Site.BLL.Services
 {
-    public interface IRoleService : IService
+    public interface IRoleService : IDisposable
     {
         void MakeRole(RoleBLL roleBll);
         RoleBLL GetRole(int id);
