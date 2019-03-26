@@ -10,7 +10,7 @@ namespace Students_Site.BLL.Services
     public interface ISubjectService : IService
     {
         void MakeSubject(SubjectBLL subjectBll);
-        SubjectBLL GetSubject(int? id);
+        SubjectBLL GetSubject(int id);
         IEnumerable<SubjectBLL> GetSubjects();
     }
 
@@ -40,12 +40,9 @@ namespace Students_Site.BLL.Services
             _database.Save();
         }
 
-        public SubjectBLL GetSubject(int? id)
+        public SubjectBLL GetSubject(int id)
         {
-            if (id == null)
-                throw new ValidationException("Id предмета не установлено", "");
-
-            var subject = _database.SubjectRepository.Get(id.Value);
+            var subject = _database.SubjectRepository.Get(id);
 
             if (subject == null)
                 throw new ValidationException("Предмет не найден", "");

@@ -12,7 +12,7 @@ namespace Students_Site.BLL.Services
     {
         void MakeTeacher(TeacherBLL userBll);
         void UpdateTeacher(TeacherBLL userBll);
-        TeacherBLL GetTeacher(int? id);
+        TeacherBLL GetTeacher(int id);
         IEnumerable<TeacherBLL> GetTeachers();
     }
 
@@ -140,7 +140,7 @@ namespace Students_Site.BLL.Services
             _database.Save();
         }
 
-        public TeacherBLL GetTeacher(int? id)
+        public TeacherBLL GetTeacher(int id)
         {
             var users = _database.UserRepository.GetAll().Select(user => new UserBLL
             {
@@ -151,9 +151,6 @@ namespace Students_Site.BLL.Services
                 Login = user.Login,
                 RoleId = user.RoleId
             });
-
-            if (id == null)
-                throw new ValidationException("Id преподавателя не установлено", "");
 
             var teacher = _database.TeacherRepository.Get(id);
 

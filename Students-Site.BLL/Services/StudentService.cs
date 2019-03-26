@@ -11,7 +11,7 @@ namespace Students_Site.BLL.Services
     {
         void MakeStudent(StudentBLL studentBll);
         void UpdateStudent(StudentBLL studentBll);
-        StudentBLL GetStudent(int? id);
+        StudentBLL GetStudent(int id);
         IEnumerable<StudentBLL> GetStudents();
     }
 
@@ -98,11 +98,8 @@ namespace Students_Site.BLL.Services
             return students.ToArray();
         }
 
-        public StudentBLL GetStudent(int? id)
+        public StudentBLL GetStudent(int id)
         {
-            if (id == null)
-                throw new ValidationException("Id студента не установлено", "");
-
             var users = _database.UserRepository.GetAll().Select(user => new UserBLL
             {
                 Id = user.Id,

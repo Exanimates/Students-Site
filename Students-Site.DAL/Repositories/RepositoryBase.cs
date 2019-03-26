@@ -23,7 +23,7 @@ namespace Students_Site.DAL.Repositories
             return _dbSet;
         }
 
-        public virtual TEntity Get(int? id)
+        public virtual TEntity Get(int id)
         {
             return _dbSet.Find(id);
         }

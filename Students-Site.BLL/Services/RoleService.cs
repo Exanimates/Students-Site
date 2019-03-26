@@ -9,7 +9,7 @@ namespace Students_Site.BLL.Services
     public interface IRoleService : IService
     {
         void MakeRole(RoleBLL roleBll);
-        RoleBLL GetRole(int? id);
+        RoleBLL GetRole(int id);
     }
 
     public class RoleService: IRoleService
@@ -36,12 +36,9 @@ namespace Students_Site.BLL.Services
             _database.Save();
         }
 
-        public RoleBLL GetRole(int? id)
+        public RoleBLL GetRole(int id)
         {
-            if (id == null)
-                throw new ValidationException("Id роли не установлено", "");
-
-            var role = _database.RoleRepository.Get(id.Value);
+            var role = _database.RoleRepository.Get(id);
 
             if (role == null)
                 throw new ValidationException("Роль не найдена", "");
