@@ -52,7 +52,8 @@ namespace Students_Site.BLL.Services
                 StudentTeachers = studentBll.Teachers.Select(t => new StudentTeacher
                 {
                     TeacherId = t.Id,
-                    StudentId = studentBll.Id
+                    StudentId = studentBll.Id,
+                    Grade = t.Grade
                 }).ToList()
             };
 

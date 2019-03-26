@@ -56,6 +56,9 @@
 						<th>
 							Предмет
 						</th>
+						<th>
+							Оценка
+						</th>
 						<th style="display: none"></th>
 					</tr>
 				</thead>
@@ -70,18 +73,28 @@
 						</td>
 						<td>
 							<label asp-for="@Model.TeachersList[i].FirstName">@Model.TeachersList[i].FirstName</label>
-							<input type="hidden" asp-for="@Model.TeachersList[i].FirstName"/>
+							<input type="hidden" asp-for="@Model.TeachersList[i].FirstName" />
 						</td>
 						<td>
 							<label asp-for="@Model.TeachersList[i].LastName">@Model.TeachersList[i].LastName</label>
-							<input type="hidden" asp-for="@Model.TeachersList[i].LastName"/>
+							<input type="hidden" asp-for="@Model.TeachersList[i].LastName" />
 						</td>
 						<td>
 							<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
-							<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName"/>
+							<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName" />
+						</td>
+						<td>
+							@if (User.FindFirst("UserId").Value == Model.TeachersList[i].UserId.ToString() || User.IsInRole("1"))
+							{
+								<input type="number" value="@Model.TeachersList[i].Grade" asp-for="@Model.TeachersList[i].Grade"/>
+							}
+							else
+							{
+								<span>@Model.TeachersList[i].Grade</span>
+							}
 						</td>
 						<td style="display: none">
-							<input asp-for="@Model.TeachersList[i].Id" type="hidden"/>
+							<input asp-for="@Model.TeachersList[i].Id" type="hidden" />
 						</td>
 					</tr>
 				}
@@ -98,6 +111,9 @@
 						</th>
 						<th>
 							Предмет
+						</th>
+						<th>
+							Оценка
 						</th>
 						<th style="display: none"></th>
 					</tr>

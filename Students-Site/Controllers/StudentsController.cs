@@ -58,12 +58,14 @@ namespace Students_Site.Controllers
         {
             var student = new StudentMakeModel
             {
-                TeachersList = _teacherService.GetTeachers().Select(s => new TeacherModel
+                TeachersList = _teacherService.GetTeachers().Select(t => new TeacherModel
                 {
-                    Id = s.Id,
-                    FirstName = s.User.FirstName,
-                    LastName = s.User.LastName,
-                    SubjectName = s.SubjectName,
+                    Id = t.Id,
+                    UserId = t.UserId,
+                    FirstName = t.User.FirstName,
+                    LastName = t.User.LastName,
+                    SubjectName = t.SubjectName,
+                    Grade = 0
                 }).ToList()
             };
 
@@ -93,6 +95,7 @@ namespace Students_Site.Controllers
                         Id = t.Id,
                         UserId = t.UserId,
                         SubjectName = t.SubjectName,
+                        Grade = t.Grade
                     })
                 };
 
