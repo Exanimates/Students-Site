@@ -36,9 +36,18 @@
 			<td>
 				@Html.DisplayFor(modelItem => item.LastName)
 			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.AveradeScore)
-			</td>
+			@if (double.IsNaN(item.AveradeScore))
+			{
+				<td>
+					N/A
+				</td>
+			}
+			else
+			{
+				<td>
+					@Html.DisplayFor(modelItem => item.AveradeScore)
+				</td>
+			}
 			<td>
 				@Html.ActionLink("Подробнее", "ShowStudent", new {id = item.Id})
 			</td>

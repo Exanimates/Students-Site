@@ -20,7 +20,15 @@
 	</div>
 	<div>
 		<label>Средний бал</label>
-		<p>@Model.AveradeScore</p>
+		@if (double.IsNaN(Model.AveradeScore))
+		{
+			<p>N/A</p>
+		}
+		else
+		{
+			<p>@Model.AveradeScore</p>
+		}
+
 	</div>
 </div>
 
