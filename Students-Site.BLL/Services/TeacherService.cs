@@ -30,6 +30,14 @@ namespace Students_Site.BLL.Services
             if (_database.UserRepository.Find(u => u.Login == teacherBll.User.Login).Any())
                 throw new ValidationException("Пользователь с таким логином уже существует","");
 
+            foreach (var student in teacherBll.Students)
+            {
+                if (student.Teachers.GroupBy(st => st.SubjectName == teacherBll.SubjectName).Any())
+                {
+                    throw new ValidationException($"Нельзя добавить преподавателя для {student.User.FirstName}. У него уже ведут предмет {teacherBll.SubjectName}", "");
+                }
+            }
+
             var user = new User
             {
                 FirstName = teacherBll.User.FirstName,

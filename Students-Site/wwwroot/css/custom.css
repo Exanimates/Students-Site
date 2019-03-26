@@ -24,3 +24,7 @@
 .navbar-brand {
 	word-break: normal;
 }
+
+.swal-modal {
+	width: 650px;
+}

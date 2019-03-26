@@ -96,12 +96,19 @@ namespace Students_Site.Controllers
                 {
                     User = userBll,
                     SubjectId = teacher.SubjectId,
+                    SubjectName = teacher.Subjects.First(s => s.Id == teacher.SubjectId).SubjectName,
 
                     Students = teacher.Students.Where(s => s.IsSelected).Select(s => new StudentBLL
                     {
                         Id = s.Id,
-                        UserId = s.UserId
-                    })
+                        UserId = s.UserId,
+
+                        User = new UserBLL
+                        {
+                            FirstName = s.FirstName,
+                        },
+                        Teachers = _studentService.GetStudent(s.Id).Teachers
+                    }).ToArray()
                 };
 
                 _teacherService.MakeTeacher(teacherBll);
