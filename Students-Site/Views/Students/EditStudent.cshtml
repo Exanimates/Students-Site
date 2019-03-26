@@ -44,36 +44,41 @@
 
 		<h3>Выберите преподавателей, которых хотите закрепить за данным студентом</h3>
 
-		<table class="table">
-			<tr>
-				<th></th>
-				<th>
-					Имя
-				</th>
-				<th>
-					Фамилия
-				</th>
-				<th>
-					Предмет
-				</th>
-				<th>
-					Оценка студента
-				</th>
-			</tr>
-
+		<table class="table table-striped table-bordered" id="example">
+			<thead>
+				<tr>
+					<th></th>
+					<th>
+						Имя
+					</th>
+					<th>
+						Фамилия
+					</th>
+					<th>
+						Предмет
+					</th>
+					<th>
+						Оценка студента
+					</th>
+					<th style="display: none"></th>
+					<th style="display: none"></th>
+				</tr>
+			</thead>
+			
+			<tbody>
 			@for (var i = 0; i < Model.TeachersList.Count(); i++)
 			{
 				<tr>
 					@if (User.IsInRole("1"))
 					{
 						<th>
-							<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox" />
+							<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox"/>
 						</th>
 					}
 					else
 					{
 						<th>
-							<input asp-for="@Model.TeachersList[i].IsSelected" onclick="return false;" type="checkbox" />
+							<input asp-for="@Model.TeachersList[i].IsSelected" onclick="return false;" type="checkbox"/>
 						</th>
 					}
 					<td>
@@ -86,17 +91,39 @@
 						<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
 					</td>
 					<td>
-						<input type="number" asp-for="@Model.TeachersList[i].Grade" />
+						<input type="number" asp-for="@Model.TeachersList[i].Grade"/>
 					</td>
 					<td style="display: none">
-						<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName" />
+						<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName"/>
 					</td>
 					<td style="display: none">
-						<input type="hidden" asp-for="@Model.TeachersList[i].Id" />
+						<input type="hidden" asp-for="@Model.TeachersList[i].Id"/>
 					</td>
 
 				</tr>
 			}
+			</tbody>
+			
+			<tfoot>
+				<tr>
+					<th></th>
+					<th>
+						Имя
+					</th>
+					<th>
+						Фамилия
+					</th>
+					<th>
+						Предмет
+					</th>
+					<th>
+						Оценка студента
+					</th>
+					<th style="display: none"></th>
+					<th style="display: none"></th>
+				</tr>
+			</tfoot>
+			
 		</table>
 	</div>
 </form>
@@ -107,6 +134,8 @@
 	<environment names="Development">
 		<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 		<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+		
+		<script src="~/js/startDataTable.js"></script>
 	</environment>
 	<environment names="Staging,Production">
 		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"

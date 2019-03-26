@@ -10,7 +10,7 @@
 
 <h1>Создание студента</h1>
 
-<form asp-antiforgery="true" id="studentForm" asp-action="MakeStudent" asp-controller="Students">
+<form asp-antiforgery="true" asp-action="MakeStudent" asp-controller="Students">
 
 	<div class="form-horizontal">
 
@@ -43,7 +43,8 @@
 		<div>
 			<h3>Выберите преподавателей, которых хотите закрепить за студентом</h3>
 
-				<table class="table">
+			<table class="table table-striped table-bordered" id="example" style="width: 100%">
+				<thead>
 					<tr>
 						<th></th>
 						<th>
@@ -55,36 +56,54 @@
 						<th>
 							Предмет
 						</th>
+						<th style="display: none"></th>
 					</tr>
-					
-					@for (var i = 0; i < Model.TeachersList.Count(); i++)
-					{
-						<tr>
-							<td>
-								<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox"/>
-								<input type="hidden" asp-for="@Model.TeachersList[i].IsSelected"/>
-							</td>
-							<td>
-								<label asp-for="@Model.TeachersList[i].FirstName">@Model.TeachersList[i].FirstName</label>
-								<input type="hidden" asp-for="@Model.TeachersList[i].FirstName"/>
-							</td>
-							<td>
-								<label asp-for="@Model.TeachersList[i].LastName">@Model.TeachersList[i].LastName</label>
-								<input type="hidden" asp-for="@Model.TeachersList[i].LastName"/>
-							</td>
-							<td>
-								<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
-								<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName"/>
-							</td>
-							<td style="display: none">
-								<input asp-for="@Model.TeachersList[i].Id" type="hidden"/>
-							</td>
-						</tr>
-					}
-				</table>
-		</div>
-		
+				</thead>
+				
+				<tbody>
+				@for (var i = 0; i < Model.TeachersList.Count(); i++)
+				{
+					<tr>
+						<td>
+							<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox"/>
+							<input type="hidden" asp-for="@Model.TeachersList[i].IsSelected"/>
+						</td>
+						<td>
+							<label asp-for="@Model.TeachersList[i].FirstName">@Model.TeachersList[i].FirstName</label>
+							<input type="hidden" asp-for="@Model.TeachersList[i].FirstName"/>
+						</td>
+						<td>
+							<label asp-for="@Model.TeachersList[i].LastName">@Model.TeachersList[i].LastName</label>
+							<input type="hidden" asp-for="@Model.TeachersList[i].LastName"/>
+						</td>
+						<td>
+							<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
+							<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName"/>
+						</td>
+						<td style="display: none">
+							<input asp-for="@Model.TeachersList[i].Id" type="hidden"/>
+						</td>
+					</tr>
+				}
+				</tbody>
+				
+				<tfoot>
+					<tr>
+						<th></th>
+						<th>
+							Имя
+						</th>
+						<th>
+							Фамилия
+						</th>
+						<th>
+							Предмет
+						</th>
+						<th style="display: none"></th>
+					</tr>
+				</tfoot>
 
+			</table>
 		</div>
 	</div>
 </form>
@@ -99,6 +118,8 @@
 	<environment names="Development">
 		<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 		<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+		
+		<script src="~/js/startDataTable.js"></script>
 	</environment>
 	<environment names="Staging,Production">
 		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
