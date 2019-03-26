@@ -68,8 +68,16 @@
 				{
 					<tr>
 						<td>
-							<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox"/>
-							<input type="hidden" asp-for="@Model.TeachersList[i].IsSelected"/>
+							@if (User.FindFirst("UserId").Value == Model.TeachersList[i].UserId.ToString() || User.IsInRole("1"))
+							{
+								<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox" />
+							}
+							else
+							{
+								<input asp-for="@Model.TeachersList[i].IsSelected" onclick="return false" type="checkbox" />
+							}
+							
+							<input type="hidden" asp-for="@Model.TeachersList[i].IsSelected" />
 						</td>
 						<td>
 							<label asp-for="@Model.TeachersList[i].FirstName">@Model.TeachersList[i].FirstName</label>
