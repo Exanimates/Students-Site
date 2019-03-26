@@ -151,6 +151,7 @@ namespace Students_Site.Controllers
 
                 TeachersList = _teacherService.GetTeachers().Select(t => new TeacherModel
                 {
+                    UserId = t.UserId,
                     Id = t.Id,
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName,

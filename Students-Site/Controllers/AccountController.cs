@@ -47,6 +47,7 @@ namespace Students_Site.WEB.Controllers
             {
                 var user = new UserModel
                 {
+                    UserId = userBll.Id,
                     Login = userBll.Login,
                     RoleId = userBll.RoleId,
                     FirstName = userBll.FirstName,
@@ -65,6 +66,7 @@ namespace Students_Site.WEB.Controllers
         {
             var claims = new List<Claim>
             {
+                new Claim("UserId", user.UserId.ToString()),
                 new Claim("FirstName", user.FirstName),
                 new Claim("LastName", user.LastName),
                 new Claim("RoleName", _roleService.GetRole(user.RoleId).Name),
