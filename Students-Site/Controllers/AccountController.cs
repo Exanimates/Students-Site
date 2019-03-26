@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Services;
-using Students_Site.Models.Login;
+using Students_Site.Models.Account;
 using Students_Site.Models.Users;
 
 namespace Students_Site.WEB.Controllers
