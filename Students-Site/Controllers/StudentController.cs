@@ -54,7 +54,7 @@ namespace Students_Site.Controllers
 
         [Authorize]
         [Authorize(Roles = "1,3")]
-        public ActionResult MakeStudent()
+        public ActionResult Create()
         {
             var student = new StudentMakeModel
             {
@@ -74,7 +74,7 @@ namespace Students_Site.Controllers
 
         [HttpPost]
         [Authorize(Roles = "1,3")]
-        public ActionResult MakeStudent(StudentMakeModel student)
+        public ActionResult Create(StudentMakeModel student)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace Students_Site.Controllers
             }
         }
 
-        public IActionResult ShowStudent(int id)
+        public IActionResult Show(int id)
         {
             var studentBll = _studentService.Get(id);
 
@@ -139,7 +139,7 @@ namespace Students_Site.Controllers
 
         [HttpGet]
         [Authorize(Roles = "1,3")]
-        public ActionResult EditStudent(int id)
+        public ActionResult Edit(int id)
         {
             var studentBll = _studentService.Get(id);
 
@@ -178,7 +178,7 @@ namespace Students_Site.Controllers
 
         [HttpPost]
         [Authorize(Roles = "1,3")]
-        public ActionResult EditStudent(StudentEditModel student)
+        public ActionResult Edit(StudentEditModel student)
         {
             try
             {
