@@ -10,14 +10,14 @@ using Students_Site.Models.Teacher;
 
 namespace Students_Site.Controllers
 {
-    public class TeachersController : Controller
+    public class TeacherController : Controller
     {
         readonly ITeacherService _teacherService;
         readonly IUserService _userService;
         readonly IStudentService _studentService;
         readonly ISubjectService _subjectService;
 
-        public TeachersController(ITeacherService teacherService, IUserService userService, ISubjectService subjectService, IStudentService studentService)
+        public TeacherController(ITeacherService teacherService, IUserService userService, ISubjectService subjectService, IStudentService studentService)
         {
             _teacherService = teacherService;
             _userService = userService;
@@ -55,7 +55,7 @@ namespace Students_Site.Controllers
 
         [HttpGet]
         [Authorize(Roles = "1")]
-        public ActionResult MakeTeacher()
+        public ActionResult Create()
         {
             var teacher = new TeacherMakeModel
             {
@@ -80,7 +80,7 @@ namespace Students_Site.Controllers
 
         [HttpPost]
         [Authorize(Roles = "1")]
-        public ActionResult MakeTeacher(TeacherMakeModel teacher)
+        public ActionResult Create(TeacherMakeModel teacher)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace Students_Site.Controllers
 
         [HttpGet]
         [Authorize(Roles = "1")]
-        public ActionResult EditTeacher(int id)
+        public ActionResult Edit(int id)
         {
             var teacherBll = _teacherService.Get(id);
 
@@ -165,7 +165,7 @@ namespace Students_Site.Controllers
 
         [HttpPost]
         [Authorize(Roles = "1")]
-        public ActionResult EditTeacher(TeacherEditModel teacher)
+        public ActionResult Edit(TeacherEditModel teacher)
         {
             try
             {
@@ -210,7 +210,7 @@ namespace Students_Site.Controllers
             base.Dispose(disposing);
         }
 
-        public IActionResult ShowTeacher(int id)
+        public IActionResult Show(int id)
         {
             var teacherBll = _teacherService.Get(id);
 

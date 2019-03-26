@@ -47,12 +47,12 @@
 				@Html.DisplayName(item.Students.Count().ToString())
 			</td>
 			<td>
-				@Html.ActionLink("Подробнее", "ShowTeacher", new {id = item.Id})
+				@Html.ActionLink("Подробнее", "Show", new {id = item.Id})
 			</td>
 			@if (User.IsInRole("1"))
 			{
 				<td>
-					@Html.ActionLink("Редактировать", "EditTeacher", new {id = item.Id})
+					@Html.ActionLink("Редактировать", "Edit", new {id = item.Id})
 				</td>
 			}
 		</tr>
@@ -86,7 +86,7 @@
 @if (User.IsInRole("1"))
 {
 	<div>
-		@Html.ActionLink("Добавить преподавателя", "MakeTeacher")
+		@Html.ActionLink("Добавить преподавателя", "Create")
 	</div>
 }
 
