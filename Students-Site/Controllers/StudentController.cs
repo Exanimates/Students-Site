@@ -12,12 +12,12 @@ using Students_Site.Models.Teacher;
 
 namespace Students_Site.Controllers
 {
-    public class StudentsController : Controller
+    public class StudentController : Controller
     {
         readonly IStudentService _studentService;
         readonly ITeacherService _teacherService;
 
-        public StudentsController(IStudentService studentService, ITeacherService teacherService)
+        public StudentController(IStudentService studentService, ITeacherService teacherService)
         {
             _studentService = studentService;
             _teacherService = teacherService;
