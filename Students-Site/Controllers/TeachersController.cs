@@ -27,7 +27,7 @@ namespace Students_Site.Controllers
 
         public IActionResult Index()
         {
-            var teachersModels = _teacherService.GetTeachers().Select(s => new TeacherModel
+            var teachersModels = _teacherService.GetAll().Select(s => new TeacherModel
             {
                 Id = s.Id,
                 FirstName = s.User.FirstName,
@@ -59,14 +59,14 @@ namespace Students_Site.Controllers
         {
             var teacher = new TeacherMakeModel
             {
-                Students = _studentService.GetStudents().Select(s => new StudentModel
+                Students = _studentService.GetAll().Select(s => new StudentModel
                 {
                     Id = s.Id,
                     FirstName = s.User.FirstName,
                     LastName = s.User.LastName,
                     IsSelected = false
                 }).ToList(),
-                Subjects = _subjectService.GetSubjects().Select(sub => new SubjectModel
+                Subjects = _subjectService.GetAll().Select(sub => new SubjectModel
                 {
                     Id = sub.Id,
                     SubjectName = sub.Name
@@ -107,11 +107,11 @@ namespace Students_Site.Controllers
                         {
                             FirstName = s.FirstName,
                         },
-                        Teachers = _studentService.GetStudent(s.Id).Teachers
+                        Teachers = _studentService.Get(s.Id).Teachers
                     }).ToArray()
                 };
 
-                _teacherService.MakeTeacher(teacherBll);
+                _teacherService.Create(teacherBll);
 
                 return Ok("Преподаватель успешно зарегестирован");
             }
@@ -126,7 +126,7 @@ namespace Students_Site.Controllers
         [Authorize(Roles = "1")]
         public ActionResult EditTeacher(int id)
         {
-            var teacherBll = _teacherService.GetTeacher(id);
+            var teacherBll = _teacherService.Get(id);
 
             var teacher = new TeacherEditModel
             {
@@ -138,7 +138,7 @@ namespace Students_Site.Controllers
                 Password = teacherBll.User.Password,
                 SubjectId = teacherBll.SubjectId,
 
-                Students = _studentService.GetStudents().Select(s => new StudentModel
+                Students = _studentService.GetAll().Select(s => new StudentModel
                 {
                     Id = s.Id,
                     FirstName = s.User.FirstName,
@@ -146,7 +146,7 @@ namespace Students_Site.Controllers
                     IsSelected = false
                 }).ToList(),
 
-                Subjects = _subjectService.GetSubjects().Select(sub => new SubjectModel
+                Subjects = _subjectService.GetAll().Select(sub => new SubjectModel
                 {
                     Id = sub.Id,
                     SubjectName = sub.Name,
@@ -192,7 +192,7 @@ namespace Students_Site.Controllers
                     })
                 };
 
-                _teacherService.UpdateTeacher(teacherBll);
+                _teacherService.Update(teacherBll);
 
                 return Ok("Преподаватель успешно изменен");
             }
@@ -212,7 +212,7 @@ namespace Students_Site.Controllers
 
         public IActionResult ShowTeacher(int id)
         {
-            var teacherBll = _teacherService.GetTeacher(id);
+            var teacherBll = _teacherService.Get(id);
 
             var teacher = new TeacherModel
             {

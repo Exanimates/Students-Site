@@ -10,9 +10,9 @@ namespace Students_Site.BLL.Services
 {
     public interface IUserService : IDisposable
     {
-        void MakeUser(UserBLL userBll, IEnumerable<int> studentsId);
-        void UpdateUser(UserBLL userBll, IEnumerable<int> studentsId);
-        IEnumerable<UserBLL> GetUsers();
+        void Create(UserBLL userBll, IEnumerable<int> studentsId);
+        void Update(UserBLL userBll, IEnumerable<int> studentsId);
+        IEnumerable<UserBLL> GetAll();
     }
     public class UserService : IUserService
     {
@@ -23,7 +23,7 @@ namespace Students_Site.BLL.Services
             _database = unitOfWork;
         }
 
-        public void MakeUser(UserBLL userBll, IEnumerable<int> studentsId)
+        public void Create(UserBLL userBll, IEnumerable<int> studentsId)
         {
             var user = new User
             {
@@ -39,7 +39,7 @@ namespace Students_Site.BLL.Services
             _database.Save();
         }
 
-        public IEnumerable<UserBLL> GetUsers()
+        public IEnumerable<UserBLL> GetAll()
         {
             return _database.UserRepository.GetAll().Select(user => new UserBLL
             {
@@ -52,7 +52,7 @@ namespace Students_Site.BLL.Services
             }).ToArray();
         }
 
-        public void UpdateUser(UserBLL userBll, IEnumerable<int> teachersId)
+        public void Update(UserBLL userBll, IEnumerable<int> teachersId)
         {
             var user = _database.UserRepository.Get(userBll.Id);
 

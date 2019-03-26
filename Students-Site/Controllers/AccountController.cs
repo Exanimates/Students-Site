@@ -40,7 +40,7 @@ namespace Students_Site.WEB.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            UserBLL userBll = _userService.GetUsers().FirstOrDefault(u => u.Login == model.Login && u.Password == model.Password);
+            UserBLL userBll = _userService.GetAll().FirstOrDefault(u => u.Login == model.Login && u.Password == model.Password);
 
                 
             if (userBll != null)
@@ -69,7 +69,7 @@ namespace Students_Site.WEB.Controllers
                 new Claim("UserId", user.UserId.ToString()),
                 new Claim("FirstName", user.FirstName),
                 new Claim("LastName", user.LastName),
-                new Claim("RoleName", _roleService.GetRole(user.RoleId).Name),
+                new Claim("RoleName", _roleService.Get(user.RoleId).Name),
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.RoleId.ToString())
             };

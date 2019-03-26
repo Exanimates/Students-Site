@@ -10,9 +10,9 @@ namespace Students_Site.BLL.Services
 {
     public interface ISubjectService : IDisposable
     {
-        void MakeSubject(SubjectBLL subjectBll);
-        SubjectBLL GetSubject(int id);
-        IEnumerable<SubjectBLL> GetSubjects();
+        void Create(SubjectBLL subjectBll);
+        SubjectBLL Get(int id);
+        IEnumerable<SubjectBLL> GetAll();
     }
 
     public class SubjectService: ISubjectService
@@ -24,7 +24,7 @@ namespace Students_Site.BLL.Services
             _database = unitOfWork;
         }
 
-        public void MakeSubject(SubjectBLL subjectBll)
+        public void Create(SubjectBLL subjectBll)
         {
             var subjectByName = _database.SubjectRepository.GetAll().FirstOrDefault(r => r.Name == subjectBll.Name);
 
@@ -41,7 +41,7 @@ namespace Students_Site.BLL.Services
             _database.Save();
         }
 
-        public SubjectBLL GetSubject(int id)
+        public SubjectBLL Get(int id)
         {
             var subject = _database.SubjectRepository.Get(id);
 
@@ -51,7 +51,7 @@ namespace Students_Site.BLL.Services
             return new SubjectBLL { Name = subject.Name };
         }
 
-        public IEnumerable<SubjectBLL> GetSubjects()
+        public IEnumerable<SubjectBLL> GetAll()
         {
             return _database.SubjectRepository.GetAll().Select(subject => new SubjectBLL
             {

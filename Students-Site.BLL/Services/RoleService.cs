@@ -9,8 +9,8 @@ namespace Students_Site.BLL.Services
 {
     public interface IRoleService : IDisposable
     {
-        void MakeRole(RoleBLL roleBll);
-        RoleBLL GetRole(int id);
+        void Create(RoleBLL roleBll);
+        RoleBLL Get(int id);
     }
 
     public class RoleService: IRoleService
@@ -22,7 +22,7 @@ namespace Students_Site.BLL.Services
             _database = unitOfWork;
         }
 
-        public void MakeRole(RoleBLL roleBll)
+        public void Create(RoleBLL roleBll)
         {
             var roleByName = _database.RoleRepository.GetAll().FirstOrDefault(r => r.Name == roleBll.Name);
 
@@ -37,7 +37,7 @@ namespace Students_Site.BLL.Services
             _database.Save();
         }
 
-        public RoleBLL GetRole(int id)
+        public RoleBLL Get(int id)
         {
             var role = _database.RoleRepository.Get(id);
 

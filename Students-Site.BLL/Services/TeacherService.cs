@@ -10,10 +10,10 @@ namespace Students_Site.BLL.Services
 {
     public interface ITeacherService : IDisposable
     {
-        void MakeTeacher(TeacherBLL userBll);
-        void UpdateTeacher(TeacherBLL userBll);
-        TeacherBLL GetTeacher(int id);
-        IEnumerable<TeacherBLL> GetTeachers();
+        void Create(TeacherBLL userBll);
+        void Update(TeacherBLL userBll);
+        TeacherBLL Get(int id);
+        IEnumerable<TeacherBLL> GetAll();
     }
 
     public class TeacherService: ITeacherService
@@ -25,7 +25,7 @@ namespace Students_Site.BLL.Services
             _database = unitOfWork;
         }
 
-        public void MakeTeacher(TeacherBLL teacherBll)
+        public void Create(TeacherBLL teacherBll)
         {
             if (_database.UserRepository.Find(u => u.Login == teacherBll.User.Login).Any())
                 throw new ValidationException("Пользователь с таким логином уже существует","");
@@ -66,7 +66,7 @@ namespace Students_Site.BLL.Services
             _database.Save();
         }
 
-        public IEnumerable<TeacherBLL> GetTeachers()
+        public IEnumerable<TeacherBLL> GetAll()
         {
             var users = _database.UserRepository.GetAll().Select(user => new UserBLL
             {
@@ -95,7 +95,7 @@ namespace Students_Site.BLL.Services
             }).ToArray();
         }
 
-        public void UpdateTeacher(TeacherBLL teacherBll)
+        public void Update(TeacherBLL teacherBll)
         {
             if (_database.UserRepository.Find(u => u.Login == teacherBll.User.Login && u.Id != teacherBll.User.Id).Any())
                 throw new ValidationException("Пользователь с таким логином уже существует", "");
@@ -140,7 +140,7 @@ namespace Students_Site.BLL.Services
             _database.Save();
         }
 
-        public TeacherBLL GetTeacher(int id)
+        public TeacherBLL Get(int id)
         {
             var users = _database.UserRepository.GetAll().Select(user => new UserBLL
             {

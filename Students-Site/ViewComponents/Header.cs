@@ -23,8 +23,8 @@ namespace Students_Site.ViewComponents
         {
             var indexModel = new IndexModel
             {
-                StudentCount = _studentService.GetStudents().Count(),
-                TeacherCount = _teacherService.GetTeachers().Count()
+                StudentCount = _studentService.GetAll().Count(),
+                TeacherCount = _teacherService.GetAll().Count()
             };
 
             return View("Header", indexModel);

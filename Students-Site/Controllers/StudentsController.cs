@@ -25,7 +25,7 @@ namespace Students_Site.Controllers
 
         public IActionResult Index()
         {
-            var studentsModels = _studentService.GetStudents().Select(s => new StudentModel
+            var studentsModels = _studentService.GetAll().Select(s => new StudentModel
             {
                 Id = s.Id,
                 FirstName = s.User.FirstName,
@@ -58,7 +58,7 @@ namespace Students_Site.Controllers
         {
             var student = new StudentMakeModel
             {
-                TeachersList = _teacherService.GetTeachers().Select(t => new TeacherModel
+                TeachersList = _teacherService.GetAll().Select(t => new TeacherModel
                 {
                     Id = t.Id,
                     UserId = t.UserId,
@@ -99,7 +99,7 @@ namespace Students_Site.Controllers
                     })
                 };
 
-                _studentService.MakeStudent(studentBll);
+                _studentService.Create(studentBll);
 
                 return Ok("Студент успешно зарегестирован");
             }
@@ -112,7 +112,7 @@ namespace Students_Site.Controllers
 
         public IActionResult ShowStudent(int id)
         {
-            var studentBll = _studentService.GetStudent(id);
+            var studentBll = _studentService.Get(id);
 
             var student = new StudentModel
             {
@@ -141,7 +141,7 @@ namespace Students_Site.Controllers
         [Authorize(Roles = "1,3")]
         public ActionResult EditStudent(int id)
         {
-            var studentBll = _studentService.GetStudent(id);
+            var studentBll = _studentService.Get(id);
 
             var student = new StudentEditModel
             {
@@ -152,7 +152,7 @@ namespace Students_Site.Controllers
                 Login = studentBll.User.Login,
                 Password = studentBll.User.Password,
 
-                TeachersList = _teacherService.GetTeachers().Select(t => new TeacherModel
+                TeachersList = _teacherService.GetAll().Select(t => new TeacherModel
                 {
                     UserId = t.UserId,
                     Id = t.Id,
@@ -205,7 +205,7 @@ namespace Students_Site.Controllers
                     })
                 };
 
-                _studentService.UpdateStudent(studentBll);
+                _studentService.Update(studentBll);
 
                 return Ok("Студент успешно изменен");
             }
