@@ -22,9 +22,9 @@ namespace Students_Site.DAL.EF
         {
             var roles = new List<Role>
             {
-                new Role { Id = 1, Name = "Dean" },
-                new Role { Id = 2, Name = "Student" },
-                new Role { Id = 3, Name = "Teacher" },
+                new Role { Id = 1, Name = "Декан" },
+                new Role { Id = 2, Name = "Студент" },
+                new Role { Id = 3, Name = "Учитель" },
             };
 
             var users = new List<User>
