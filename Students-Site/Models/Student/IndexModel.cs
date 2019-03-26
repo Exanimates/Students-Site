@@ -2,7 +2,7 @@
 
 namespace Students_Site.Models.Student
 {
-    public class StudentIndexModel
+    public class IndexModel
     {
         public IEnumerable<StudentModel> StudentModels;
     }

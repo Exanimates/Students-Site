@@ -44,7 +44,7 @@ namespace Students_Site.Controllers
                 AveradeScore = s.AverageScore,
             });
 
-            var students = new StudentIndexModel
+            var students = new IndexModel
             {
                 StudentModels = studentsModels
             };
@@ -143,7 +143,7 @@ namespace Students_Site.Controllers
         {
             var studentBll = _studentService.Get(id);
 
-            var student = new StudentEditModel
+            var student = new EditModel
             {
                 Id = studentBll.Id,
                 UserId = studentBll.UserId,
@@ -178,7 +178,7 @@ namespace Students_Site.Controllers
 
         [HttpPost]
         [Authorize(Roles = "1,3")]
-        public ActionResult Edit(StudentEditModel student)
+        public ActionResult Edit(EditModel student)
         {
             try
             {
