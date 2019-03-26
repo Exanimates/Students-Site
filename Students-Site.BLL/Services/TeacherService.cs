@@ -3,6 +3,7 @@ using Students_Site.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using Students_Site.BLL.BusinessLogicModels;
+using Students_Site.BLL.Enums;
 using Students_Site.BLL.Exceptions;
 using Students_Site.DAL.Infrastructure;
 
@@ -44,7 +45,7 @@ namespace Students_Site.BLL.Services
                 LastName = teacherBll.User.LastName,
                 Login = teacherBll.User.Login,
                 Password = teacherBll.User.Password,
-                RoleId = 3
+                RoleId = (int) Roles.Teacher
             };
 
             _unitOfWork.UserRepository.Create(user);

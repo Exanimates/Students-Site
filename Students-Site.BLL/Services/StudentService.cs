@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Students_Site.BLL.BusinessLogicModels;
+using Students_Site.BLL.Enums;
 using Students_Site.BLL.Exceptions;
 using Students_Site.DAL.Entities;
 using Students_Site.DAL.Infrastructure;
@@ -41,7 +42,7 @@ namespace Students_Site.BLL.Services
                 LastName = studentBll.User.LastName,
                 Login = studentBll.User.Login,
                 Password = studentBll.User.Password,
-                RoleId = 2
+                RoleId = (int) Roles.Student
             };
 
             _unitOfWork.UserRepository.Create(user);
