@@ -18,12 +18,14 @@ namespace Students_Site.WEB.Controllers
         readonly IUserService _userService;
         readonly ITeacherService _teacherService;
         readonly IStudentService _studentService;
+        private readonly IRoleService _roleService;
 
-        public AccountController(IUserService userService, ITeacherService teacherService, IStudentService studentService)
+        public AccountController(IUserService userService, ITeacherService teacherService, IStudentService studentService, IRoleService roleService)
         {
             _userService = userService;
             _teacherService = teacherService;
             _studentService = studentService;
+            _roleService = roleService;
         }
 
         [HttpGet]
@@ -47,6 +49,8 @@ namespace Students_Site.WEB.Controllers
                 {
                     Login = userBll.Login,
                     RoleId = userBll.RoleId,
+                    FirstName = userBll.FirstName,
+                    LastName = userBll.LastName
                 };
 
                 await Authenticate(user);
@@ -61,11 +65,14 @@ namespace Students_Site.WEB.Controllers
         {
             var claims = new List<Claim>
             {
+                new Claim("FirstName", user.FirstName),
+                new Claim("LastName", user.LastName),
+                new Claim("RoleName", _roleService.GetRole(user.RoleId).Name),
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.RoleId.ToString())
             };
 
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie");
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 

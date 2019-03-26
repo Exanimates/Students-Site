@@ -12,3 +12,15 @@
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
+.user-info {
+	margin-left: 10px;
+}
+
+.navbar-text {
+	padding-left: 0.5rem;
+}
+
+.navbar-brand {
+	word-break: normal;
+}
