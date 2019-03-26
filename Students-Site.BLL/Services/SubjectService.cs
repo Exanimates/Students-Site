@@ -17,16 +17,16 @@ namespace Students_Site.BLL.Services
 
     public class SubjectService: ISubjectService
     {
-        IUnitOfWork _database { get; set; }
+        private IUnitOfWork _unitOfWork { get; }
 
         public SubjectService(IUnitOfWork unitOfWork)
         {
-            _database = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public void Create(SubjectBLL subjectBll)
         {
-            var subjectByName = _database.SubjectRepository.GetAll().FirstOrDefault(r => r.Name == subjectBll.Name);
+            var subjectByName = _unitOfWork.SubjectRepository.GetAll().FirstOrDefault(r => r.Name == subjectBll.Name);
 
             if (subjectByName != null)
                 throw new ValidationException("Такой предмет уже существует", "");
@@ -36,14 +36,14 @@ namespace Students_Site.BLL.Services
                 Name = subjectBll.Name
             };
 
-            _database.SubjectRepository.Create(subject);
+            _unitOfWork.SubjectRepository.Create(subject);
 
-            _database.Save();
+            _unitOfWork.Save();
         }
 
         public SubjectBLL Get(int id)
         {
-            var subject = _database.SubjectRepository.Get(id);
+            var subject = _unitOfWork.SubjectRepository.Get(id);
 
             if (subject == null)
                 throw new ValidationException("Предмет не найден", "");
@@ -53,7 +53,7 @@ namespace Students_Site.BLL.Services
 
         public IEnumerable<SubjectBLL> GetAll()
         {
-            return _database.SubjectRepository.GetAll().Select(subject => new SubjectBLL
+            return _unitOfWork.SubjectRepository.GetAll().Select(subject => new SubjectBLL
             {
                 Id = subject.Id,
                 Name = subject.Name
@@ -62,7 +62,7 @@ namespace Students_Site.BLL.Services
 
         public void Dispose()
         {
-            _database.Dispose();
+            _unitOfWork.Dispose();
         }
     }
 }

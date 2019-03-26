@@ -15,16 +15,16 @@ namespace Students_Site.BLL.Services
 
     public class RoleService: IRoleService
     {
-        IUnitOfWork _database { get; set; }
+        private IUnitOfWork _unitOfWork { get; }
 
         public RoleService(IUnitOfWork unitOfWork)
         {
-            _database = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public void Create(RoleBLL roleBll)
         {
-            var roleByName = _database.RoleRepository.GetAll().FirstOrDefault(r => r.Name == roleBll.Name);
+            var roleByName = _unitOfWork.RoleRepository.GetAll().FirstOrDefault(r => r.Name == roleBll.Name);
 
             if (roleByName != null)
                 throw new ValidationException("Такая роль уже существует", "");
@@ -33,13 +33,13 @@ namespace Students_Site.BLL.Services
             {
                 Name = roleBll.Name
             };
-            _database.RoleRepository.Create(role);
-            _database.Save();
+            _unitOfWork.RoleRepository.Create(role);
+            _unitOfWork.Save();
         }
 
         public RoleBLL Get(int id)
         {
-            var role = _database.RoleRepository.Get(id);
+            var role = _unitOfWork.RoleRepository.Get(id);
 
             if (role == null)
                 throw new ValidationException("Роль не найдена", "");
@@ -49,7 +49,7 @@ namespace Students_Site.BLL.Services
 
         public void Dispose()
         {
-            _database.Dispose();
+            _unitOfWork.Dispose();
         }
     }
 }

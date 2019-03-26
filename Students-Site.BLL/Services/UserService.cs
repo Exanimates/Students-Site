@@ -16,11 +16,11 @@ namespace Students_Site.BLL.Services
     }
     public class UserService : IUserService
     {
-        IUnitOfWork _database { get; set; }
+        private IUnitOfWork _unitOfWork { get; }
 
         public UserService(IUnitOfWork unitOfWork)
         {
-            _database = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public void Create(UserBLL userBll, IEnumerable<int> studentsId)
@@ -34,14 +34,14 @@ namespace Students_Site.BLL.Services
                 RoleId = userBll.RoleId
             };
 
-            _database.UserRepository.Create(user);
+            _unitOfWork.UserRepository.Create(user);
 
-            _database.Save();
+            _unitOfWork.Save();
         }
 
         public IEnumerable<UserBLL> GetAll()
         {
-            return _database.UserRepository.GetAll().Select(user => new UserBLL
+            return _unitOfWork.UserRepository.GetAll().Select(user => new UserBLL
             {
                 Id = user.Id,
                 Login = user.Login,
@@ -54,7 +54,7 @@ namespace Students_Site.BLL.Services
 
         public void Update(UserBLL userBll, IEnumerable<int> teachersId)
         {
-            var user = _database.UserRepository.Get(userBll.Id);
+            var user = _unitOfWork.UserRepository.Get(userBll.Id);
 
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
@@ -65,14 +65,14 @@ namespace Students_Site.BLL.Services
             user.Login = userBll.Login;
             user.Password = userBll.Password;
 
-            _database.UserRepository.Update(user);
+            _unitOfWork.UserRepository.Update(user);
 
-            _database.Save();
+            _unitOfWork.Save();
         }
 
         public void Dispose()
         {
-            _database.Dispose();
+            _unitOfWork.Dispose();
         }
     }
 }

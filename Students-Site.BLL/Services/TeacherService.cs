@@ -18,16 +18,16 @@ namespace Students_Site.BLL.Services
 
     public class TeacherService: ITeacherService
     {
-        IUnitOfWork _database { get; set; }
+        private IUnitOfWork _unitOfWork { get; }
 
         public TeacherService(IUnitOfWork unitOfWork)
         {
-            _database = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public void Create(TeacherBLL teacherBll)
         {
-            if (_database.UserRepository.Find(u => u.Login == teacherBll.User.Login).Any())
+            if (_unitOfWork.UserRepository.Find(u => u.Login == teacherBll.User.Login).Any())
                 throw new ValidationException("Пользователь с таким логином уже существует","");
 
             foreach (var student in teacherBll.Students)
@@ -47,7 +47,7 @@ namespace Students_Site.BLL.Services
                 RoleId = 3
             };
 
-            _database.UserRepository.Create(user);
+            _unitOfWork.UserRepository.Create(user);
 
             var teacher = new Teacher
             {
@@ -61,14 +61,14 @@ namespace Students_Site.BLL.Services
                 }).ToArray()
             };
 
-            _database.TeacherRepository.Create(teacher);
+            _unitOfWork.TeacherRepository.Create(teacher);
 
-            _database.Save();
+            _unitOfWork.Save();
         }
 
         public IEnumerable<TeacherBLL> GetAll()
         {
-            var users = _database.UserRepository.GetAll().Select(user => new UserBLL
+            var users = _unitOfWork.UserRepository.GetAll().Select(user => new UserBLL
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
@@ -78,7 +78,7 @@ namespace Students_Site.BLL.Services
                 RoleId = user.RoleId
             });
 
-            return _database.TeacherRepository.GetAll().Select(teacher => new TeacherBLL
+            return _unitOfWork.TeacherRepository.GetAll().Select(teacher => new TeacherBLL
             {
                 Id = teacher.Id,
                 UserId = teacher.UserId,
@@ -97,10 +97,10 @@ namespace Students_Site.BLL.Services
 
         public void Update(TeacherBLL teacherBll)
         {
-            if (_database.UserRepository.Find(u => u.Login == teacherBll.User.Login && u.Id != teacherBll.User.Id).Any())
+            if (_unitOfWork.UserRepository.Find(u => u.Login == teacherBll.User.Login && u.Id != teacherBll.User.Id).Any())
                 throw new ValidationException("Пользователь с таким логином уже существует", "");
 
-            var user = _database.UserRepository.Get(teacherBll.User.Id);
+            var user = _unitOfWork.UserRepository.Get(teacherBll.User.Id);
 
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
@@ -112,37 +112,37 @@ namespace Students_Site.BLL.Services
             user.Login = teacherBll.User.Login;
             user.Password = teacherBll.User.Password;
 
-            _database.UserRepository.Update(user);
+            _unitOfWork.UserRepository.Update(user);
 
-            var teacher = _database.TeacherRepository.Get(teacherBll.Id);
+            var teacher = _unitOfWork.TeacherRepository.Get(teacherBll.Id);
 
             teacher.SubjectId = teacherBll.SubjectId;
 
-            _database.TeacherRepository.Update(teacher);
+            _unitOfWork.TeacherRepository.Update(teacher);
 
-            var allStudentTeachers = _database.StudentTeacherRepository.GetAll().ToArray();
+            var allStudentTeachers = _unitOfWork.StudentTeacherRepository.GetAll().ToArray();
 
             foreach (var currentStudent in teacherBll.Students)
             {
                 if (!allStudentTeachers.Any(st => st.StudentId == currentStudent.Id && st.TeacherId == teacherBll.Id) &&
                     currentStudent.IsSelected)
                 {
-                    _database.StudentTeacherRepository.Create(new StudentTeacher
+                    _unitOfWork.StudentTeacherRepository.Create(new StudentTeacher
                     {
                         TeacherId = teacherBll.Id,
                         StudentId = currentStudent.Id
                     });
                 }
                 if (allStudentTeachers.Any(st => st.StudentId == currentStudent.Id && st.TeacherId == teacherBll.Id) && !currentStudent.IsSelected)
-                    _database.StudentTeacherRepository.Delete(currentStudent.Id, teacherBll.Id);
+                    _unitOfWork.StudentTeacherRepository.Delete(currentStudent.Id, teacherBll.Id);
             }
 
-            _database.Save();
+            _unitOfWork.Save();
         }
 
         public TeacherBLL Get(int id)
         {
-            var users = _database.UserRepository.GetAll().Select(user => new UserBLL
+            var users = _unitOfWork.UserRepository.GetAll().Select(user => new UserBLL
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
@@ -152,12 +152,12 @@ namespace Students_Site.BLL.Services
                 RoleId = user.RoleId
             });
 
-            var teacher = _database.TeacherRepository.Get(id);
+            var teacher = _unitOfWork.TeacherRepository.Get(id);
 
             if (teacher == null)
                 throw new ValidationException("Преподаватель не найден", "");
 
-            var studentsTeacher = _database.StudentTeacherRepository.Find(st => st.TeacherId == id);
+            var studentsTeacher = _unitOfWork.StudentTeacherRepository.Find(st => st.TeacherId == id);
 
             var teacherBll = new TeacherBLL
             {
@@ -179,7 +179,7 @@ namespace Students_Site.BLL.Services
 
         public void Dispose()
         {
-            _database.Dispose();
+            _unitOfWork.Dispose();
         }
     }
 }
