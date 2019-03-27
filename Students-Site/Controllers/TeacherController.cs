@@ -204,6 +204,8 @@ namespace Students_Site.Controllers
         {
             _teacherService.Dispose();
             _userService.Dispose();
+            _studentService.Dispose();
+            _subjectService.Dispose();
             base.Dispose(disposing);
         }
 
