@@ -70,9 +70,7 @@ namespace Students_Site.Controllers
                 {
                     Id = sub.Id,
                     SubjectName = sub.Name
-                }).ToList(),
-
-                SubjectId = 1
+                }).ToList()
             };
 
             return View(teacher);
