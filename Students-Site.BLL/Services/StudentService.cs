@@ -160,37 +160,33 @@ namespace Students_Site.BLL.Services
 
             _unitOfWork.UserRepository.Update(user);
 
-            var student = _unitOfWork.StudentRepository.Get(studentBll.Id);
+            var studentDal = Get(studentBll.Id);
 
-            student.Id = studentBll.Id;
-
-            _unitOfWork.StudentRepository.Update(student);
-
-            var allStudentTeachers = _unitOfWork.StudentTeacherRepository.GetAll().ToArray();
-
-            foreach (var currentTeacher in studentBll.Teachers)
+            foreach (var newTeacher in studentBll.Teachers)
             {
-                if (!allStudentTeachers.Any(st => st.StudentId == studentBll.Id && st.TeacherId == currentTeacher.Id) &&
-                    currentTeacher.IsSelected)
+                if (studentDal.Teachers.Any(t => t.Id == newTeacher.Id))
+                {
+                    var studentTeacher = _unitOfWork.StudentTeacherRepository.Get(studentBll.Id, newTeacher.Id);
+                    studentTeacher.Grade = newTeacher.Grade;
+
+                    _unitOfWork.StudentTeacherRepository.Update(studentTeacher);
+                }
+                else
                 {
                     _unitOfWork.StudentTeacherRepository.Create(new StudentTeacher
                     {
-                        TeacherId = currentTeacher.Id,
+                        TeacherId = newTeacher.Id,
                         StudentId = studentBll.Id,
-                        Grade = currentTeacher.Grade
+                        Grade = newTeacher.Grade
                     });
                 }
+            }
 
-                if (allStudentTeachers.Any(st => st.StudentId == studentBll.Id && st.TeacherId == currentTeacher.Id) && !currentTeacher.IsSelected)
-                    _unitOfWork.StudentTeacherRepository.Delete(studentBll.Id, currentTeacher.Id);
-
-                if (allStudentTeachers.Any(st => st.StudentId == studentBll.Id && st.TeacherId == currentTeacher.Id) &&
-                    currentTeacher.IsSelected)
+            foreach (var oldTeacher in studentDal.Teachers)
+            {
+                if (studentBll.Teachers.All(t => t.Id != oldTeacher.Id))
                 {
-                    var studentTeacher = _unitOfWork.StudentTeacherRepository.Get(studentBll.Id, currentTeacher.Id);
-                    studentTeacher.Grade = currentTeacher.Grade;
-
-                    _unitOfWork.StudentTeacherRepository.Update(studentTeacher);
+                    _unitOfWork.StudentTeacherRepository.Delete(studentBll.Id, oldTeacher.Id);
                 }
             }
 

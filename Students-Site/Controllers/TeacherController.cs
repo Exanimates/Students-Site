@@ -184,11 +184,10 @@ namespace Students_Site.Controllers
                     User = userBll,
                     SubjectId = teacher.SubjectId,
 
-                    Students = teacher.Students.Select(s => new StudentBLL
+                    Students = teacher.Students.Where(s => s.IsSelected).Select(s => new StudentBLL
                     {
                         Id = s.Id,
                         UserId = s.UserId,
-                        IsSelected = s.IsSelected
                     })
                 };
 

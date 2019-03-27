@@ -115,28 +115,33 @@ namespace Students_Site.BLL.Services
 
             _unitOfWork.UserRepository.Update(user);
 
-            var teacher = _unitOfWork.TeacherRepository.Get(teacherBll.Id);
+            var currentTeacher = Get(teacherBll.Id);
 
-            teacher.SubjectId = teacherBll.SubjectId;
-
-            _unitOfWork.TeacherRepository.Update(teacher);
-
-            var allStudentTeachers = _unitOfWork.StudentTeacherRepository.GetAll().ToArray();
-
-            foreach (var currentStudent in teacherBll.Students)
+            foreach (var newStudent in teacherBll.Students)
             {
-                if (!allStudentTeachers.Any(st => st.StudentId == currentStudent.Id && st.TeacherId == teacherBll.Id) &&
-                    currentStudent.IsSelected)
+                if (currentTeacher.Students.All(t => t.Id != newStudent.Id))
                 {
                     _unitOfWork.StudentTeacherRepository.Create(new StudentTeacher
                     {
                         TeacherId = teacherBll.Id,
-                        StudentId = currentStudent.Id
+                        StudentId = newStudent.Id,
                     });
                 }
-                if (allStudentTeachers.Any(st => st.StudentId == currentStudent.Id && st.TeacherId == teacherBll.Id) && !currentStudent.IsSelected)
-                    _unitOfWork.StudentTeacherRepository.Delete(currentStudent.Id, teacherBll.Id);
             }
+
+            foreach (var oldStudent in currentTeacher.Students)
+            {
+                if (teacherBll.Students.All(t => t.Id != oldStudent.Id))
+                {
+                    _unitOfWork.StudentTeacherRepository.Delete(oldStudent.Id, teacherBll.Id);
+                }
+            }
+
+            var teacherDal = _unitOfWork.TeacherRepository.Get(teacherBll.Id);
+
+            teacherDal.SubjectId = teacherBll.SubjectId;
+
+            _unitOfWork.TeacherRepository.Update(teacherDal);
 
             _unitOfWork.Save();
         }
