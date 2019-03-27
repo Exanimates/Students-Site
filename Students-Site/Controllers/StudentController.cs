@@ -40,7 +40,7 @@ namespace Students_Site.Controllers
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName,
                     Grade = t.Grade
-                }),
+                }).ToArray(),
                 AveradeScore = s.AverageScore,
             });
 
@@ -66,7 +66,7 @@ namespace Students_Site.Controllers
                     LastName = t.User.LastName,
                     SubjectName = t.SubjectName,
                     Grade = 0
-                }).ToList()
+                }).ToArray()
             };
 
             return View(student);
@@ -96,7 +96,7 @@ namespace Students_Site.Controllers
                         UserId = t.UserId,
                         SubjectName = t.SubjectName,
                         Grade = t.Grade
-                    })
+                    }).ToArray()
                 };
 
                 _studentService.Create(studentBll);
@@ -129,7 +129,7 @@ namespace Students_Site.Controllers
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName,
                     SubjectName = t.SubjectName
-                }),
+                }).ToArray(),
 
                 AveradeScore = studentBll.AverageScore
             };
@@ -160,8 +160,7 @@ namespace Students_Site.Controllers
                     LastName = t.User.LastName,
                     SubjectName = t.SubjectName,
                     Grade = t.Grade
-                }).ToList()
-
+                }).ToArray()
             };
 
             foreach (var teacher in student.TeachersList)
@@ -201,7 +200,7 @@ namespace Students_Site.Controllers
                         Id = t.Id,
                         UserId = t.UserId,
                         Grade = t.Grade
-                    })
+                    }).ToArray()
                 };
 
                 _studentService.Update(studentBll);

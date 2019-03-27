@@ -9,7 +9,7 @@ namespace Students_Site.Models.Teacher
     {
         public int Id { get; set; }
         public int SubjectId { get; set; }
-        public List<StudentModel> Students { get; set; }
-        public List<SubjectModel> Subjects { get; set; }
+        public IList<StudentModel> Students { get; set; }
+        public IList<SubjectModel> Subjects { get; set; }
     }
 }

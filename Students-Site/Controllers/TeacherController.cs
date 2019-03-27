@@ -42,7 +42,7 @@ namespace Students_Site.Controllers
                     Id = t.User.Id,
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName
-                })
+                }).ToArray()
             });
 
             var teachers = new TeacherIndexModel
@@ -65,12 +65,12 @@ namespace Students_Site.Controllers
                     FirstName = s.User.FirstName,
                     LastName = s.User.LastName,
                     IsSelected = false
-                }).ToList(),
+                }).ToArray(),
                 Subjects = _subjectService.GetAll().Select(sub => new SubjectModel
                 {
                     Id = sub.Id,
                     SubjectName = sub.Name
-                }).ToList()
+                }).ToArray()
             };
 
             return View(teacher);
@@ -142,13 +142,13 @@ namespace Students_Site.Controllers
                     FirstName = s.User.FirstName,
                     LastName = s.User.LastName,
                     IsSelected = false
-                }).ToList(),
+                }).ToArray(),
 
                 Subjects = _subjectService.GetAll().Select(sub => new SubjectModel
                 {
                     Id = sub.Id,
                     SubjectName = sub.Name,
-                }).ToList(),
+                }).ToArray(),
 
             };
 
@@ -186,7 +186,7 @@ namespace Students_Site.Controllers
                     {
                         Id = s.Id,
                         UserId = s.UserId,
-                    })
+                    }).ToArray()
                 };
 
                 _teacherService.Update(teacherBll);
@@ -227,7 +227,7 @@ namespace Students_Site.Controllers
                     Id = t.User.Id,
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName
-                })
+                }).ToArray()
             };
 
             return View(teacher);
