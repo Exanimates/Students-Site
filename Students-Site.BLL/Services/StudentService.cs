@@ -151,7 +151,7 @@ namespace Students_Site.BLL.Services
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
 
-            user.RoleId = 2;
+            user.RoleId = (int) Roles.Student;
             user.Id = studentBll.User.Id;
             user.FirstName = studentBll.User.FirstName;
             user.LastName = studentBll.User.LastName;
