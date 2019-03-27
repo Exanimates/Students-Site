@@ -13,8 +13,8 @@ namespace Students_Site.DAL.Entities
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        public int RoleId { get; set; }
 
+        public int RoleId { get; set; }
         public Role Role { get; set; }
 
         public Student  Student { get; set; }
