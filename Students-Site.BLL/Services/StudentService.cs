@@ -79,16 +79,19 @@ namespace Students_Site.BLL.Services
             var students = _unitOfWork.StudentRepository.GetAll().Select(student => new StudentBLL
             {
                 Id = student.Id,
-                UserId = student.UserId,
 
+                UserId = student.UserId,           
                 User = users.FirstOrDefault(u => u.Id == student.UserId),
+
                 Teachers = student.StudentTeachers.Select(studentTeachers => new TeacherBLL
                 {
                     Id = studentTeachers.TeacherId,
+
                     UserId = studentTeachers.Teacher.UserId,
+                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Teacher.UserId),
+
                     SubjectId = studentTeachers.Teacher.SubjectId,
-                    Grade = studentTeachers.Grade,
-                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Teacher.UserId)
+                    Grade = studentTeachers.Grade
                 }),
             }).ToArray();
 
@@ -122,16 +125,20 @@ namespace Students_Site.BLL.Services
             var studentBll = new StudentBLL
             {
                 Id = student.Id,
-                UserId = student.UserId,
 
+                UserId = student.UserId,
                 User = users.FirstOrDefault(u => u.Id == student.UserId),
+
                 Teachers = teachersStudent.Select(ts => new TeacherBLL
                 {
                     Id = ts.TeacherId,
+
                     UserId = ts.Teacher.UserId,
+                    User = users.FirstOrDefault(u => u.Id == ts.Teacher.UserId),
+
                     SubjectId = ts.Teacher.SubjectId,
                     SubjectName = ts.Teacher.Subject.Name,
-                    User = users.FirstOrDefault(u => u.Id == ts.Teacher.UserId),
+
                     Grade = ts.Grade
                 }),
             };

@@ -82,14 +82,17 @@ namespace Students_Site.BLL.Services
             return _unitOfWork.TeacherRepository.GetAll().Select(teacher => new TeacherBLL
             {
                 Id = teacher.Id,
-                UserId = teacher.UserId,
+
                 SubjectId = teacher.SubjectId,
                 SubjectName = teacher.Subject.Name,
 
+                UserId = teacher.UserId,
                 User = users.FirstOrDefault(u => u.Id == teacher.UserId),
+
                 Students = teacher.StudentTeachers.Select(studentTeachers => new StudentBLL
                 {
                     Id = studentTeachers.StudentId,
+
                     UserId = studentTeachers.Student.UserId,
                     User = users.FirstOrDefault(u => u.Id == studentTeachers.Student.UserId),
                 })
@@ -168,13 +171,16 @@ namespace Students_Site.BLL.Services
             var teacherBll = new TeacherBLL
             {
                 Id = teacher.Id,
-                UserId = teacher.UserId,
+
                 SubjectId = teacher.SubjectId,
 
+                UserId = teacher.UserId,
                 User = users.FirstOrDefault(u => u.Id == teacher.UserId),
+
                 Students = studentsTeacher.Select(ts => new StudentBLL
                 {
                     Id = ts.StudentId,
+
                     UserId = ts.Student.UserId,
                     User = users.FirstOrDefault(u => u.Id == ts.Student.UserId)
                 })
