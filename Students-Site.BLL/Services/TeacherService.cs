@@ -33,7 +33,7 @@ namespace Students_Site.BLL.Services
 
             foreach (var student in teacherBll.Students)
             {
-                if (student.Teachers.GroupBy(st => st.SubjectName == teacherBll.SubjectName).Any())
+                if (student.Teachers.GroupBy(st => st.SubjectName).Any(st => st.Key == teacherBll.SubjectName))
                 {
                     throw new ValidationException($"Нельзя добавить преподавателя для {student.User.FirstName}. У него уже ведут предмет {teacherBll.SubjectName}", "");
                 }
