@@ -2,9 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Students_Site.DAL.Entities
 {
-    public class User
+    public class User : EntityBase
     {
-        public int Id { get; set; }
         [Required]
         public string Login { get; set; }
         [Required]

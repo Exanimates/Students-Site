@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Students_Site.DAL.Entities
 {
-    public class Role
+    public class Role : EntityBase
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         

@@ -2,10 +2,8 @@
 
 namespace Students_Site.DAL.Entities
 {
-    public class Teacher
+    public class Teacher : EntityBase
     {
-        public int Id { get; set; }
-
         public int UserId { get; set; }
         public User User { get; set; }
 
