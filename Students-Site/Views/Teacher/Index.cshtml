@@ -35,13 +35,13 @@
 	{
 		<tr>
 			<td>
-				@Html.DisplayFor(modelItem => item.FirstName)
+				@Html.DisplayName(item.FirstName)
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.LastName)
+				@Html.DisplayName(item.LastName)
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.SubjectName)
+				@Html.DisplayName(item.SubjectName)
 			</td>
 			<td>
 				@Html.DisplayName(item.Students.Count().ToString())

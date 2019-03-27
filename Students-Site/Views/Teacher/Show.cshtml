@@ -13,11 +13,11 @@
 <div>
 	<div>
 		<label>Имя</label>
-		<p>@Html.DisplayName(Model.FirstName)</p>
+		<p>@Html.DisplayFor(m => m.FirstName)</p>
 	</div>
 	<div>
 		<label>Фамилия</label>
-		<p>@Html.DisplayName(Model.LastName)</p>
+		<p>@Html.DisplayFor(m => m.LastName)</p>
 	</div>
 </div>
 
@@ -33,14 +33,14 @@
 		<th></th>
 	</tr>
 
-	@foreach (var item in Model.Students)
+	@foreach (var student in Model.Students)
 	{
 		<tr>
 			<td>
-				@Html.DisplayFor(modelItem => item.FirstName)
+				@Html.DisplayName(student.FirstName)
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.LastName)
+				@Html.DisplayName(student.LastName)
 			</td>
 		</tr>
 	}

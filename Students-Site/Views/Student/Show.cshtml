@@ -12,11 +12,11 @@
 <div>
 	<div>
 		<label>Имя</label>
-		<p>@Model.FirstName</p>
+		<p>@Html.DisplayFor(m => m.FirstName)</p>
 	</div>
 	<div>
 		<label>Фамилия</label>
-		<p>@Model.LastName</p>
+		<p>@Html.DisplayFor(m => m.LastName)</p>
 	</div>
 	<div>
 		<label>Средний бал</label>
@@ -26,7 +26,7 @@
 		}
 		else
 		{
-			<p>@Model.AveradeScore</p>
+			<p>@Html.DisplayFor(m => m.AveradeScore)</p>
 		}
 
 	</div>
@@ -52,13 +52,13 @@
 	{
 		<tr>
 			<td>
-				@Html.DisplayFor(modelItem => item.FirstName)
+				@Html.DisplayName(item.FirstName)
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.LastName)
+				@Html.DisplayName(item.LastName)
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.SubjectName)
+				@Html.DisplayName(item.SubjectName)
 			</td>
 		</tr>
 	}

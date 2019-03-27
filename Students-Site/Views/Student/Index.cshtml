@@ -31,10 +31,10 @@
 	{
 		<tr>
 			<td>
-				@Html.DisplayFor(modelItem => item.FirstName)
+				@Html.DisplayName(item.FirstName)
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.LastName)
+				@Html.DisplayName(item.LastName)
 			</td>
 			@if (double.IsNaN(item.AveradeScore))
 			{
@@ -45,7 +45,7 @@
 			else
 			{
 				<td>
-					@Html.DisplayFor(modelItem => item.AveradeScore)
+					@Html.DisplayName(item.AveradeScore.ToString())
 				</td>
 			}
 			<td>
