@@ -10,7 +10,7 @@ namespace Students_Site.DAL.Entities
 
         public User User { get; set; }
 
-        public IList<StudentTeacher> StudentTeachers { get; set; }
+        public ICollection<StudentTeacher> StudentTeachers { get; set; }
 
         public Student()
         {
