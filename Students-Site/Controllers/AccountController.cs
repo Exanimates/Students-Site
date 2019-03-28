@@ -12,7 +12,7 @@ using Students_Site.BLL.Services;
 using Students_Site.Models.Account;
 using Students_Site.Models.Users;
 
-namespace Students_Site.WEB.Controllers
+namespace Students_Site.Controllers
 {
     public class AccountController : Controller
     {
