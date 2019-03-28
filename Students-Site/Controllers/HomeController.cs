@@ -11,8 +11,8 @@ namespace Students_Site.Controllers
 {
     public class HomeController : Controller
     {
-        readonly ITeacherService _teacherService;
-        readonly IStudentService _studentService;
+        private readonly ITeacherService _teacherService;
+        private readonly IStudentService _studentService;
 
         public HomeController(ITeacherService teacherService, IStudentService studentService)
         {

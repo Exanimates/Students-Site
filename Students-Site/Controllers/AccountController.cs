@@ -16,9 +16,9 @@ namespace Students_Site.Controllers
 {
     public class AccountController : Controller
     {
-        readonly IUserService _userService;
-        readonly ITeacherService _teacherService;
-        readonly IStudentService _studentService;
+        private readonly IUserService _userService;
+        private readonly ITeacherService _teacherService;
+        private readonly IStudentService _studentService;
         private readonly IRoleService _roleService;
 
         public AccountController(IUserService userService, ITeacherService teacherService, IStudentService studentService, IRoleService roleService)
