@@ -181,12 +181,20 @@ namespace Students_Site.Controllers
                     Id = teacher.Id,
                     User = userBll,
                     SubjectId = teacher.SubjectId,
+                    SubjectName = teacher.Subjects.First(s => s.Id == teacher.SubjectId).SubjectName,
 
                     Students = teacher.Students.Where(s => s.IsSelected).Select(s => new StudentBLL
                     {
                         Id = s.Id,
+
                         UserId = s.UserId,
-                    }).ToArray()
+                        User = new UserBLL
+                        {
+                            FirstName = s.FirstName,
+                        },
+
+                        Teachers = _studentService.Get(s.Id).Teachers
+                    }).ToArray(),
                 };
 
                 _teacherService.Update(teacherBll);
