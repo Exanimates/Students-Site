@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Students-Site.DAL", "Studen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Students-Site.BLL", "Students-Site.BLL\Students-Site.BLL.csproj", "{9D70808E-0480-4B8A-A67F-08FAA036156E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Commons\Common.csproj", "{0ACEC30A-9D59-4390-988D-FE3698F5247C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Students-Site.Common", "Commons\Students-Site.Common.csproj", "{0ACEC30A-9D59-4390-988D-FE3698F5247C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

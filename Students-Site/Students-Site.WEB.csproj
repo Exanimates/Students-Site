@@ -17,7 +17,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Commons\Common.csproj" />
+    <ProjectReference Include="..\Commons\Students-Site.Common.csproj" />
     <ProjectReference Include="..\Students-Site.BLL\Students-Site.BLL.csproj" />
   </ItemGroup>
 
