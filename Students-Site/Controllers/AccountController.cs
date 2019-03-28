@@ -81,5 +81,14 @@ namespace Students_Site.WEB.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Account");
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _teacherService.Dispose();
+            _studentService.Dispose();
+            _roleService.Dispose();
+            _userService.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

@@ -213,5 +213,12 @@ namespace Students_Site.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _teacherService.Dispose();
+            _studentService.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }
