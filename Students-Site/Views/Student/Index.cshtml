@@ -1,4 +1,5 @@
-﻿@model Students_Site.Models.Student.IndexModel
+﻿@using Extensions.Principal
+@model Students_Site.Models.Student.IndexModel
 
 @{
 	ViewData["Title"] = "Студенты";
@@ -51,7 +52,7 @@
 			<td>
 				@Html.ActionLink("Подробнее", "Show", new {id = item.Id})
 			</td>
-			@if (User.IsInRole("1") || User.IsInRole("3"))
+			@if (User.IsDean() || User.IsTeacher())
 			{
 				<td>
 					@Html.ActionLink("Редактировать", "Edit", new {id = item.Id})

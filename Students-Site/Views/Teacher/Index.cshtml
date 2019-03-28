@@ -1,4 +1,5 @@
-﻿@model Students_Site.Models.Teacher.TeacherIndexModel
+﻿@using Extensions.Principal
+@model Students_Site.Models.Teacher.TeacherIndexModel
 
 @{
 	ViewBag.Title = "Преподаватели";
@@ -23,7 +24,7 @@
 				Кол-во студентов
 			</th>
 			<th></th>
-			@if (User.IsInRole("1"))
+			@if (User.IsDean())
 			{
 				<th></th>
 			}
@@ -49,7 +50,7 @@
 			<td>
 				@Html.ActionLink("Подробнее", "Show", new {id = item.Id})
 			</td>
-			@if (User.IsInRole("1"))
+			@if (User.IsDean())
 			{
 				<td>
 					@Html.ActionLink("Редактировать", "Edit", new {id = item.Id})
