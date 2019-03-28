@@ -89,7 +89,7 @@ namespace Students_Site.BLL.Services
 
                     UserId = studentTeachers.Student.UserId,
                     User = users.FirstOrDefault(u => u.Id == studentTeachers.Student.UserId),
-                })
+                }).ToArray()
             }).ToArray();
         }
 
@@ -179,7 +179,7 @@ namespace Students_Site.BLL.Services
 
                     UserId = ts.Student.UserId,
                     User = users.FirstOrDefault(u => u.Id == ts.Student.UserId)
-                })
+                }).ToArray()
             };
 
             return teacherBll;

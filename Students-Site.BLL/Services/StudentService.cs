@@ -56,7 +56,7 @@ namespace Students_Site.BLL.Services
                     TeacherId = t.Id,
                     StudentId = studentBll.Id,
                     Grade = t.Grade
-                }).ToList()
+                }).ToArray()
             };
 
             _unitOfWork.StudentRepository.Create(student);
@@ -74,7 +74,7 @@ namespace Students_Site.BLL.Services
                 Password = user.Password,
                 Login = user.Login,
                 RoleId = user.RoleId
-            });
+            }).ToArray();
 
             var students = _unitOfWork.StudentRepository.GetAll().Select(student => new StudentBLL
             {
@@ -92,7 +92,7 @@ namespace Students_Site.BLL.Services
 
                     SubjectId = studentTeachers.Teacher.SubjectId,
                     Grade = studentTeachers.Grade
-                }),
+                }).ToArray()
             }).ToArray();
 
             foreach(var student in students)
@@ -100,7 +100,7 @@ namespace Students_Site.BLL.Services
                 student.AverageScore = student.Teachers.Sum(t => t.Grade) / student.Teachers.Count();
             }
 
-            return students.ToArray();
+            return students;
         }
 
         public StudentBLL Get(int id)
@@ -113,7 +113,7 @@ namespace Students_Site.BLL.Services
                 Password = user.Password,
                 Login = user.Login,
                 RoleId = user.RoleId
-            });
+            }).ToArray();
 
             var student = _unitOfWork.StudentRepository.Get(id);
 
@@ -140,7 +140,7 @@ namespace Students_Site.BLL.Services
                     SubjectName = ts.Teacher.Subject.Name,
 
                     Grade = ts.Grade
-                }),
+                }).ToArray()
             };
 
             studentBll.AverageScore = studentBll.Teachers.Sum(t => t.Grade) / studentBll.Teachers.Count();
