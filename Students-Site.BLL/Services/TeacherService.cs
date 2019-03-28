@@ -31,7 +31,11 @@ namespace Students_Site.BLL.Services
             if (_unitOfWork.UserRepository.Find(u => u.Login == teacherBll.User.Login).Any())
                 throw new ValidationException("Пользователь с таким логином уже существует","");
 
-            CheckStudentsOnContainSubject(teacherBll.Students, teacherBll.SubjectName);
+            foreach (var student in teacherBll.Students)
+            {
+                if (student.Teachers.GroupBy(st => st.SubjectName).Any(st => st.Key == teacherBll.SubjectName))
+                    throw new ValidationException($"Нельзя добавить преподавателя для {student.User.FirstName}. У него уже ведут предмет {teacherBll.SubjectName}", "");
+            }
 
             var user = new User
             {
@@ -98,7 +102,11 @@ namespace Students_Site.BLL.Services
             if (_unitOfWork.UserRepository.Find(u => u.Login == teacherBll.User.Login && u.Id != teacherBll.User.Id).Any())
                 throw new ValidationException("Пользователь с таким логином уже существует", "");
 
-            CheckStudentsOnContainSubject(teacherBll.Students, teacherBll.SubjectName);
+            foreach (var student in teacherBll.Students)
+            {
+                if (student.Teachers.GroupBy(t => t.SubjectName).Any(st => st.Key == teacherBll.SubjectName && st.Any(t => t.Id != teacherBll.Id ) ))
+                    throw new ValidationException($"Нельзя добавить преподавателя для {student.User.FirstName}. У него уже ведут предмет {teacherBll.SubjectName}", "");
+            }
 
             var user = _unitOfWork.UserRepository.Get(teacherBll.User.Id);
 
@@ -188,17 +196,6 @@ namespace Students_Site.BLL.Services
         public void Dispose()
         {
             _unitOfWork.Dispose();
-        }
-
-        private void CheckStudentsOnContainSubject(IEnumerable<StudentBLL> students, string teacherSubjectName)
-        {
-            foreach (var student in students)
-            {
-                if (student.Teachers.GroupBy(st => st.SubjectName).Any(st => st.Key == teacherSubjectName))
-                {
-                    throw new ValidationException($"Нельзя добавить преподавателя для {student.User.FirstName}. У него уже ведут предмет {teacherSubjectName}", "");
-                }
-            }
         }
     }
 }
