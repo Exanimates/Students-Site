@@ -4,7 +4,7 @@
 	$('#example thead tr:eq(1) th').each(function (i) {
 		var title = $(this).text();
 		if (title !== "") {
-			$(this).html('<input type="text" placeholder="Поиск ' + title + '" />');
+			$(this).html('<input type="text" placeholder="Поиск" />');
 		} else {
 			emptyCells.push(i);
 		}
