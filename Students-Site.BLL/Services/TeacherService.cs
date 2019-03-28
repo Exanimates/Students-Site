@@ -123,8 +123,11 @@ namespace Students_Site.BLL.Services
             user.LastName = teacherBll.User.LastName;
             user.Login = teacherBll.User.Login;
 
-            user.Salt = Salt.Create();
-            user.Password = Hash.Create(teacherBll.User.Password, user.Salt);
+            if (teacherBll.User.Password != null)
+            {
+                user.Salt = Salt.Create();
+                user.Password = Hash.Create(teacherBll.User.Password, user.Salt);
+            }
 
             _unitOfWork.UserRepository.Update(user);
 
