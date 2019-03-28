@@ -92,7 +92,7 @@
 						<label asp-for="@Model.TeachersList[i].SubjectName">@Model.TeachersList[i].SubjectName</label>
 					</td>
 					<td>
-						@if (User.FindFirst("UserId").Value == Model.TeachersList[i].UserId.ToString() || User.IsInRole("1"))
+						@if (User.FindFirst("UserId").Value == Model.TeachersList[i].UserId.ToString() || User.IsDean())
 						{
 							<input type="number" asp-for="@Model.TeachersList[i].Grade"/>
 						}

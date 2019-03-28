@@ -51,7 +51,8 @@ namespace Students_Site.Controllers
                 Login = userBll.Login,
                 RoleId = userBll.RoleId,
                 FirstName = userBll.FirstName,
-                LastName = userBll.LastName
+                LastName = userBll.LastName,
+                RoleName = userBll.RoleName
             };
 
             await Authenticate(user);
@@ -67,9 +68,8 @@ namespace Students_Site.Controllers
                 new Claim("UserId", user.UserId.ToString()),
                 new Claim("FirstName", user.FirstName),
                 new Claim("LastName", user.LastName),
-                new Claim("RoleName", _roleService.Get(user.RoleId).Name),
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.RoleId.ToString())
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.RoleName)
             };
 
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie");

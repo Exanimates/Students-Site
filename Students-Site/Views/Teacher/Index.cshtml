@@ -75,7 +75,7 @@
 			Кол-во студентов
 		</th>
 		<th></th>
-		@if (User.IsInRole("1"))
+		@if (User.IsDean())
 		{
 			<th></th>
 		}
@@ -84,7 +84,7 @@
 
 </table>
 
-@if (User.IsInRole("1"))
+@if (User.IsDean())
 {
 	<div>
 		@Html.ActionLink("Добавить преподавателя", "Create")

@@ -1,4 +1,5 @@
-﻿@model Students_Site.Models.Home.IndexModel
+﻿@using System.Security.Claims
+@model Students_Site.Models.Home.IndexModel
 
 <header>
 	<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -35,8 +36,8 @@
 				@if (User.Identity.IsAuthenticated)
 				{
 					<span class="navbar-brand">@User.FindFirst("FirstName").Value</span>
-					<span class="navbar-brand">@User.FindFirst("LastName").Value</span>
-					<span class="navbar-brand" >@User.FindFirst("RoleName").Value</span>
+				    <span class="navbar-brand">@User.FindFirst("LastName").Value</span>
+				    <span class="navbar-brand">@User.FindFirst(ClaimsIdentity.DefaultRoleClaimType).Value</span>
 				}
 				<span class="navbar-text">Кол-во студентов: @Model.StudentCount</span>
 				<span class="navbar-text">Кол-во преподавателей: @Model.TeacherCount</span>

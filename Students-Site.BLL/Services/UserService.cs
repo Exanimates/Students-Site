@@ -48,7 +48,9 @@ namespace Students_Site.BLL.Services
                 Login = user.Login,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+
                 RoleId = user.RoleId,
+                RoleName = user.Role.Name,
 
                 Password = user.Password,
                 Salt = user.Salt,

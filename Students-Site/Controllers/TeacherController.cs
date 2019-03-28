@@ -57,7 +57,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "Декан")]
         public ActionResult Create()
         {
             var teacher = new TeacherMakeModel
@@ -80,7 +80,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "Декан")]
         public ActionResult Create(TeacherMakeModel teacher)
         {
             try
@@ -124,7 +124,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "Декан")]
         public ActionResult Edit(int id)
         {
             var teacherBll = _teacherService.Get(id);
@@ -165,7 +165,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "Декан")]
         public ActionResult Edit(TeacherEditModel teacher)
         {
             try

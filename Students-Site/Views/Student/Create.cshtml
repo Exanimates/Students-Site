@@ -1,4 +1,5 @@
-﻿@model Students_Site.Models.Student.StudentMakeModel
+﻿@using Extensions.Principal
+@model Students_Site.Models.Student.StudentMakeModel
 
 @{
 	ViewData["Title"] = "Создание студента";
@@ -68,7 +69,7 @@
 				{
 					<tr>
 						<td>
-							@if (User.FindFirst("UserId").Value == Model.TeachersList[i].UserId.ToString() || User.IsInRole("1"))
+							@if (User.FindFirst("UserId").Value == Model.TeachersList[i].UserId.ToString() || User.IsDean())
 							{
 								<input asp-for="@Model.TeachersList[i].IsSelected" type="checkbox" />
 							}
@@ -92,7 +93,7 @@
 							<input type="hidden" asp-for="@Model.TeachersList[i].SubjectName" />
 						</td>
 						<td>
-							@if (User.FindFirst("UserId").Value == Model.TeachersList[i].UserId.ToString() || User.IsInRole("1"))
+							@if (User.FindFirst("UserId").Value == Model.TeachersList[i].UserId.ToString() || User.IsDean())
 							{
 								<input type="number" value="@Model.TeachersList[i].Grade" asp-for="@Model.TeachersList[i].Grade"/>
 							}

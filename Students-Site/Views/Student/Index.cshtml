@@ -20,7 +20,7 @@
 				Средний бал
 			</th>
 			<th></th>
-			@if (User.IsInRole("1") || User.IsInRole("3"))
+			@if (User.IsDean() || User.IsTeacher())
 			{
 				<th></th>
 			}
@@ -74,7 +74,7 @@
 				Средний бал
 			</th>
 			<th></th>
-			@if (User.IsInRole("1") || User.IsInRole("3"))
+			@if (User.IsDean() || User.IsTeacher())
 			{
 				<th></th>
 			}
@@ -84,7 +84,7 @@
 
 </table>
 
-@if (User.IsInRole("1") || User.IsInRole("3"))
+@if (User.IsDean() || User.IsTeacher())
 {
 	<div>
 		@Html.ActionLink("Добавить студента", "Create")

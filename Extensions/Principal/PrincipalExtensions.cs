@@ -10,17 +10,17 @@ namespace Extensions.Principal
     {
         public static bool IsDean(this ClaimsPrincipal claimsPrincipal)
         {
-            return claimsPrincipal.IsInRole("1");
+            return claimsPrincipal.IsInRole("Декан");
         }
 
         public static bool IsStudent(this ClaimsPrincipal claimsPrincipal)
         {
-            return claimsPrincipal.IsInRole("2");
+            return claimsPrincipal.IsInRole("Студент");
         }
 
         public static bool IsTeacher(this ClaimsPrincipal claimsPrincipal)
         {
-            return claimsPrincipal.IsInRole("3");
+            return claimsPrincipal.IsInRole("Учитель");
         }
     }
 }
