@@ -103,7 +103,7 @@ namespace Students_Site.Controllers
 
                         User = new UserBLL
                         {
-                            FirstName = s.FirstName,
+                            FirstName = s.FirstName
                         },
                         Teachers = _studentService.Get(s.Id).Teachers
                     }).ToArray()

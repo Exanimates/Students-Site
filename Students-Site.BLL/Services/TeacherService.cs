@@ -88,7 +88,7 @@ namespace Students_Site.BLL.Services
                     Id = studentTeachers.StudentId,
 
                     UserId = studentTeachers.Student.UserId,
-                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Student.UserId),
+                    User = users.FirstOrDefault(u => u.Id == studentTeachers.Student.UserId)
                 }).ToArray()
             }).ToArray();
         }
@@ -123,7 +123,7 @@ namespace Students_Site.BLL.Services
                     _unitOfWork.StudentTeacherRepository.Create(new StudentTeacher
                     {
                         TeacherId = teacherBll.Id,
-                        StudentId = newStudent.Id,
+                        StudentId = newStudent.Id
                     });
                 }
             }

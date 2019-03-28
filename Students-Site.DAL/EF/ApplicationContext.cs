@@ -24,14 +24,14 @@ namespace Students_Site.DAL.EF
             {
                 new Role { Id = 1, Name = "Декан" },
                 new Role { Id = 2, Name = "Студент" },
-                new Role { Id = 3, Name = "Учитель" },
+                new Role { Id = 3, Name = "Учитель" }
             };
 
             var users = new List<User>
             {
                 new User { Id = 1, Login = "King", FirstName = "Petr", Password = "123", LastName = "Ivanov", RoleId = roles[0].Id },
                 new User { Id = 2, Login = "Artas", FirstName = "Andrey", Password = "1488", LastName = "Petrov", RoleId = roles[1].Id },
-                new User { Id = 3, Login = "Shaman" ,FirstName = "Oleg", Password = "8814", LastName = "Kotlov", RoleId = roles[2].Id },
+                new User { Id = 3, Login = "Shaman" ,FirstName = "Oleg", Password = "8814", LastName = "Kotlov", RoleId = roles[2].Id }
             };
 
             builder.Entity<Role>().HasData(roles);
