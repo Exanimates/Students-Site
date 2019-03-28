@@ -208,15 +208,6 @@ namespace Students_Site.Controllers
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            _teacherService.Dispose();
-            _userService.Dispose();
-            _studentService.Dispose();
-            _subjectService.Dispose();
-            base.Dispose(disposing);
-        }
-
         public IActionResult Show(int id)
         {
             var teacherBll = _teacherService.Get(id);
@@ -239,6 +230,15 @@ namespace Students_Site.Controllers
             };
 
             return View(teacher);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _teacherService.Dispose();
+            _userService.Dispose();
+            _studentService.Dispose();
+            _subjectService.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
