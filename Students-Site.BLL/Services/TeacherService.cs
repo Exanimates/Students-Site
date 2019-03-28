@@ -61,17 +61,6 @@ namespace Students_Site.BLL.Services
             _unitOfWork.Save();
         }
 
-        private void CheckStudentsOnContainSubject(IEnumerable<StudentBLL> students, string teacherSubjectName)
-        {
-            foreach (var student in students)
-            {
-                if (student.Teachers.GroupBy(st => st.SubjectName).Any(st => st.Key == teacherSubjectName))
-                {
-                    throw new ValidationException($"Нельзя добавить преподавателя для {student.User.FirstName}. У него уже ведут предмет {teacherSubjectName}", "");
-                }
-            }
-        }
-
         public IEnumerable<TeacherBLL> GetAll()
         {
             var users = _unitOfWork.UserRepository.GetAll().Select(user => new UserBLL
@@ -199,6 +188,17 @@ namespace Students_Site.BLL.Services
         public void Dispose()
         {
             _unitOfWork.Dispose();
+        }
+
+        private void CheckStudentsOnContainSubject(IEnumerable<StudentBLL> students, string teacherSubjectName)
+        {
+            foreach (var student in students)
+            {
+                if (student.Teachers.GroupBy(st => st.SubjectName).Any(st => st.Key == teacherSubjectName))
+                {
+                    throw new ValidationException($"Нельзя добавить преподавателя для {student.User.FirstName}. У него уже ведут предмет {teacherSubjectName}", "");
+                }
+            }
         }
     }
 }
