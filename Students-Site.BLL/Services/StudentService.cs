@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Common.Encryption;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Enums;

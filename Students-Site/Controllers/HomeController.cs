@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+using System.Text;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Students_Site.BLL.Services;
-using Students_Site.DAL.Infrastructure;
 using Students_Site.Models;
-using Students_Site.Models.Home;
-using Students_Site.Models.Student;
 
 namespace Students_Site.Controllers
 {

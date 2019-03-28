@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -7,7 +8,6 @@ using Common.Encryption;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Services;
 using Students_Site.Models.Account;
 using Students_Site.Models.Users;
