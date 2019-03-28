@@ -40,26 +40,23 @@ namespace Students_Site.WEB.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            UserBLL userBll = _userService.GetAll().FirstOrDefault(u => u.Login == model.Login && u.Password == model.Password);
+            var userBll = _userService.GetAll().FirstOrDefault(u => u.Login == model.Login && u.Password == model.Password);
 
-                
-            if (userBll != null)
+
+            if (userBll == null) return StatusCode(500, "Такого пользователя не существует");
+            var user = new UserModel
             {
-                var user = new UserModel
-                {
-                    UserId = userBll.Id,
-                    Login = userBll.Login,
-                    RoleId = userBll.RoleId,
-                    FirstName = userBll.FirstName,
-                    LastName = userBll.LastName
-                };
+                UserId = userBll.Id,
+                Login = userBll.Login,
+                RoleId = userBll.RoleId,
+                FirstName = userBll.FirstName,
+                LastName = userBll.LastName
+            };
 
-                await Authenticate(user);
+            await Authenticate(user);
 
-                return RedirectToAction("Index", "Home");
-            }
+            return RedirectToAction("Index", "Home");
 
-            return StatusCode(500, "Такого пользователя не существует");
         }
 
         private async Task Authenticate(UserModel user)
