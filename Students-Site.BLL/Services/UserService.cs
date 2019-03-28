@@ -47,8 +47,10 @@ namespace Students_Site.BLL.Services
                 Login = user.Login,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                RoleId = user.RoleId,
+
                 Password = user.Password,
-                RoleId = user.RoleId
+                Salt = user.Salt,
             }).ToArray();
         }
 

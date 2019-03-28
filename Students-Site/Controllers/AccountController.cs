@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Common.Encryption;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@ namespace Students_Site.WEB.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var userBll = _userService.GetAll().FirstOrDefault(u => u.Login == model.Login && u.Password == model.Password);
+            var userBll = _userService.GetAll().FirstOrDefault(u => u.Login == model.Login && Hash.Validate(model.Password, u.Salt, u.Password));
 
 
             if (userBll == null) return StatusCode(500, "Такого пользователя не существует");

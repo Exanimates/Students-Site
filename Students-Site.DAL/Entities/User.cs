@@ -7,11 +7,14 @@ namespace Students_Site.DAL.Entities
         [Required]
         public string Login { get; set; }
         [Required]
-        public string Password { get; set; }
-        [Required]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+
+        [Required]
+        public string Salt { get; set; }
+        [Required]
+        public string Password { get; set; }
 
         public int RoleId { get; set; }
         public Role Role { get; set; }

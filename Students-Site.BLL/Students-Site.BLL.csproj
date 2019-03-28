@@ -16,7 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Commons\Common.csproj" />
     <ProjectReference Include="..\Students-Site.DAL\Students-Site.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Encryption\" />
   </ItemGroup>
 
 </Project>

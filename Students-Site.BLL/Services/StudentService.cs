@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Encryption;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Enums;
 using Students_Site.BLL.Exceptions;
@@ -36,13 +37,16 @@ namespace Students_Site.BLL.Services
             if (teachersGroupBySubject.Any(subject => subject.Count() > 1))
                 throw new ValidationException("Нельзя добавить несколько преподавателей одного предмета", "");
 
+            var salt = Salt.Create();
             var user = new User
             {
                 FirstName = studentBll.User.FirstName,
                 LastName = studentBll.User.LastName,
                 Login = studentBll.User.Login,
-                Password = studentBll.User.Password,
-                RoleId = (int) Roles.Student
+                RoleId = (int) Roles.Student,
+
+                Password = Hash.Create(studentBll.User.Password, salt),
+                Salt = salt
             };
 
             _unitOfWork.UserRepository.Create(user);
@@ -163,7 +167,9 @@ namespace Students_Site.BLL.Services
             user.FirstName = studentBll.User.FirstName;
             user.LastName = studentBll.User.LastName;
             user.Login = studentBll.User.Login;
-            user.Password = studentBll.User.Password;
+
+            user.Salt = Salt.Create();
+            user.Password = Hash.Create(studentBll.User.Password, user.Salt);
 
             _unitOfWork.UserRepository.Update(user);
 

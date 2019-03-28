@@ -2,6 +2,7 @@
 using Students_Site.DAL.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Encryption;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Enums;
 using Students_Site.BLL.Exceptions;
@@ -37,13 +38,16 @@ namespace Students_Site.BLL.Services
                     throw new ValidationException($"Нельзя добавить преподавателя для {student.User.FirstName}. У него уже ведут предмет {teacherBll.SubjectName}", "");
             }
 
+            var salt = Salt.Create();
             var user = new User
             {
                 FirstName = teacherBll.User.FirstName,
                 LastName = teacherBll.User.LastName,
                 Login = teacherBll.User.Login,
-                Password = teacherBll.User.Password,
-                RoleId = (int) Roles.Teacher
+                RoleId = (int) Roles.Teacher,
+
+                Salt = salt,
+                Password = Hash.Create(teacherBll.User.Password, salt),
             };
 
             _unitOfWork.UserRepository.Create(user);
@@ -118,7 +122,9 @@ namespace Students_Site.BLL.Services
             user.FirstName = teacherBll.User.FirstName;
             user.LastName = teacherBll.User.LastName;
             user.Login = teacherBll.User.Login;
-            user.Password = teacherBll.User.Password;
+
+            user.Salt = Salt.Create();
+            user.Password = Hash.Create(teacherBll.User.Password, user.Salt);
 
             _unitOfWork.UserRepository.Update(user);
 

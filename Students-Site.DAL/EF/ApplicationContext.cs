@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Common.Encryption;
 using Microsoft.EntityFrameworkCore;
 using Students_Site.DAL.Entities;
 
@@ -27,11 +28,50 @@ namespace Students_Site.DAL.EF
                 new Role { Id = 3, Name = "Учитель" }
             };
 
+            var deanSalt = Salt.Create();
+            var deanUser = new User
+            {
+                Id = 1,
+                Login = "Dean",
+                FirstName = "Petr",
+                LastName = "Ivanov",
+                RoleId = roles[0].Id,
+
+                Salt = deanSalt,
+                Password = Hash.Create("123", deanSalt),
+            };
+
+            var studentSalt = Salt.Create();
+            var studentUser = new User
+            {
+                Id = 2,
+                Login = "Student",
+                FirstName = "Petr",
+                LastName = "Ivanov",
+                RoleId = roles[1].Id,
+
+                Salt = studentSalt,
+                Password = Hash.Create("1488", studentSalt),
+            };
+
+            var teacherSalt = Salt.Create();
+            var teacherUser = new User
+            {
+                Id = 3,
+                Login = "Teacher",
+                FirstName = "Petr",
+                LastName = "Ivanov",
+                RoleId = roles[2].Id,
+
+                Salt = teacherSalt,
+                Password = Hash.Create("8814", teacherSalt),
+            };
+
             var users = new List<User>
             {
-                new User { Id = 1, Login = "King", FirstName = "Petr", Password = "123", LastName = "Ivanov", RoleId = roles[0].Id },
-                new User { Id = 2, Login = "Artas", FirstName = "Andrey", Password = "1488", LastName = "Petrov", RoleId = roles[1].Id },
-                new User { Id = 3, Login = "Shaman" ,FirstName = "Oleg", Password = "8814", LastName = "Kotlov", RoleId = roles[2].Id }
+                deanUser,
+                studentUser,
+                teacherUser
             };
 
             builder.Entity<Role>().HasData(roles);
