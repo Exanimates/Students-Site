@@ -22,27 +22,47 @@
 </div>
 
 <h1>Студенты преподавателя</h1>
-<table class="table">
-	<tr>
-		<th>
-			Имя
-		</th>
-		<th>
-			Фамилия
-		</th>
-		<th></th>
-	</tr>
+<table class="table table-striped table-bordered" id="example" style="width: 100%">
+    <thead>
+        <tr>
+            <th>
+                Имя
+            </th>
+            <th>
+                Фамилия
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var student in Model.Students)
+    {
+        <tr>
+            <td>
+                @Html.DisplayName(student.FirstName)
+            </td>
+            <td>
+                @Html.DisplayName(student.LastName)
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Имя
+            </th>
+            <th>
+                Фамилия
+            </th>
+        </tr>
+    </tfoot>
 
-	@foreach (var student in Model.Students)
-	{
-		<tr>
-			<td>
-				@Html.DisplayName(student.FirstName)
-			</td>
-			<td>
-				@Html.DisplayName(student.LastName)
-			</td>
-		</tr>
-	}
 </table>
 
+@section scripts {
+
+    <environment names="Development">
+        <script src="~/js/dataTables.min.js"></script>
+        <script src="~/js/startDataTable.js"></script>
+    </environment>
+}
