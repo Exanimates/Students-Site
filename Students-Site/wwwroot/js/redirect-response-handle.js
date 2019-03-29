@@ -1,9 +1,11 @@
 ﻿$(document).ready(function () {
 
 	$.validator.setDefaults({
-		submitHandler: function (form) {
-			var url = $(form).attr('action');
-			var data = $(form).serialize() + '&ajax_validation=1';
+        submitHandler: function (form) {
+            var jqueryForm = $(form);
+
+            var url = jqueryForm.attr('action');
+            var data = jqueryForm.serialize() + '&ajax_validation=1';
 			$.ajax({
 				url: url,
 				data: data,
