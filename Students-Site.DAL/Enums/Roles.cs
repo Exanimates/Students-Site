@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Students_Site.BLL.Enums
+namespace Students_Site.DAL.Enums
 {
     public enum Roles
     {
-        Decan = 1,
+        Dean = 1,
         Student,
         Teacher
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using Students_Site.DAL.Enums;
 
 namespace Students_Site.Models.Users
 {
@@ -22,7 +23,7 @@ namespace Students_Site.Models.Users
         [Required]
         public string LastName { get; set; }
 
-        public int RoleId { get; set; }
+        public Roles Role { get; set; }
 
         public string RoleName { get; set; }
     }

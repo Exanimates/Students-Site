@@ -20,14 +20,12 @@ namespace Students_Site.Controllers
         private readonly IUserService _userService;
         private readonly ITeacherService _teacherService;
         private readonly IStudentService _studentService;
-        private readonly IRoleService _roleService;
 
-        public AccountController(IUserService userService, ITeacherService teacherService, IStudentService studentService, IRoleService roleService)
+        public AccountController(IUserService userService, ITeacherService teacherService, IStudentService studentService)
         {
             _userService = userService;
             _teacherService = teacherService;
             _studentService = studentService;
-            _roleService = roleService;
         }
 
         [HttpGet]
@@ -50,10 +48,9 @@ namespace Students_Site.Controllers
             {
                 UserId = userBll.Id,
                 Login = userBll.Login,
-                RoleId = userBll.RoleId,
+                Role = userBll.Role,
                 FirstName = userBll.FirstName,
                 LastName = userBll.LastName,
-                RoleName = userBll.RoleName
             };
 
             await Authenticate(user);
@@ -70,7 +67,7 @@ namespace Students_Site.Controllers
                 new Claim("FirstName", user.FirstName),
                 new Claim("LastName", user.LastName),
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.RoleName)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, $"{user.Role}")
             };
 
             var id = new ClaimsIdentity(claims, "ApplicationCookie");
@@ -87,7 +84,6 @@ namespace Students_Site.Controllers
         {
             _teacherService.Dispose();
             _studentService.Dispose();
-            _roleService.Dispose();
             _userService.Dispose();
             base.Dispose(disposing);
         }

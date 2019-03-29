@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Students_Site.DAL.Enums;
 
 namespace Students_Site.BLL.BusinessLogicModels
 {
@@ -15,7 +16,6 @@ namespace Students_Site.BLL.BusinessLogicModels
         public string Password { get; set; }
         public string Salt { get; set; }
 
-        public int RoleId { get; set; }
-        public string RoleName { get; set; }
+        public Roles Role { get; set; }
     }
 }

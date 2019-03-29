@@ -12,7 +12,6 @@ namespace Students_Site.DAL.Infrastructure
     {
         IRepository<User> UserRepository { get; }
         IRepository<Teacher> TeacherRepository { get; }
-        IRepository<Role> RoleRepository { get; }
         IRepository<Subject> SubjectRepository { get; }
         StudentTeacherRepository StudentTeacherRepository { get; }
         IRepository<Student> StudentRepository { get; }
@@ -25,7 +24,6 @@ namespace Students_Site.DAL.Infrastructure
 
         private IRepository<User> _userRepository;
         private IRepository<Teacher> _teacherRepository;
-        private IRepository<Role> _roleRepository;
         private IRepository<Subject> _subjectsRepository;
         private IRepository<Student> _studentRepository;
         private StudentTeacherRepository _studentTeachers;
@@ -46,8 +44,6 @@ namespace Students_Site.DAL.Infrastructure
         public IRepository<User> UserRepository => _userRepository ?? (_userRepository = new UserRepository(_dbContext));
 
         public IRepository<Subject> SubjectRepository => _subjectsRepository ?? (_subjectsRepository = new SubjectRepository(_dbContext));
-
-        public IRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new RoleRepository(_dbContext));
 
         public IRepository<Teacher> TeacherRepository => _teacherRepository ?? (_teacherRepository = new TeacherRepository(_dbContext));
 

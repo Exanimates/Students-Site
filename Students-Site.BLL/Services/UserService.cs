@@ -32,7 +32,7 @@ namespace Students_Site.BLL.Services
                 LastName = userBll.LastName,
                 Login = userBll.Login,
                 Password = userBll.Password,
-                RoleId = userBll.RoleId
+                Role = userBll.Role
             };
 
             _unitOfWork.UserRepository.Create(user);
@@ -49,8 +49,7 @@ namespace Students_Site.BLL.Services
                 FirstName = user.FirstName,
                 LastName = user.LastName,
 
-                RoleId = user.RoleId,
-                RoleName = user.Role.Name,
+                Role = user.Role,
 
                 Password = user.Password,
                 Salt = user.Salt,
@@ -64,7 +63,7 @@ namespace Students_Site.BLL.Services
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
 
-            user.RoleId = userBll.RoleId;
+            user.Role = userBll.Role;
             user.FirstName = userBll.FirstName;
             user.LastName = userBll.LastName;
             user.Login = userBll.Login;

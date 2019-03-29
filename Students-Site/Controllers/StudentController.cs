@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Students_Site.Authorize;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Services;
+using Students_Site.DAL.Enums;
 using Students_Site.Models.Student;
 using Students_Site.Models.Teacher;
 
@@ -31,7 +33,7 @@ namespace Students_Site.Controllers
                 LastName = s.User.LastName,
                 Login = s.User.Login,
                 Password = s.User.Password,
-                RoleId = s.User.RoleId,
+                Role = s.User.Role,
 
                 Teachers = s.Teachers.Select(t => new TeacherModel
                 {
@@ -52,7 +54,7 @@ namespace Students_Site.Controllers
         }
 
         [Authorize]
-        [Authorize(Roles = "Декан,Учитель")]
+        [AuthorizeRoles(Roles.Dean, Roles.Teacher)]
         public ActionResult Create()
         {
             var student = new StudentMakeModel
@@ -72,7 +74,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Декан,Учитель")]
+        [AuthorizeRoles(Roles.Dean, Roles.Teacher)]
         public ActionResult Create(StudentMakeModel student)
         {
                 var userBll = new UserBLL
@@ -112,7 +114,7 @@ namespace Students_Site.Controllers
                 LastName = studentBll.User.LastName,
                 Login = studentBll.User.Login,
                 Password = studentBll.User.Password,
-                RoleId = studentBll.User.RoleId,
+                Role = studentBll.User.Role,
 
                 Teachers = studentBll.Teachers.Select(t => new TeacherModel
                 {
@@ -129,7 +131,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Декан,Учитель")]
+        [AuthorizeRoles(Roles.Dean, Roles.Teacher)]
         public ActionResult Edit(int id)
         {
             var studentBll = _studentService.Get(id);
@@ -167,7 +169,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Декан,Учитель")]
+        [AuthorizeRoles(Roles.Dean, Roles.Teacher)]
         public ActionResult Edit(EditModel student)
         {
             var userBll = new UserBLL

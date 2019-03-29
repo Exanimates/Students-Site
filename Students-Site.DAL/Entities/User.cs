@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using Students_Site.DAL.Enums;
 
 namespace Students_Site.DAL.Entities
 {
@@ -22,8 +23,7 @@ namespace Students_Site.DAL.Entities
         [Required]
         public string Password { get; set; }
 
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
+        public Roles Role { get; set; }
 
         public Student  Student { get; set; }
         public Teacher Teacher { get; set; }

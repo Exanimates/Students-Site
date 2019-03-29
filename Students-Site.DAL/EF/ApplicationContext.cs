@@ -5,6 +5,7 @@ using System.Text;
 using Common.Encryption;
 using Microsoft.EntityFrameworkCore;
 using Students_Site.DAL.Entities;
+using Students_Site.DAL.Enums;
 
 namespace Students_Site.DAL.EF
 {
@@ -14,7 +15,6 @@ namespace Students_Site.DAL.EF
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<StudentTeacher> StudentTeachers { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
@@ -24,13 +24,6 @@ namespace Students_Site.DAL.EF
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            var roles = new List<Role>
-            {
-                new Role { Id = 1, Name = "Декан" },
-                new Role { Id = 2, Name = "Студент" },
-                new Role { Id = 3, Name = "Учитель" }
-            };
-
             var deanSalt = Salt.Create();
             var deanUser = new User
             {
@@ -38,7 +31,7 @@ namespace Students_Site.DAL.EF
                 Login = "Dean",
                 FirstName = "Petr",
                 LastName = "Ivanov",
-                RoleId = roles[0].Id,
+                Role = Roles.Dean,
 
                 Salt = deanSalt,
                 Password = Hash.Create("123", deanSalt),
@@ -51,7 +44,7 @@ namespace Students_Site.DAL.EF
                 Login = "Student",
                 FirstName = "Petr",
                 LastName = "Ivanov",
-                RoleId = roles[1].Id,
+                Role = Roles.Student,
 
                 Salt = studentSalt,
                 Password = Hash.Create("1488", studentSalt),
@@ -64,7 +57,7 @@ namespace Students_Site.DAL.EF
                 Login = "Teacher",
                 FirstName = "Petr",
                 LastName = "Ivanov",
-                RoleId = roles[2].Id,
+                Role = Roles.Teacher,
 
                 Salt = teacherSalt,
                 Password = Hash.Create("8814", teacherSalt),
@@ -76,8 +69,6 @@ namespace Students_Site.DAL.EF
                 studentUser,
                 teacherUser
             };
-
-            builder.Entity<Role>().HasData(roles);
 
             builder.Entity<User>()
                 .HasOne(u => u.Student)

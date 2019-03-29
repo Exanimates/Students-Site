@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Common.Encryption;
 using Students_Site.BLL.BusinessLogicModels;
-using Students_Site.BLL.Enums;
 using Students_Site.BLL.Exceptions;
 using Students_Site.DAL.Entities;
+using Students_Site.DAL.Enums;
 using Students_Site.DAL.Infrastructure;
 
 namespace Students_Site.BLL.Services
@@ -44,7 +44,7 @@ namespace Students_Site.BLL.Services
                 FirstName = studentBll.User.FirstName,
                 LastName = studentBll.User.LastName,
                 Login = studentBll.User.Login,
-                RoleId = (int) Roles.Student,
+                Role = Roles.Student,
 
                 Password = Hash.Create(studentBll.User.Password, salt),
                 Salt = salt
@@ -78,7 +78,7 @@ namespace Students_Site.BLL.Services
                 LastName = user.LastName,
                 Password = user.Password,
                 Login = user.Login,
-                RoleId = user.RoleId
+                Role = Roles.Student,
             }).ToArray();
 
             var students = _unitOfWork.StudentRepository.GetAll().Select(student => new StudentBLL
@@ -117,7 +117,7 @@ namespace Students_Site.BLL.Services
                 LastName = user.LastName,
                 Password = user.Password,
                 Login = user.Login,
-                RoleId = user.RoleId
+                Role = Roles.Student,
             }).ToArray();
 
             var student = _unitOfWork.StudentRepository.Get(id);
@@ -163,7 +163,7 @@ namespace Students_Site.BLL.Services
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
 
-            user.RoleId = (int) Roles.Student;
+            user.Role = Roles.Student;
             user.Id = studentBll.User.Id;
             user.FirstName = studentBll.User.FirstName;
             user.LastName = studentBll.User.LastName;

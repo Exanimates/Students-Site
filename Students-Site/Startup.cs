@@ -71,8 +71,6 @@ namespace Students_Site
             builder.RegisterType<StudentService>().As<IStudentService>().InstancePerLifetimeScope();
             builder.RegisterType<TeacherService>().As<ITeacherService>().InstancePerLifetimeScope();
             builder.RegisterType<SubjectService>().As<ISubjectService>().InstancePerLifetimeScope();
-            builder.RegisterType<RoleService>().As<IRoleService>().InstancePerLifetimeScope();
-
 
             ApplicationContainer = builder.Build();
 

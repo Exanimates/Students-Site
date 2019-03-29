@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Students_Site.Authorize;
 using Students_Site.BLL.BusinessLogicModels;
 using Students_Site.BLL.Services;
+using Students_Site.DAL.Enums;
 using Students_Site.Models.Student;
 using Students_Site.Models.Subject;
 using Students_Site.Models.Teacher;
@@ -36,7 +37,7 @@ namespace Students_Site.Controllers
                 LastName = s.User.LastName,
                 Login = s.User.Login,
                 Password = s.User.Password,
-                RoleId = s.User.RoleId,
+                Role = s.User.Role,
                 SubjectName = s.SubjectName,
 
                 Students = s.Students.Select(t => new StudentModel
@@ -56,7 +57,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Декан")]
+        [AuthorizeRoles(Roles.Dean)]
         public ActionResult Create()
         {
             var teacher = new TeacherMakeModel
@@ -79,7 +80,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Декан")]
+        [AuthorizeRoles(Roles.Dean)]
         public ActionResult Create(TeacherMakeModel teacher)
         {
                 var userBll = new UserBLL
@@ -115,7 +116,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Декан")]
+        [AuthorizeRoles(Roles.Dean)]
         public ActionResult Edit(int id)
         {
             var teacherBll = _teacherService.Get(id);
@@ -156,7 +157,7 @@ namespace Students_Site.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Декан")]
+        [AuthorizeRoles(Roles.Dean)]
         public ActionResult Edit(TeacherEditModel teacher)
         {
                 var userBll = new UserBLL
@@ -205,7 +206,7 @@ namespace Students_Site.Controllers
                 LastName = teacherBll.User.LastName,
                 Login = teacherBll.User.Login,
                 Password = teacherBll.User.Password,
-                RoleId = teacherBll.User.RoleId,
+                Role = Roles.Teacher,
 
                 Students = teacherBll.Students.Select(t => new StudentModel
                 {

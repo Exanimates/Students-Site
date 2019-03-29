@@ -5,8 +5,8 @@ using System.Text;
 using Students_Site.DAL.Entities;
 using Common.Encryption;
 using Students_Site.BLL.BusinessLogicModels;
-using Students_Site.BLL.Enums;
 using Students_Site.BLL.Exceptions;
+using Students_Site.DAL.Enums;
 using Students_Site.DAL.Infrastructure;
 
 namespace Students_Site.BLL.Services
@@ -45,7 +45,7 @@ namespace Students_Site.BLL.Services
                 FirstName = teacherBll.User.FirstName,
                 LastName = teacherBll.User.LastName,
                 Login = teacherBll.User.Login,
-                RoleId = (int) Roles.Teacher,
+                Role = Roles.Teacher,
 
                 Salt = salt,
                 Password = Hash.Create(teacherBll.User.Password, salt),
@@ -79,7 +79,7 @@ namespace Students_Site.BLL.Services
                 LastName = user.LastName,
                 Password = user.Password,
                 Login = user.Login,
-                RoleId = user.RoleId
+                Role = Roles.Teacher
             });
 
             return _unitOfWork.TeacherRepository.GetAll().Select(teacher => new TeacherBLL
@@ -118,7 +118,7 @@ namespace Students_Site.BLL.Services
             if (user == null)
                 throw new ValidationException("Такого пользователя больше нету", "");
 
-            user.RoleId = (int) Roles.Teacher;
+            user.Role = Roles.Teacher;
             user.Id = teacherBll.User.Id;
             user.FirstName = teacherBll.User.FirstName;
             user.LastName = teacherBll.User.LastName;
@@ -172,7 +172,7 @@ namespace Students_Site.BLL.Services
                 LastName = user.LastName,
                 Password = user.Password,
                 Login = user.Login,
-                RoleId = user.RoleId
+                Role = Roles.Teacher,
             });
 
             var teacher = _unitOfWork.TeacherRepository.Get(id);
