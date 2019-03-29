@@ -48,7 +48,7 @@ namespace Students_Site.DAL.Repositories
 
         public virtual void Delete(int id)
         {
-            TEntity entityToDelete = _dbSet.Find(id);
+            var entityToDelete = _dbSet.Find(id);
             if (entityToDelete != null)
                 _dbSet.Remove(entityToDelete);
         }

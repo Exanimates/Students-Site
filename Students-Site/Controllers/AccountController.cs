@@ -72,7 +72,7 @@ namespace Students_Site.Controllers
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.RoleName)
             };
 
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie");
+            var id = new ClaimsIdentity(claims, "ApplicationCookie");
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 

@@ -23,12 +23,12 @@ namespace Students_Site.DAL.Infrastructure
     {
         readonly ApplicationContext _dbContext;
 
-        IRepository<User> _userRepository;
-        IRepository<Teacher> _teacherRepository;
-        IRepository<Role> _roleRepository;
-        IRepository<Subject> _subjectsRepository;
-        IRepository<Student> _studentRepository;
-        StudentTeacherRepository _studentTeachers;
+        private IRepository<User> _userRepository;
+        private IRepository<Teacher> _teacherRepository;
+        private IRepository<Role> _roleRepository;
+        private IRepository<Subject> _subjectsRepository;
+        private IRepository<Student> _studentRepository;
+        private StudentTeacherRepository _studentTeachers;
 
         private bool _disposed = false;
 
