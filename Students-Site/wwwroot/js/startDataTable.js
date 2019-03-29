@@ -5,6 +5,14 @@
 function startDataTable(table) {
     var emptyCells = [];
 
+    $(table).find("thead tr").clone(true).appendTo($(table).find("thead"));
+    $(table).find("thead tr:eq(1) th").each(function (i) {
+        var title = $(this).text();
+        if (title === "") {
+            emptyCells.push(i);
+        }
+    });
+
     var columnDef = [];
     for (var i = 0; i < emptyCells.length; i++) {
         columnDef.push({ "orderable": false, "targets": emptyCells[i] });
@@ -20,13 +28,10 @@ function startDataTable(table) {
         fixedHeader: true
     });
 
-    $(table).find("thead tr").clone(true).appendTo($(table).find("thead"));
     $(table).find("thead tr:eq(1) th").each(function (i) {
         var title = $(this).text();
         if (title !== "") {
             $(this).html('<input type="text" placeholder="Поиск" />');
-        } else {
-            emptyCells.push(i);
         }
 
         $('input', this).on('keyup change', function () {
