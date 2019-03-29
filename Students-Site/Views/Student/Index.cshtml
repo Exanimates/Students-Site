@@ -61,27 +61,6 @@
 		</tr>
 	}
 	</tbody>
-	
-	<tfoot>
-		<tr>
-			<th>
-				Имя
-			</th>
-			<th>
-				Фамилия
-			</th>
-			<th>
-				Средний бал
-			</th>
-			<th></th>
-			@if (User.IsDean() || User.IsTeacher())
-			{
-				<th></th>
-			}
-		</tr>
-	</tfoot>
-
-
 </table>
 
 @if (User.IsDean() || User.IsTeacher())
