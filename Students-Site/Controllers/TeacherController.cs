@@ -45,7 +45,7 @@ namespace Students_Site.Controllers
                     FirstName = t.User.FirstName,
                     LastName = t.User.LastName
                 }).ToArray()
-            });
+            }).ToArray();
 
             var teachers = new TeacherIndexModel
             {

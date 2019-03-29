@@ -41,7 +41,7 @@ namespace Students_Site.Controllers
                     Grade = t.Grade
                 }).ToArray(),
                 AveradeScore = s.AverageScore
-            });
+            }).ToArray();
 
             var students = new IndexModel
             {
