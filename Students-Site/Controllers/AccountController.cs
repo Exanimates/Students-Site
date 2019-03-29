@@ -58,7 +58,7 @@ namespace Students_Site.Controllers
 
             await Authenticate(user);
 
-            return RedirectToAction("Index", "Home");
+            return Json(new {result = "Redirect", url = Url.Action("Index", "Home")});
 
         }
 
