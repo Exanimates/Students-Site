@@ -5,7 +5,6 @@ using System.Text;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Extensions.Middleware
 {
