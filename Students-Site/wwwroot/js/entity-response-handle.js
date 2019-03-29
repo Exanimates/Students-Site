@@ -12,7 +12,7 @@
 					swal("Отличная работа", response, "success");
 				},
 				error: function (data) {
-					swal("Что-то не так!", data.responseText, "error");
+					swal("Что-то не так!", data.responseJSON.Message, "error");
 				}
 			});
 			return false;

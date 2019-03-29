@@ -12,7 +12,7 @@
 					window.location.href = "/";
 				},
 				error: function (data) {
-					swal("Что-то не так!", data.responseText, "error");
+                    swal("Что-то не так!", data.responseJSON.Message, "error");
 				}
 			});
 			return false;

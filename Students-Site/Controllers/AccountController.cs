@@ -8,6 +8,7 @@ using Common.Encryption;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Students_Site.BLL.Exceptions;
 using Students_Site.BLL.Services;
 using Students_Site.Models.Account;
 using Students_Site.Models.Users;
@@ -44,7 +45,7 @@ namespace Students_Site.Controllers
             var userBll = _userService.GetAll().FirstOrDefault(u => u.Login == model.Login && Hash.Validate(model.Password, u.Salt, u.Password));
 
 
-            if (userBll == null) return StatusCode(500, "Такого пользователя не существует");
+            if (userBll == null) throw new ValidationException("Такого пользователя не существует","");
             var user = new UserModel
             {
                 UserId = userBll.Id,

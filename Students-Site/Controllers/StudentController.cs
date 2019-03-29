@@ -76,8 +76,6 @@ namespace Students_Site.Controllers
         [Authorize(Roles = "Декан,Учитель")]
         public ActionResult Create(StudentMakeModel student)
         {
-            try
-            {
                 var userBll = new UserBLL
                 {
                     FirstName = student.FirstName,
@@ -102,12 +100,6 @@ namespace Students_Site.Controllers
                 _studentService.Create(studentBll);
 
                 return Ok("Студент успешно зарегестирован");
-            }
-            catch (ValidationException ex)
-            {
-                ModelState.AddModelError(ex.Property, ex.Message);
-                return StatusCode(500, ex.Message);
-            }
         }
 
         public IActionResult Show(int id)
@@ -179,39 +171,31 @@ namespace Students_Site.Controllers
         [Authorize(Roles = "Декан,Учитель")]
         public ActionResult Edit(EditModel student)
         {
-            try
+            var userBll = new UserBLL
             {
-                var userBll = new UserBLL
-                {
-                    Id = student.UserId,
-                    FirstName = student.FirstName,
-                    LastName = student.LastName,
-                    Login = student.Login,
-                    Password = student.Password
-                };
+                Id = student.UserId,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Login = student.Login,
+                Password = student.Password
+            };
 
-                var studentBll = new StudentBLL
-                {
-                    Id = student.Id,
-                    User = userBll,
-
-                    Teachers = student.TeachersList.Where(t => t.IsSelected).Select(t => new TeacherBLL
-                    {
-                        Id = t.Id,
-                        UserId = t.UserId,
-                        Grade = t.Grade
-                    }).ToArray()
-                };
-
-                _studentService.Update(studentBll);
-
-                return Ok("Студент успешно изменен");
-            }
-            catch (ValidationException ex)
+            var studentBll = new StudentBLL
             {
-                ModelState.AddModelError(ex.Property, ex.Message);
-                return StatusCode(500, ex.Message);
-            }
+                Id = student.Id,
+                User = userBll,
+
+                Teachers = student.TeachersList.Where(t => t.IsSelected).Select(t => new TeacherBLL
+                {
+                    Id = t.Id,
+                    UserId = t.UserId,
+                    Grade = t.Grade
+                }).ToArray()
+            };
+
+            _studentService.Update(studentBll);
+
+            return Ok("Студент успешно изменен");
         }
 
         protected override void Dispose(bool disposing)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Extensions.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -89,6 +90,8 @@ namespace Students_Site
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

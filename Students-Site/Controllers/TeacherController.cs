@@ -83,8 +83,6 @@ namespace Students_Site.Controllers
         [Authorize(Roles = "Декан")]
         public ActionResult Create(TeacherMakeModel teacher)
         {
-            try
-            {
                 var userBll = new UserBLL
                 {
                     FirstName = teacher.FirstName,
@@ -115,12 +113,6 @@ namespace Students_Site.Controllers
                 _teacherService.Create(teacherBll);
 
                 return Ok("Преподаватель успешно зарегестирован");
-            }
-            catch (ValidationException ex)
-            {
-                ModelState.AddModelError(ex.Property, ex.Message);
-                return StatusCode(500, ex.Message);
-            }
         }
 
         [HttpGet]
@@ -168,8 +160,6 @@ namespace Students_Site.Controllers
         [Authorize(Roles = "Декан")]
         public ActionResult Edit(TeacherEditModel teacher)
         {
-            try
-            {
                 var userBll = new UserBLL
                 {
                     Id = teacher.UserId,
@@ -202,13 +192,7 @@ namespace Students_Site.Controllers
 
                 _teacherService.Update(teacherBll);
 
-                return Ok("Преподаватель успешно изменен");
-            }
-            catch (ValidationException ex)
-            {
-                ModelState.AddModelError(ex.Property, ex.Message);
-                return StatusCode(500, ex.Message);
-            }
+                return Ok("Преподаватель успешно изменен");           
         }
 
         public IActionResult Show(int id)
