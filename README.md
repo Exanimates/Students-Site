@@ -14,8 +14,8 @@
 4. Список   преподавателей   в   табличном   виде   (имя,предмет, количество студентов, посещающих данного преподавателя) с фильтрацией, сортировкой ипейджингом (доступен всем, в том числе анонимным пользователям).
 
 # Как сделать так, чтобы все запустилось и при этом с первого раза:
-- Установите https://dotnet.microsoft.com/download/dotnet-core/2.2
+- Установите - https://dotnet.microsoft.com/download/dotnet-core/2.2
 - Установите Microsoft SQL Server
-- Клонируете репо - https://github.com/Exanimates/Students-Site.git
+- Клонируете репо - ```git clone https://github.com/Exanimates/Students-Site.git```
 - Откройте Visual Studio (File - Open - Solution or project - Папка с склонированным проектом - Students-Site.sln)
 - Нажмите F5
