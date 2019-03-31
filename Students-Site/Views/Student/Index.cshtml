@@ -1,0 +1,89 @@
+﻿@using Extensions.Principal
+@model Students_Site.Models.Student.IndexModel
+
+@{
+	ViewData["Title"] = "Студенты";
+}
+
+<h1>Студенты</h1>
+
+<table class="table table-striped table-bordered" name="dataTable" style="width:100%">
+	<thead>
+		<tr>
+			<th>
+				Имя
+			</th>
+			<th>
+				Фамилия
+			</th>
+			<th>
+				Средний бал
+			</th>
+			<th></th>
+			@if (User.IsDean() || User.IsTeacher())
+			{
+				<th></th>
+			}
+		</tr>
+	</thead>
+
+	<tbody>
+	@foreach (var item in Model.StudentModels)
+	{
+		<tr>
+			<td>
+				@Html.DisplayName(item.FirstName)
+			</td>
+			<td>
+				@Html.DisplayName(item.LastName)
+			</td>
+			@if (double.IsNaN(item.AveradeScore))
+			{
+				<td>
+					N/A
+				</td>
+			}
+			else
+			{
+				<td>
+					@item.AveradeScore
+				</td>
+			}
+			<td>
+				@Html.ActionLink("Подробнее", "Show", new {id = item.Id})
+			</td>
+			@if (User.IsDean() || User.IsTeacher())
+			{
+				<td>
+					@Html.ActionLink("Редактировать", "Edit", new {id = item.Id})
+				</td>
+			}
+		</tr>
+	}
+	</tbody>
+</table>
+
+@if (User.IsDean() || User.IsTeacher())
+{
+	<div>
+		@Html.ActionLink("Добавить студента", "Create")
+	</div>
+}
+
+@section scripts {
+
+	<environment names="Development">
+		<script src="~/js/dataTables.min.js"></script>
+        <script src="~/js/startDataTable.js"></script>
+    </environment>
+	<environment names="Staging,Production">
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+		        asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+		        asp-fallback-test="window.jQuery && window.jQuery.validator">
+        </script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+		        asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+		        asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+        </script>
+	</environment>
+}

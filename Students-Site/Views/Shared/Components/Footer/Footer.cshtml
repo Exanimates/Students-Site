@@ -1,0 +1,17 @@
+﻿@model Students_Site.Models.Home.IndexModel
+
+<footer class="border-top footer text-muted">
+	<div class="container">
+		<div>
+			Кол-во студентов: @Model.StudentCount
+			Кол-во преподавателей: @Model.TeacherCount
+			<span id="footerDateTime"></span>
+		</div>
+	</div>
+</footer>
+
+<script src="~/js/current-time.js"></script>
+
+<script>
+	startTime("footerDateTime");
+</script>

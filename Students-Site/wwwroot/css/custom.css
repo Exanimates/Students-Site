@@ -1,0 +1,30 @@
+﻿#load {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: #ffffff url('http://sampsonresume.com/labs/pIkfp.gif') 50% 50% no-repeat;
+}
+
+.form-group {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.user-info {
+	margin-left: 10px;
+}
+
+.navbar-text {
+	padding-left: 0.5rem;
+}
+
+.navbar-brand {
+	word-break: normal;
+}
+
+.swal-modal {
+	width: 650px;
+}

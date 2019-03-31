@@ -1,0 +1,77 @@
+﻿@model Students_Site.Models.Student.StudentModel
+
+@{
+	ViewData["Title"] = "ShowStudent";
+}
+<div>
+	@Html.ActionLink("Вернуться к списку студентов", "Index")
+</div>
+
+<h1>Студент</h1>
+
+<div>
+	<div>
+		<label>Имя</label>
+		<p>@Html.DisplayFor(m => m.FirstName)</p>
+	</div>
+	<div>
+		<label>Фамилия</label>
+		<p>@Html.DisplayFor(m => m.LastName)</p>
+	</div>
+	<div>
+		<label>Средний бал</label>
+		@if (double.IsNaN(Model.AveradeScore))
+		{
+			<p>N/A</p>
+		}
+		else
+		{
+			<p>@Html.DisplayFor(m => m.AveradeScore)</p>
+		}
+
+	</div>
+</div>
+
+
+<h1>Преподаватели студента</h1>
+<table class="table table-striped table-bordered" name="dataTable" style="width: 100%">
+    <thead>
+        <tr>
+            <th>
+                Имя
+            </th>
+            <th>
+                Фамилия
+            </th>
+            <th>
+                Предмет
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model.Teachers)
+    {
+        <tr>
+            <td>
+                @Html.DisplayName(item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayName(item.LastName)
+            </td>
+            <td>
+                @Html.DisplayName(item.SubjectName)
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>
+
+@section scripts {
+
+    <environment names="Development">
+        <script src="~/js/dataTables.min.js"></script>
+        <script src="~/js/startDataTable.js"></script>
+    </environment>
+}

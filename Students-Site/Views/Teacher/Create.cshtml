@@ -1,0 +1,122 @@
+﻿@model Students_Site.Models.Teacher.TeacherMakeModel
+
+@{
+	ViewData["Title"] = "Создание преподавателя";
+}
+
+<div>
+	@Html.ActionLink("Вернуться к списку преподавателей", "Index")
+</div>
+
+<h1>Создание преподавателя</h1>
+
+
+	<form asp-antiforgery="true" asp-action="Create" method="post" asp-controller="Teacher" role="form">
+
+		<div class="form-horizontal">
+
+			<div class="form-group">
+				<label asp-for="Login">Логин</label>
+				<input type="text" asp-for="Login" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label asp-for="Password">Пароль</label>
+				<input type="password" asp-for="Password" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label asp-for="FirstName">Имя</label>
+				<input type="text" asp-for="FirstName" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label asp-for="LastName">Фамилия</label>
+				<input type="text" asp-for="LastName" class="form-control" />
+			</div>
+
+			<h3>Выберите предмет, который будет вести преподаватель</h3>
+
+			<div>
+				@for (var i = 0; i < Model.Subjects.Count(); i++)
+				{
+					<div>
+						<input asp-for="SubjectId" id="@Model.Subjects[i].Id" value="@Model.Subjects[i].Id" type="radio"/>
+						<label name="groupSubject" for="@Model.Subjects[i].Id">@Model.Subjects[i].SubjectName</label>
+
+						<input asp-for="@Model.Subjects[i].Id" type="hidden"/>
+						<input asp-for="@Model.Subjects[i].SubjectName" type="hidden"/>
+					</div>				
+				}
+			</div>
+			
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-10">
+					<input type="submit" value="Создать преподавателя" class="btn btn-default" />
+				</div>
+			</div>
+
+			<h3>Выберите студентов, которые будут закреплены за данным преподавателем</h3>
+
+			<table class="table table-striped table-bordered" name="dataTable">
+				<thead>
+					<tr>
+						<th></th>
+						<th>
+							Имя
+						</th>
+						<th>
+							Фамилия
+						</th>
+						<th style="display: none"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+				@for (var i = 0; i < Model.Students.Count(); i++)
+				{
+					<tr>
+						<th>
+							<input asp-for="@Model.Students[i].IsSelected" type="checkbox"/>
+						</th>
+						<td>
+							<label asp-for="@Model.Students[i].FirstName">@Model.Students[i].FirstName</label>
+						</td>
+						<td>
+							<label asp-for="@Model.Students[i].LastName">@Model.Students[i].LastName</label>
+						</td>
+						<td style="display: none">
+							<input asp-for="@Model.Students[i].Id" type="hidden" />
+							<input asp-for="@Model.Students[i].FirstName" type="hidden" />
+						</td>
+					</tr>
+				}
+				</tbody>				
+				
+			</table>
+		</div>
+	</form>
+
+<div>
+	@Html.ActionLink("Вернуться к списку преподавателей", "Index")
+</div>
+
+@section scripts {
+
+	<environment names="Development">
+		<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+		<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+		
+		<script src="~/js/startDataTable.js"></script>
+	</environment>
+	<environment names="Staging,Production">
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+		        asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+		        asp-fallback-test="window.jQuery && window.jQuery.validator">
+		</script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+		        asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+		        asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+		</script>
+	</environment>
+}

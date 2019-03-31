@@ -1,0 +1,78 @@
+﻿@using Extensions.Principal
+@model Students_Site.Models.Teacher.TeacherIndexModel
+
+@{
+	ViewBag.Title = "Преподаватели";
+	Layout = "_Layout";
+}
+
+<h1>Преподаватели</h1>
+
+<table class="table table-striped table-bordered" name="dataTable" style="width: 100%">
+	<thead>
+		<tr>
+			<th>
+				Имя
+			</th>
+			<th>
+				Фамилия
+			</th>
+			<th>
+				Предмет
+			</th>
+			<th>
+				Кол-во студентов
+			</th>
+			<th></th>
+			@if (User.IsDean())
+			{
+				<th></th>
+			}
+		</tr>
+	</thead>
+
+	<tbody>
+	@foreach (var item in Model.TeacherModels)
+	{
+		<tr>
+			<td>
+				@Html.DisplayName(item.FirstName)
+			</td>
+			<td>
+				@Html.DisplayName(item.LastName)
+			</td>
+			<td>
+				@Html.DisplayName(item.SubjectName)
+			</td>
+			<td>
+				@Html.DisplayName(item.Students.Count().ToString())
+			</td>
+			<td>
+				@Html.ActionLink("Подробнее", "Show", new {id = item.Id})
+			</td>
+			@if (User.IsDean())
+			{
+				<td>
+					@Html.ActionLink("Редактировать", "Edit", new {id = item.Id})
+				</td>
+			}
+		</tr>
+	}
+	</tbody>	
+
+</table>
+
+@if (User.IsDean())
+{
+	<div>
+		@Html.ActionLink("Добавить преподавателя", "Create")
+	</div>
+}
+
+@section scripts {
+
+	<environment names="Development">
+		<script src="~/js/dataTables.min.js"></script>
+		<script src="~/js/startDataTable.js"></script>
+	</environment>
+}
