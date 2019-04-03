@@ -15,7 +15,7 @@
 
 # Как сделать так, чтобы все запустилось и при этом с первого раза:
 - Установите - https://dotnet.microsoft.com/download/dotnet-core/2.2
-- Установите Microsoft SQL Server
+- Установите Microsoft SQL Server с именем «SQLSERVER», используйте аутентификацию Windows для пользователя
 - Клонируете репо - ```git clone https://github.com/Exanimates/Students-Site.git```
 - Откройте Visual Studio (File - Open - Solution or project - Папка с склонированным проектом - Students-Site.sln)
 - Нажмите F5
